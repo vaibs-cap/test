@@ -1,0 +1,10 @@
+node_modules
+bower_components
+.git
+.env
+.DS_Store
+.scannerwork
+reports
+esdocs
+dist
+analysis/

@@ -1,0 +1,15 @@
+import React from 'react';
+import { mount, shallow } from 'enzyme';
+import PageTemplate from '../pageTemplate';
+
+const wrap = (props = {}) =>
+  shallow(<PageTemplate {...props}>test</PageTemplate>);
+
+it('mounts', () => {
+  mount(<PageTemplate>test</PageTemplate>);
+});
+
+it('renders children when passed in', () => {
+  const wrapper = wrap();
+  expect(wrapper.contains('test')).toBe(true);
+});

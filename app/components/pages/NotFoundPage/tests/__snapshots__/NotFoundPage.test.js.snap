@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<NotFoundPage /> should render the page message 1`] = `
+<PageTemplate>
+  <withStyles__StyledComponent
+    className=""
+  >
+    <FormattedMessage
+      defaultMessage="Looks like you are lost!"
+      id="loyaltyPlus.components.containers.NotFoundPage.header"
+      values={Object {}}
+    />
+  </withStyles__StyledComponent>
+</PageTemplate>
+`;

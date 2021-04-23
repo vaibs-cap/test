@@ -1,0 +1,41 @@
+{
+  "presets": [
+    [
+      "@babel/env",
+      {
+        "targets": {
+          "browsers": "Last 2 Chrome versions, Firefox ESR",
+          "node": "8.9"
+        },
+        "modules": false
+      }
+    ],
+    ["@babel/preset-react"]
+  ],
+  "plugins": [
+    "@babel/plugin-proposal-class-properties",
+    "@babel/transform-flow-strip-types",
+    "@babel/plugin-syntax-dynamic-import",
+    "styled-components",
+    "@babel/plugin-proposal-export-default-from",
+    "@babel/plugin-transform-react-jsx-source",
+    ["import", { "libraryName": "antd", "style": true }]
+  ],
+  "env": {
+    "production": {
+      "only": ["app", "node_modules/@capillarytech/*"],
+      "plugins": [
+        "lodash",
+        "transform-react-remove-prop-types",
+        "@babel/plugin-transform-react-inline-elements",
+        "@babel/plugin-transform-react-constant-elements"
+      ],
+    },
+    "test": {
+      "plugins": [
+        "@babel/plugin-transform-modules-commonjs",
+        "dynamic-import-node"
+      ]
+    }
+  }
+}
