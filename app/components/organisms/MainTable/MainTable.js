@@ -73,7 +73,7 @@ const { CAP_SPACE_32 } = styledVars;
 const tableSkeletonAvatar = CAP_SPACE_32;
 const tableHeaderSkeletonHeight = CAP_SPACE_32;
 
-export const LoyaltyDetail = ({
+export const MainTable = ({
   history,
   className,
   programDetails = [],
@@ -332,7 +332,7 @@ export const LoyaltyDetail = ({
   );
 };
 
-LoyaltyDetail.propTypes = {
+MainTable.propTypes = {
   intl: intlShape.isRequired,
   history: PropTypes.object,
   publicPath: PropTypes.string,
@@ -373,6 +373,4 @@ export default compose(
   withSaga,
   withReducer,
   withConnect,
-)(
-  withRouter(injectIntl(clearDataOnUnmount(withStyles(LoyaltyDetail, styles)))),
-);
+)(withRouter(injectIntl(clearDataOnUnmount(withStyles(MainTable, styles)))));

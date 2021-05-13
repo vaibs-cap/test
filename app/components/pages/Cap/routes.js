@@ -6,7 +6,7 @@ const { publicPath } = path;
 const routes = [
   {
     exact: true,
-    path: `${publicPath}/`,
+    path: `${publicPath}/dashboard`,
     type: 'dashboard',
     component: lazy(() => import('../Dashboard')),
   },
