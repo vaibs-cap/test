@@ -1,1 +1,1 @@
-export { default } from './LoyaltyDetail';
+export { default } from './MainTable';

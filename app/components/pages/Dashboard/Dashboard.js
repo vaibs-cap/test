@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import clearDataOnUnmount from 'utils/clearDataOnUnmount';
-import LoyaltyDetail from '../../organisms/LoyaltyDetail';
+import MainTable from '../../organisms/MainTable';
 import PageTemplate from '../../templates/PageTemplate';
 
 import * as actions from './actions';
@@ -50,7 +50,7 @@ export const Dashboard = ({
 
   return (
     <PageTemplate>
-      <LoyaltyDetail isLoading={isLoading} programDetails={getProgramDetails} />
+      <MainTable isLoading={isLoading} programDetails={getProgramDetails} />
     </PageTemplate>
   );
 };
