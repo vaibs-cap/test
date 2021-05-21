@@ -23,12 +23,4 @@ describe('<Dashboard />', () => {
     const renderedComponent = shallowWithIntl(setup({ dashboardDatas }));
     expect(renderedComponent).toMatchSnapshot();
   });
-
-  it('should make api call on component mount', async () => {
-    const getProgramsSpy = jest.spyOn(actions, 'getPrograms');
-    const getLastSyncTimeSpy = jest.spyOn(actions, 'getLastSyncTime');
-    shallowWithIntl(setup());
-    expect(getProgramsSpy).toBeCalled();
-    expect(getLastSyncTimeSpy).toBeCalled();
-  });
 });

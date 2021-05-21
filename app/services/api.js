@@ -152,11 +152,6 @@ export const getPrograms = () => {
   return request(url, getAPICallObject('GET'));
 };
 
-export const getUsersByIds = userData => {
-  const url = `${API_AUTH_ENDPOINT}/auth/users`;
-  return request(url, getAPICallObject('POST', userData));
-};
-
 export const saveKpis = kpiData => {
   const url = `${API_ENDPOINT}/kpi-config`;
   return request(url, getAPICallObject('PUT', kpiData));

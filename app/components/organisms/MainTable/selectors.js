@@ -18,21 +18,6 @@ const makeSelectLoyaltyDetails = () =>
     substate.toJS(),
   );
 
-const makeSelectUsers = () =>
-  createSelector(selectLoyaltyDetailDomain, (substate = fromJS({})) => ({
-    getUsersByIdsStatus: substate.get('getUsersByIdsStatus'),
-    usersList: substate.get('usersList')?.toJS(),
-    usersObj:
-      substate
-        .get('usersList')
-        ?.toJS()
-        ?.reduce((acc, user) => {
-          acc[user.userId] = `${user.firstName} ${user.lastName}`;
-          return acc;
-        }, {}) || {},
-    usersDataError: substate.get('usersDataError')?.toJS(),
-  }));
-
 const makeSelectPrograms = () =>
   createSelector(selectLoyaltyDetailDomain, (substate = fromJS({})) => ({
     getProgramsStatus: substate.get('getProgramsStatus'),
@@ -42,7 +27,6 @@ const makeSelectPrograms = () =>
 
 export {
   selectLoyaltyDetailDomain,
-  makeSelectUsers,
   makeSelectLoyaltyDetails,
   makeSelectPrograms,
 };

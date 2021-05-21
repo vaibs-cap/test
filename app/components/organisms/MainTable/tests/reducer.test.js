@@ -42,36 +42,4 @@ describe('ConfigureKPI Reducer', () => {
       programDetailsError: error,
     });
   });
-
-  it('it handles the GET_USER_LIST_REQUEST action', () => {
-    const action = {
-      type: types.GET_USER_LIST_REQUEST,
-    };
-    expect(loyaltyDetailReducer({}, action)).toEqual({
-      getUsersByIdsStatus: REQUEST,
-      usersList: [],
-    });
-  });
-
-  it('it handles the GET_USER_LIST_SUCCESS action', () => {
-    const action = {
-      type: types.GET_USER_LIST_SUCCESS,
-      result: [],
-    };
-    expect(loyaltyDetailReducer({}, action)).toEqual({
-      getUsersByIdsStatus: SUCCESS,
-      usersList: [],
-    });
-  });
-
-  it('it handles the GET_USER_LIST_FAILURE action', () => {
-    const action = {
-      type: types.GET_USER_LIST_FAILURE,
-      error,
-    };
-    expect(loyaltyDetailReducer({}, action)).toEqual({
-      getUsersByIdsStatus: FAILURE,
-      usersDataError: error,
-    });
-  });
 });

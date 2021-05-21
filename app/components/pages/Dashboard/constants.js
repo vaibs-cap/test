@@ -1,9 +1,4 @@
-export const GET_PROGRAMS_REQUEST = 'dashboard/GET_PROGRAMS_REQUEST';
-export const GET_PROGRAMS_SUCCESS = 'dashboard/GET_PROGRAMS_SUCCESS';
-export const GET_PROGRAMS_FAILURE = 'dashboard/GET_PROGRAMS_FAILURE';
-
-export const UPDATE_PROGRAMS_TABLE_REQUEST =
-  'dashboard/UPDATE_PROGRAMS_TABLE_REQUEST';
+export const TEST_DASHBOARD_REQUEST = 'dashboard/TEST_DASHBOARD_REQUEST';
 
 export const CLEAR_DATA = 'dashboard/CLEAR_DATA';
 

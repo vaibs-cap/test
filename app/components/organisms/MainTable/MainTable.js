@@ -35,10 +35,10 @@ import * as globalConstants from '../../pages/Cap/constants';
 
 import * as actions from './actions';
 import * as selectors from './selectors';
+import * as dashboardSelectors from '../../pages/Dashboard/selectors';
 import * as utils from './utils';
 import saga from './saga';
 import reducer from './reducer';
-import * as dashboardSelectors from '../../pages/Dashboard/selectors';
 import { publicPath } from '../../../config/path';
 import * as globalSelectors from '../../pages/Cap/selectors';
 
@@ -48,8 +48,11 @@ const { dateHelper: { msToDateFormat } = {} } = capUtils;
 const { REQUEST, SUCCESS, MODE_VIEW } = appConstants;
 const { PROGRAM_PERFIX_PATH, DESCEND } = globalConstants;
 
-const { makeSelectUsers, makeSelectPrograms } = selectors;
-const { makeSelectUpdateProgramsTableStatus } = dashboardSelectors;
+const { makeSelectPrograms } = selectors;
+const {
+  makeSelectUpdateProgramsTableStatus,
+  makeSelectDashboard,
+} = dashboardSelectors;
 const {
   getTableColumns,
   formatColumns,
@@ -75,16 +78,14 @@ const tableHeaderSkeletonHeight = CAP_SPACE_32;
 export const MainTable = ({
   history,
   className,
-  programDetails = [],
-  programData,
   actions,
   isLoading,
   usersData: { getUsersByIdsStatus, usersObj = {} } = {},
   lastSyncData: { getLastSyncTimeStatus, lastSyncTime, lastSyncTimeError } = {},
-  updateProgramsTableStatus,
+  programData: { getProgramsStatus, programDetails = [] } = {},
   intl: { formatMessage },
 }) => {
-  console.log('program data: ', programData, programDetails);
+  console.log('PRGRAM data: ', programDetails);
   const [showSlideBox, setShowSlideBox] = useState(false);
   const [pagination, setPagination] = useState({
     offset: 0,
@@ -95,25 +96,15 @@ export const MainTable = ({
     order: DESCEND,
     field: 'addedBy',
   });
-  const isTableFieldLoading =
-    getUsersByIdsStatus === REQUEST || updateProgramsTableStatus === REQUEST;
-  const isTableLoading = getLastSyncTimeStatus === REQUEST || isLoading;
+  const isTableFieldLoading = getProgramsStatus === REQUEST;
+  const isTableLoading =
+    getLastSyncTimeStatus === REQUEST || isTableFieldLoading;
 
   const columns = useMemo(() => getTableColumns({ formatMessage }), []);
 
   useEffect(() => {
     actions.getPrograms();
   }, []);
-
-  useEffect(
-    () => {
-      if (programDetails.length > 0) {
-        const userIds = getUserIds(programDetails);
-        actions.getUsersByIds(userIds);
-      }
-    },
-    [programDetails],
-  );
 
   const getColumnTitle = (
     title,
@@ -304,13 +295,14 @@ MainTable.propTypes = {
   updateProgramsTableStatus: PropTypes.string,
   actions: PropTypes.object.isRequired,
   usersData: PropTypes.object.isRequired,
+  dashboardDatas: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
-  usersData: makeSelectUsers(),
   lastSyncData: makeSelectLastSyncData(),
   updateProgramsTableStatus: makeSelectUpdateProgramsTableStatus(),
   programData: makeSelectPrograms(),
+  dashboardDatas: makeSelectDashboard(),
 });
 
 function mapDispatchToProps(dispatch) {

@@ -1,6 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
-import PropTypes from 'prop-types';
-import sample from 'lodash/sample';
+import React from 'react';
 
 import { compose, bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
@@ -13,56 +11,18 @@ import PageTemplate from '../../templates/PageTemplate';
 
 import * as actions from './actions';
 import * as globalActions from '../Cap/actions';
-import * as selectors from './selectors';
 import saga from './saga';
 import reducer from './reducer';
-import * as appConstants from '../App/constants';
-import * as constants from './constants';
 
-const { makeSelectDashboard } = selectors;
+export const Dashboard = () => (
+  <PageTemplate>
+    <MainTable />
+  </PageTemplate>
+);
 
-const { REQUEST, SUCCESS } = appConstants;
-const { AVATAR_ICON_COLORS } = constants;
+Dashboard.propTypes = {};
 
-export const Dashboard = ({
-  actions,
-  globalActions,
-  dashboardDatas: { getProgramsStatus, programDetails = [] } = {},
-}) => {
-  useEffect(() => {
-    actions.getPrograms();
-    return () => {
-      globalActions.clearOrgKpiConfigData();
-    };
-  }, []);
-
-  const getProgramDetails = useMemo(
-    () =>
-      programDetails.map(programData => ({
-        ...programData,
-        avatarColor: sample(AVATAR_ICON_COLORS),
-        // need to replace once kpi api is done
-      })),
-    [programDetails],
-  );
-  const isLoading = !getProgramsStatus || getProgramsStatus === REQUEST;
-
-  return (
-    <PageTemplate>
-      <MainTable isLoading={isLoading} programDetails={getProgramDetails} />
-    </PageTemplate>
-  );
-};
-
-Dashboard.propTypes = {
-  actions: PropTypes.object.isRequired,
-  globalActions: PropTypes.object.isRequired,
-  dashboardDatas: PropTypes.object.isRequired,
-};
-
-const mapStateToProps = createStructuredSelector({
-  dashboardDatas: makeSelectDashboard(),
-});
+const mapStateToProps = createStructuredSelector({});
 
 function mapDispatchToProps(dispatch) {
   return {

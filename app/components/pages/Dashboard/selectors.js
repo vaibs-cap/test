@@ -23,16 +23,8 @@ const makeSelectUpdateProgramsTableStatus = () =>
     substate.get('updateProgramsTableStatus'),
   );
 
-const makeSelectPrograms = () =>
-  createSelector(selectDashboardDomain, (substate = fromJS({})) => ({
-    getProgramsStatus: substate.get('getProgramsStatus'),
-    programDetails: substate.get('programDetails')?.toJS(),
-    programDetailsError: substate.get('programDetailsError'),
-  }));
-
 export {
   selectDashboardDomain,
   makeSelectDashboard,
   makeSelectUpdateProgramsTableStatus,
-  makeSelectPrograms,
 };

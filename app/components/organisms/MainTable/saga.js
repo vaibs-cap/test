@@ -5,7 +5,8 @@ import * as types from './constants';
 export function* getPrograms() {
   try {
     const res = yield call(Api.getPrograms);
-    if (res.success) {
+    console.log('RESLT: ', res);
+    if (res?.success) {
       yield put({
         type: types.GET_PROGRAMS_SUCCESS,
         result: res?.result || [],
@@ -21,42 +22,10 @@ export function* getPrograms() {
   }
 }
 
-export function* getUsersByIds({ userIds }) {
-  try {
-    const res = yield call(Api.getUsersByIds, { userIds });
-    if (res?.success) {
-      yield [
-        put({
-          type: types.GET_USER_LIST_SUCCESS,
-          result: res?.result || [],
-        }),
-      ];
-    } else {
-      yield [
-        put({
-          type: types.GET_USER_LIST_FAILURE,
-          error: res?.error || res?.message,
-        }),
-      ];
-    }
-  } catch (error) {
-    yield [
-      put({
-        type: types.GET_USER_LIST_FAILURE,
-        error,
-      }),
-    ];
-  }
-}
-
 export function* watchForGetPrograms() {
   yield takeLatest(types.GET_PROGRAMS_REQUEST, getPrograms);
 }
 
-export function* watchForGetUsersByIds() {
-  yield takeLatest(types.GET_USER_LIST_REQUEST, getUsersByIds);
-}
-
 export default function*() {
-  yield all([watchForGetPrograms(), watchForGetUsersByIds()]);
+  yield all([watchForGetPrograms()]);
 }
