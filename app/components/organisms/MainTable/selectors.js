@@ -33,13 +33,6 @@ const makeSelectUsers = () =>
     usersDataError: substate.get('usersDataError')?.toJS(),
   }));
 
-const makeSelectEMFStatus = () =>
-  createSelector(selectLoyaltyDetailDomain, (substate = fromJS({})) => ({
-    getEMFStatus: substate.get('getEMFStatus'),
-    EMFStatus: substate.get('EMFStatus')?.toJS(),
-    EMFStatusError: substate.get('EMFStatusError'),
-  }));
-
 const makeSelectPrograms = () =>
   createSelector(selectLoyaltyDetailDomain, (substate = fromJS({})) => ({
     getProgramsStatus: substate.get('getProgramsStatus'),
@@ -51,6 +44,5 @@ export {
   selectLoyaltyDetailDomain,
   makeSelectUsers,
   makeSelectLoyaltyDetails,
-  makeSelectEMFStatus,
   makeSelectPrograms,
 };

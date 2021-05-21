@@ -31,7 +31,6 @@ export const Dashboard = ({
 }) => {
   useEffect(() => {
     actions.getPrograms();
-    globalActions.getOrgKpiConfig();
     return () => {
       globalActions.clearOrgKpiConfigData();
     };

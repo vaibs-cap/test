@@ -65,27 +65,8 @@ export const getLastSyncTime = () => ({
   type: types.LAST_SYNC_TIME_REQUEST,
 });
 
-export const getOrgKpiConfig = programId => ({
-  type: types.GET_ORG_KPI_CONFIG_REQUEST,
-  programId,
-});
-
-export const setOrgKpiConfig = orgKpiConfig => ({
-  type: types.GET_ORG_KPI_CONFIG_SUCCESS,
-  result: [orgKpiConfig],
-});
-
 export const getUserData = () => ({
   type: types.GET_USER_DATA_REQUEST,
-});
-
-export const clearOrgKpiConfigData = () => ({
-  type: types.CLEAR_ORG_KPI_CONFIG_DATA,
-});
-
-export const getProgramFilterType = callback => ({
-  type: types.GET_PROGRAM_FILTER_TYPE_REQUEST,
-  callback,
 });
 
 export const getProgramFieldData = (filterType, programId) => ({
@@ -96,13 +77,4 @@ export const getProgramFieldData = (filterType, programId) => ({
 
 export const clearFieldData = () => ({
   type: types.CLEAR_FIELD_DATA,
-});
-
-export const getMappedEntities = filterType => ({
-  type: types.GET_MAPPED_ENTITIES_REQUEST,
-  filterType,
-});
-
-export const clearMappedEntities = filterType => ({
-  type: types.CLEAR_MAPPED_ENTITIES,
 });

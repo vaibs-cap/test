@@ -77,36 +77,6 @@ const makeSelectUpsertId = () =>
     return (tagName && tagName !== STANDARD && orgKpiConfig[0]?._id) || '';
   });
 
-const makeSelectOrgKpiConfig = () =>
-  createSelector(selectCapDomain, (substate = fromJS({})) => ({
-    orgKpiConfig: substate.get('orgKpiConfig')?.toJS(),
-    getOrgKpiConfigStatus: substate.get('getOrgKpiConfigStatus'),
-    kpis: substate.get('orgKpiConfig')?.toJS()?.[0]?.kpis,
-    orgKpiConfigError: substate.get('orgKpiConfigError'),
-  }));
-
-const makeSelectProgramFilterType = () =>
-  createSelector(selectCapDomain, (substate = fromJS({})) => ({
-    getProgramFilterTypeStatus: substate.get('getProgramFilterTypeStatus'),
-    programFilterType: substate.get('programFilterType')?.toJS(),
-    programFilterTypeError: substate.get('programFilterTypeError'),
-  }));
-
-const makeSelectFieldData = () =>
-  createSelector(selectCapDomain, (substate = fromJS({})) => ({
-    getFieldDataStatus: substate.get('getFieldDataStatus'),
-    allContributors: substate.get('allContributors')?.toJS(),
-    entities: substate.get('entities')?.toJS(),
-    getFieldDataError: substate.get('getFieldDataError'),
-  }));
-
-const makeSelectMappedEntities = () =>
-  createSelector(selectCapDomain, (substate = fromJS({})) => ({
-    getMappedEntitiesStatus: substate.get('getMappedEntitiesStatus'),
-    mappedEntities: substate.get('mappedEntities')?.toJS(),
-    mappedEntitiesError: substate.get('mappedEntitiesError'),
-  }));
-
 export {
   selectCapDomain,
   makeSelectOrg,
@@ -116,9 +86,5 @@ export {
   makeSelectTopbarMenuData,
   makeSelectLastSyncData,
   makeSelectUpsertId,
-  makeSelectOrgKpiConfig,
-  makeSelectProgramFilterType,
   makeSelectGlobal,
-  makeSelectFieldData,
-  makeSelectMappedEntities,
 };

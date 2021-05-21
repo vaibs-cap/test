@@ -42,13 +42,13 @@ import * as dashboardSelectors from '../../pages/Dashboard/selectors';
 import { publicPath } from '../../../config/path';
 import * as globalSelectors from '../../pages/Cap/selectors';
 
-const { makeSelectLastSyncData, makeSelectMappedEntities } = globalSelectors;
+const { makeSelectLastSyncData } = globalSelectors;
 const { dateHelper: { msToDateFormat } = {} } = capUtils;
 
 const { REQUEST, SUCCESS, MODE_VIEW } = appConstants;
 const { PROGRAM_PERFIX_PATH, DESCEND } = globalConstants;
 
-const { makeSelectUsers, makeSelectEMFStatus, makeSelectPrograms } = selectors;
+const { makeSelectUsers, makeSelectPrograms } = selectors;
 const { makeSelectUpdateProgramsTableStatus } = dashboardSelectors;
 const {
   getTableColumns,
@@ -66,7 +66,6 @@ const {
   COLUMN_NAME,
   COLUMN_TIRES,
   COLUMN_USER_WITH_TIME,
-  COLUMN_CONCEPTS_MAPPED,
 } = constants;
 
 const { CAP_SPACE_32 } = styledVars;
@@ -82,8 +81,6 @@ export const MainTable = ({
   isLoading,
   usersData: { getUsersByIdsStatus, usersObj = {} } = {},
   lastSyncData: { getLastSyncTimeStatus, lastSyncTime, lastSyncTimeError } = {},
-  EMFData: { getEMFStatus, EMFStatus: { value: isEMFActive } = {} } = {},
-  mappedEntities: { getMappedEntitiesStatus, mappedEntities = {} } = {},
   updateProgramsTableStatus,
   intl: { formatMessage },
 }) => {
@@ -99,15 +96,12 @@ export const MainTable = ({
     field: 'addedBy',
   });
   const isTableFieldLoading =
-    getUsersByIdsStatus === REQUEST ||
-    updateProgramsTableStatus === REQUEST ||
-    getMappedEntitiesStatus === REQUEST;
+    getUsersByIdsStatus === REQUEST || updateProgramsTableStatus === REQUEST;
   const isTableLoading = getLastSyncTimeStatus === REQUEST || isLoading;
 
   const columns = useMemo(() => getTableColumns({ formatMessage }), []);
 
   useEffect(() => {
-    actions.getEMFStatus();
     actions.getPrograms();
   }, []);
 
@@ -182,28 +176,7 @@ export const MainTable = ({
         return getTires(...params);
       case COLUMN_USER_WITH_TIME:
         return getUserWithTime(...params);
-      case COLUMN_CONCEPTS_MAPPED:
-        return getConceptsMapped(...params);
-      default:
-        return getKpis(...params);
     }
-  };
-
-  const getConceptsMapped = programDetail => {
-    const { entities = {}, program = {} } = mappedEntities;
-    const programId = programDetail?.id;
-    const entityList = program?.[programId] || [];
-    const concepts = entityList.map(entityId => entities?.[entityId] || HYPHEN);
-    const conceptsMapped =
-      concepts.length > 0 && !concepts.includes(HYPHEN)
-        ? concepts.join(',')
-        : HYPHEN;
-    return (
-      <TitleWithStatus
-        className="loyalty-detail-table-row"
-        title={conceptsMapped}
-      />
-    );
   };
 
   const getProgramName = (programDetail, dataKey, dataValue) => {
@@ -239,17 +212,6 @@ export const MainTable = ({
         title={tier}
         statusType={getStatus(programDetail, dataValue)}
         showStatus
-      />
-    );
-  };
-
-  const getKpis = (programDetail, dataKey, dataValue) => {
-    const kpi = programDetail[dataKey] || HYPHEN;
-    return (
-      <TitleWithStatus
-        className="loyalty-detail-table-row"
-        title={kpi}
-        description={dataValue && programDetail[dataValue]}
       />
     );
   };
@@ -301,9 +263,7 @@ export const MainTable = ({
   };
 
   const onCreateProgramClick = () => setShowSlideBox(true);
-  const showCreateButton = useMemo(() => `${isEMFActive}` === EMF_ACTIVE, [
-    isEMFActive,
-  ]);
+  const showCreateButton = true;
 
   const tableRowHeaderProps = {
     className: 'detail-head-row-container',
@@ -315,7 +275,7 @@ export const MainTable = ({
     lastSyncTimeError,
     onButtonClick: onCreateProgramClick,
     showButton: showCreateButton,
-    isButtonLoading: isLoading || getEMFStatus !== SUCCESS,
+    isButtonLoading: isLoading,
   };
 
   console.log('XXXXXXX: ', programDetails);
@@ -350,8 +310,6 @@ const mapStateToProps = createStructuredSelector({
   usersData: makeSelectUsers(),
   lastSyncData: makeSelectLastSyncData(),
   updateProgramsTableStatus: makeSelectUpdateProgramsTableStatus(),
-  EMFData: makeSelectEMFStatus(),
-  mappedEntities: makeSelectMappedEntities(),
   programData: makeSelectPrograms(),
 });
 

@@ -27,7 +27,6 @@ const {
   COLUMN_NAME,
   COLUMN_TIRES,
   COLUMN_USER_WITH_TIME,
-  COLUMN_KPIS,
   COLUMN_CONCEPTS_MAPPED,
 
   SORT_STR,
@@ -70,14 +69,6 @@ export const getTableColumns = ({ formatMessage }) => {
     columnType: COLUMN_USER_WITH_TIME,
   };
 
-  const mappedEntityColumn = {
-    title: formatMessage(messages.conceptsMapped),
-    width: '12%',
-    dataKey: 'concepts',
-    columnType: COLUMN_CONCEPTS_MAPPED,
-  };
-
-  columns.push(mappedEntityColumn);
   columns.push(addedUserColumn);
 
   return columns;

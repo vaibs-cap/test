@@ -9,10 +9,8 @@ import * as saga from '../saga';
 const {
   getPrograms,
   getLastSyncTime,
-  getOrgKpiConfig,
   watchForGetPrograms,
   watchForGetLastSyncTime,
-  watchForGetOrgKpiConfig,
   watchForUpdateProgramsTable,
 } = saga;
 
@@ -119,54 +117,6 @@ describe('Dashboard saga', () => {
     });
   });
 
-  describe('getOrgKpiConfig saga', () => {
-    it('handle valid response from api', () => {
-      expectSaga(getOrgKpiConfig)
-        .provide([
-          [
-            matchers.call.fn(Api.getOrgKpiConfig),
-            {
-              success: true,
-              result: [],
-            },
-          ],
-        ])
-        .put({
-          type: types.GET_ORG_KPI_CONFIG_SUCCESS,
-          result: [],
-        })
-        .run();
-    });
-
-    it('handle error response from api', () => {
-      expectSaga(getOrgKpiConfig)
-        .provide([
-          [
-            matchers.call.fn(Api.getOrgKpiConfig),
-            {
-              success: false,
-              error,
-            },
-          ],
-        ])
-        .put({
-          type: types.GET_ORG_KPI_CONFIG_FAILURE,
-          error,
-        })
-        .run();
-    });
-
-    it('handles error thrown from api', () => {
-      expectSaga(getOrgKpiConfig)
-        .provide([[matchers.call.fn(Api.getOrgKpiConfig), throwError(error)]])
-        .put({
-          type: types.GET_ORG_KPI_CONFIG_FAILURE,
-          error,
-        })
-        .run();
-    });
-  });
-
   describe('watchForGetPrograms saga', () => {
     const generator = watchForGetPrograms();
     it('should call watchers functions', () => {
@@ -181,15 +131,6 @@ describe('Dashboard saga', () => {
     it('should call watchers functions', () => {
       expect(generator.next().value).toEqual(
         takeLatest(types.LAST_SYNC_TIME_REQUEST, getLastSyncTime),
-      );
-    });
-  });
-
-  describe('watchForGetOrgKpiConfig saga', () => {
-    const generator = watchForGetOrgKpiConfig();
-    it('should call watchers functions', () => {
-      expect(generator.next().value).toEqual(
-        takeLatest(types.GET_ORG_KPI_CONFIG_REQUEST, getOrgKpiConfig),
       );
     });
   });

@@ -5,15 +5,12 @@ import * as constants from '../../pages/App/constants';
 const { REQUEST, SUCCESS, FAILURE } = constants;
 
 export const initialState = fromJS({
-  getEMFStatus: '',
   programDetails: [],
   usersList: [],
-  EMFStatus: {},
   getProgramsStatus: '',
   getUsersByIdsStatus: '',
   usersDataError: null,
   programDetailsError: null,
-  EMFStatusError: null,
 });
 
 const loyaltyDetailReducer = (state = initialState, action) => {
@@ -44,19 +41,6 @@ const loyaltyDetailReducer = (state = initialState, action) => {
       return state
         .set('getUsersByIdsStatus', FAILURE)
         .set('usersDataError', action.error);
-    case types.GET_EMF_STATUS_REQUEST:
-      return state
-        .set('getEMFStatus', REQUEST)
-        .set('EMFStatus', fromJS({}))
-        .set('EMFStatusError', null);
-    case types.GET_EMF_STATUS_SUCCESS:
-      return state
-        .set('getEMFStatus', SUCCESS)
-        .set('EMFStatus', fromJS(action.result));
-    case types.GET_EMF_STATUS_FAILURE:
-      return state
-        .set('getEMFStatus', FAILURE)
-        .set('EMFStatusError', action.error);
     case types.CLEAR_DATA:
       return initialState;
     default:

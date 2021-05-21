@@ -9,10 +9,6 @@ export const getUsersByIds = userIds => ({
   userIds,
 });
 
-export const getEMFStatus = () => ({
-  type: types.GET_EMF_STATUS_REQUEST,
-});
-
 export const clearData = () => ({
   type: types.CLEAR_DATA,
 });

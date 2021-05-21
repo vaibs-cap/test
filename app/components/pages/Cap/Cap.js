@@ -110,9 +110,6 @@ export const Cap = ({
     () => {
       actions.getTopbarMenuData();
       actions.getLastSyncTime();
-      actions.getProgramFilterType(filterType => {
-        actions.getMappedEntities(filterType);
-      });
       if (!fetchingUserdata) {
         actions.getUserData();
       }

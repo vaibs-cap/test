@@ -86,36 +86,4 @@ describe('Dashboard Reducer', () => {
       lastSyncTimeError: error,
     });
   });
-
-  it('it handles the GET_ORG_KPI_CONFIG_REQUEST action', () => {
-    const action = {
-      type: types.GET_ORG_KPI_CONFIG_REQUEST,
-    };
-    expect(dashboardReducer({}, action)).toEqual({
-      getOrgKpiConfigStatus: REQUEST,
-      orgKpiConfig: [],
-    });
-  });
-
-  it('it handles the GET_ORG_KPI_CONFIG_SUCCESS action', () => {
-    const action = {
-      type: types.GET_ORG_KPI_CONFIG_SUCCESS,
-      result: [],
-    };
-    expect(dashboardReducer({}, action)).toEqual({
-      getOrgKpiConfigStatus: SUCCESS,
-      orgKpiConfig: [],
-    });
-  });
-
-  it('it handles the GET_ORG_KPI_CONFIG_FAILURE action', () => {
-    const action = {
-      type: types.GET_ORG_KPI_CONFIG_FAILURE,
-      error,
-    };
-    expect(dashboardReducer({}, action)).toEqual({
-      getOrgKpiConfigStatus: FAILURE,
-      orgKpiConfigError: error,
-    });
-  });
 });

@@ -27,10 +27,8 @@ describe('<Dashboard />', () => {
   it('should make api call on component mount', async () => {
     const getProgramsSpy = jest.spyOn(actions, 'getPrograms');
     const getLastSyncTimeSpy = jest.spyOn(actions, 'getLastSyncTime');
-    const getOrgKpiConfigSpy = jest.spyOn(actions, 'getOrgKpiConfig');
     shallowWithIntl(setup());
     expect(getProgramsSpy).toBeCalled();
     expect(getLastSyncTimeSpy).toBeCalled();
-    expect(getOrgKpiConfigSpy).toBeCalled();
   });
 });

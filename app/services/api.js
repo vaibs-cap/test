@@ -162,26 +162,6 @@ export const saveKpis = kpiData => {
   return request(url, getAPICallObject('PUT', kpiData));
 };
 
-export const createProgram = (program, isUpdateMode) => {
-  const url = `${API_ENDPOINT}/programs`;
-  const method = isUpdateMode ? 'PUT' : 'POST';
-  return request(url, getAPICallObject(method, program));
-};
-
-export const getProgramFieldData = (filterType, programId) => {
-  const url = `${API_ENDPOINT}/programs/field-data${
-    isNil(programId) ? '' : `/${programId}`
-  }?filterType=${isNil(filterType) ? null : filterType}`;
-  return request(url, getAPICallObject('GET'));
-};
-
-export const getMappedEntities = (filterType, programId) => {
-  const url = `${API_ENDPOINT}/programs/field-data?filterType=${
-    isNil(filterType) ? null : filterType
-  }&fieldFilterType=entities`;
-  return request(url, getAPICallObject('GET'));
-};
-
 export const getLastSyncTime = () => {
   const url = `${BI_API_ENDPOINT}/data/lastsynctime`;
   return request(
@@ -192,12 +172,6 @@ export const getLastSyncTime = () => {
 
 export const getKpis = () => {
   const url = `${BI_API_ENDPOINT}/metadata/kpis`;
-  return request(url, getAPICallObject('GET'));
-};
-
-export const getOrgKpiConfig = programId => {
-  const queryParam = programId ? `PROGRAM&programId=${programId}` : 'OVERALL';
-  const url = `${API_ENDPOINT}/kpi-config/org?type=${queryParam}`;
   return request(url, getAPICallObject('GET'));
 };
 
@@ -240,11 +214,6 @@ export const getProgramById = programId => {
 
 export const getTier = programId => {
   const url = `${API_ENDPOINT}/strategy/tier/${programId}`;
-  return request(url, getAPICallObject('GET'));
-};
-
-export const getEMFStatus = () => {
-  const url = `${API_ENDPOINT}/common/entityType/ALLOW_MLP`;
   return request(url, getAPICallObject('GET'));
 };
 

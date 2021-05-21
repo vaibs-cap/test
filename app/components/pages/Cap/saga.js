@@ -166,84 +166,6 @@ export function* getLastSyncTime() {
   }
 }
 
-export function* getOrgKpiConfig({ programId }) {
-  try {
-    const res = yield call(Api.getOrgKpiConfig, programId);
-    if (res?.success) {
-      yield put({
-        type: types.GET_ORG_KPI_CONFIG_SUCCESS,
-        result: res?.result || [],
-      });
-    } else {
-      yield put({
-        type: types.GET_ORG_KPI_CONFIG_FAILURE,
-        error: res?.error || res?.message,
-      });
-    }
-  } catch (error) {
-    yield put({ type: types.GET_ORG_KPI_CONFIG_FAILURE, error });
-  }
-}
-
-export function* getProgramFilterType({ callback }) {
-  try {
-    const res = yield call(Api.getProgramFilterType);
-    if (res?.success) {
-      const result = res?.result?.[0] || {};
-      yield put({
-        type: types.GET_PROGRAM_FILTER_TYPE_SUCCESS,
-        result,
-      });
-      callback && callback(result?.value);
-    } else {
-      yield put({
-        type: types.GET_PROGRAM_FILTER_TYPE_FAILURE,
-        error: res?.error || res?.message,
-      });
-    }
-  } catch (error) {
-    yield put({ type: types.GET_PROGRAM_FILTER_TYPE_FAILURE, error });
-  }
-}
-
-export function* getProgramFieldData({ filterType, programId }) {
-  try {
-    const res = yield call(Api.getProgramFieldData, filterType, programId);
-    if (res?.success) {
-      yield put({
-        type: types.GET_FIELD_DATA_SUCCESS,
-        result: res?.result || {},
-      });
-    } else {
-      yield put({
-        type: types.GET_FIELD_DATA_FAILURE,
-        error: res?.error || res?.message,
-      });
-    }
-  } catch (error) {
-    yield put({ type: types.GET_FIELD_DATA_FAILURE, error });
-  }
-}
-
-export function* getMappedEntities({ filterType }) {
-  try {
-    const res = yield call(Api.getMappedEntities, filterType);
-    if (res?.success) {
-      yield put({
-        type: types.GET_MAPPED_ENTITIES_SUCCESS,
-        result: res?.result || {},
-      });
-    } else {
-      yield put({
-        type: types.GET_MAPPED_ENTITIES_FAILURE,
-        error: res?.error || res?.message,
-      });
-    }
-  } catch (error) {
-    yield put({ type: types.GET_MAPPED_ENTITIES_FAILURE, error });
-  }
-}
-
 function* watchForFetchUserInfo() {
   yield takeLatest(types.GET_USER_DATA_REQUEST, fetchUserInfo);
 }
@@ -280,22 +202,6 @@ export function* watchForGetLastSyncTime() {
   yield takeLatest(types.LAST_SYNC_TIME_REQUEST, getLastSyncTime);
 }
 
-export function* watchForGetOrgKpiConfig() {
-  yield takeLatest(types.GET_ORG_KPI_CONFIG_REQUEST, getOrgKpiConfig);
-}
-
-export function* watchForGetProgramFilterType() {
-  yield takeLatest(types.GET_PROGRAM_FILTER_TYPE_REQUEST, getProgramFilterType);
-}
-
-export function* watchForGetProgramFieldData() {
-  yield takeLatest(types.GET_FIELD_DATA_REQUEST, getProgramFieldData);
-}
-
-export function* watchForGetMappedEntities() {
-  yield takeLatest(types.GET_MAPPED_ENTITIES_REQUEST, getMappedEntities);
-}
-
 export default [
   loginFlow,
   watchForLogoutFlow,
@@ -307,8 +213,4 @@ export default [
   watchForFetchUserInfo,
   watchForOrgChangeSuccess,
   watchForGetLastSyncTime,
-  watchForGetOrgKpiConfig,
-  watchForGetProgramFilterType,
-  watchForGetProgramFieldData,
-  watchForGetMappedEntities,
 ];
