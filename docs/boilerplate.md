@@ -11,8 +11,9 @@ With this boilerplate, we get the basic features working with one single functio
 ## Pages
 - Access Forbidden Page
 - Login page
-- Not found Page
-- Dashboard page
+- Not found Page (which shows up when an unhandled route is visited)
+- Dashboard page (which is the landing page for the application)
+- Something went wrong page (which shows up when an error occurs)
 
 ## Organisms
 - The Navigation bar
@@ -20,4 +21,16 @@ With this boilerplate, we get the basic features working with one single functio
 - The MainTable organism
 
 ## Molecules
-- A few of the commonly used molecules like 
+A few of the commonly used molecules like `Status`, `SyncLabel`, `TitleWithStatus` which are repeatedly used throughout the application. Feel free to tweak those as per needs. 
+
+## Atoms
+Some atoms are also created like `AvatarIcon`, `CustomSkeleton` which can be tweaked and used as required.
+
+# What to modify?
+- Modify the `bugsnagAppVersion` in the `webpack.base.babel.js` to the app version that is intended to be used in the application.
+- Also modify the `bugsnagApiKey` in the same file and change it to the API key that is related to the application being set up. Else the bugsnag details for several apps are bound to get mixed up.
+``` javascript
+const bugsnagAppVersion = `YOUR_APP_HERE__${new Date().getTime()}`;
+const bugsnagApiKey = 'YOUR_KEY_HERE';
+```
+

@@ -11,8 +11,9 @@ const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const pathConfig = require('../../app/config/path');
 const antThemeVars = require('../../ant-theme-vars');
 
-const bugsnagAppVersion = `loyalty-ui__${new Date().getTime()}`;
-const bugsnagApiKey = '4bbd4dcd44cccd5a717552180033a5b0';
+// @todo modify these when bootstrapping a new Application and remove this comment
+const bugsnagAppVersion = `YOUR_APP_HERE__${new Date().getTime()}`;
+const bugsnagApiKey = 'YOUR_KEY_HERE';
 
 const extractSass = new ExtractTextPlugin({
   filename: '[name].[md5:contenthash:hex:20].css',

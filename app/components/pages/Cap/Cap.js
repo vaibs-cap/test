@@ -4,7 +4,6 @@ import { injectIntl, intlShape } from 'react-intl';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
-import isEmpty from 'lodash/isEmpty';
 
 import injectSaga from 'utils/injectSaga';
 import withStyles from 'utils/withStyles';
