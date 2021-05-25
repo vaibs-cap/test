@@ -24,7 +24,7 @@ const getType = type => {
   }
 };
 
-export const LoyaltyStatus = ({ type, spacing, mode, tagProps, ...rest }) => {
+export const Status = ({ type, spacing, mode, tagProps, ...rest }) => {
   const statusType = getType(type);
   return (
     <>
@@ -40,18 +40,18 @@ export const LoyaltyStatus = ({ type, spacing, mode, tagProps, ...rest }) => {
   );
 };
 
-LoyaltyStatus.defaultProps = {
+Status.defaultProps = {
   type: '',
   mode: '',
   spacing: '',
   tagProps: {},
 };
 
-LoyaltyStatus.propTypes = {
+Status.propTypes = {
   type: PropTypes.string,
   mode: PropTypes.string,
   spacing: PropTypes.string,
   tagProps: PropTypes.object,
 };
 
-export default withStyles(LoyaltyStatus);
+export default withStyles(Status);

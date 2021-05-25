@@ -11,7 +11,7 @@ import CapRow from '@capillarytech/cap-ui-library/CapRow';
 import CapHeader from '@capillarytech/cap-ui-library/CapHeader';
 import CapHeading from '@capillarytech/cap-ui-library/CapHeading';
 
-import LoyaltyStatus from '../LoyaltyStatus';
+import Status from '../Status';
 
 const TitleWithStatus = ({
   className,
@@ -34,7 +34,7 @@ const TitleWithStatus = ({
       }
       description={description}
     />
-    {showStatus && <LoyaltyStatus type={statusType} />}
+    {showStatus && <Status type={statusType} />}
   </CapRow>
 );
 

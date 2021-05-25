@@ -14,7 +14,7 @@ import CustomSkeleton from '../../atoms/CustomSkeleton';
 
 // import styled from 'styled-components';
 
-const ProgramTitle = ({
+const Title = ({
   title,
   sortOrder,
   isLoading,
@@ -40,7 +40,7 @@ const ProgramTitle = ({
   </CapRow>
 );
 
-ProgramTitle.propTypes = {
+Title.propTypes = {
   title: PropTypes.string,
   sortOrder: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   isLoading: PropTypes.bool,
@@ -52,7 +52,7 @@ ProgramTitle.propTypes = {
   skeletonHeight: PropTypes.string,
 };
 
-ProgramTitle.defaultProps = {
+Title.defaultProps = {
   title: '',
   sortOrder: '',
   isLoading: false,
@@ -64,4 +64,4 @@ ProgramTitle.defaultProps = {
   skeletonHeight: '',
 };
 
-export default ProgramTitle;
+export default Title;

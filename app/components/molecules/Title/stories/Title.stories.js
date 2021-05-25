@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import ProgramTitle from '../ProgramTitle';
+import ProgramTitle from '../Title';
 
 storiesOf('ProgramTitle', module).add('default', () => 
   <ProgramTitle 

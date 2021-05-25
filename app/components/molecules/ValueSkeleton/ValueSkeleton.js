@@ -18,7 +18,7 @@ import styles from './style';
 
 // import styled from 'styled-components';
 
-const ProgramValueSkeleton = ({
+const ValueSkeleton = ({
   className,
   titleWidth,
   titleHeight,
@@ -54,7 +54,7 @@ const ProgramValueSkeleton = ({
   </CapRow>
 );
 
-ProgramValueSkeleton.propTypes = {
+ValueSkeleton.propTypes = {
   className: PropTypes.string,
   titleWidth: PropTypes.string,
   titleHeight: PropTypes.string,
@@ -68,7 +68,7 @@ ProgramValueSkeleton.propTypes = {
   avatarBorderRadius: PropTypes.string,
 };
 
-ProgramValueSkeleton.defaultProps = {
+ValueSkeleton.defaultProps = {
   className: '',
   titleWidth: '',
   titleHeight: '',
@@ -82,4 +82,4 @@ ProgramValueSkeleton.defaultProps = {
   avatarBorderRadius: '',
 };
 
-export default withStyles(ProgramValueSkeleton, styles);
+export default withStyles(ValueSkeleton, styles);

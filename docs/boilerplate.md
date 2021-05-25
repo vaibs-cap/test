@@ -5,6 +5,19 @@ This boilerplate has been created to be used while creating new Capillary UI pro
 # What's Included
 With this boilerplate, we get the basic features working with one single functional route: [/product/dashboard](http://localhost:8000/product/dashboard). The route makes an API call to fetch a list of programs and displays that list in a table.
 
+## Core components
+- App, Cap and LanguageProvider components
+
 ## Pages
 - Access Forbidden Page
-- 
+- Login page
+- Not found Page
+- Dashboard page
+
+## Organisms
+- The Navigation bar
+- The OrgChange dropdown
+- The MainTable organism
+
+## Molecules
+- A few of the commonly used molecules like 

@@ -20,9 +20,9 @@ import injectReducer from 'utils/injectReducer';
 import * as capUtils from '@capillarytech/cap-ui-utils';
 import clearDataOnUnmount from 'utils/clearDataOnUnmount';
 import RowHeader from '../../molecules/RowHeader';
-import ProgramTitle from '../../molecules/ProgramTitle';
-import ProgramValueSkeleton from '../../molecules/ProgramValueSkeleton';
-import ProgramName from '../../molecules/ProgramName';
+import ProgramTitle from '../../molecules/Title';
+import ProgramValueSkeleton from '../../molecules/ValueSkeleton';
+import ProgramName from '../../molecules/Name';
 import TitleWithStatus from '../../molecules/TitleWithStatus';
 
 import CustomSkeleton from '../../atoms/CustomSkeleton';

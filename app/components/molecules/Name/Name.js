@@ -21,7 +21,7 @@ import AvatarIcon from '../../atoms/AvatarIcon';
 
 import styles from './style';
 
-const ProgramName = ({
+const Name = ({
   name,
   tooltip,
   showTag,
@@ -84,7 +84,7 @@ const ProgramName = ({
   </CapTooltip>
 );
 
-ProgramName.propTypes = {
+Name.propTypes = {
   name: PropTypes.string,
   tooltip: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   showTag: PropTypes.bool,
@@ -99,7 +99,7 @@ ProgramName.propTypes = {
   titleClassName: PropTypes.string,
 };
 
-ProgramName.defaultProps = {
+Name.defaultProps = {
   name: '',
   tooltip: '',
   showTag: false,
@@ -114,4 +114,4 @@ ProgramName.defaultProps = {
   titleClassName: '',
 };
 
-export default withStyles(ProgramName, styles);
+export default withStyles(Name, styles);
