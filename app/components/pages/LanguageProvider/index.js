@@ -70,7 +70,7 @@ export class LanguageProvider extends React.PureComponent {
   }
   // eslint-disable-line react/prefer-stateless-function
   render() {
-    const { language } = this.props;
+    const { language, messages } = this.props;
     const mappedLocale = {
       en: enUS,
       'zh-cn': zhCN,
@@ -80,12 +80,14 @@ export class LanguageProvider extends React.PureComponent {
     const jLocale = localStorage.getItem('jlocale') || 'en';
     const file = mappedLocale[jLocale];
     const isLocalLoaded = language.localeLoading === COMPLETE;
+    const translatedMessages = language.messages || messages;
     return (
       <ConfigProvider locale={file}>
         <IntlProvider
           locale={language.locale}
           key={language.locale}
-          messages={language.messages}
+          messages={translatedMessages}
+          onError={() => {}}
         >
           <CapSpin className={this.props.className} spinning={!isLocalLoaded}>
             {isLocalLoaded ? React.Children.only(this.props.children) : <></>}
@@ -98,6 +100,7 @@ export class LanguageProvider extends React.PureComponent {
 
 LanguageProvider.propTypes = {
   language: PropTypes.object,
+  messages: PropTypes.object,
   children: PropTypes.element.isRequired,
   actions: PropTypes.object,
   user: PropTypes.object,

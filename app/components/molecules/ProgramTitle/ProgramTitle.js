@@ -42,7 +42,7 @@ const ProgramTitle = ({
 
 ProgramTitle.propTypes = {
   title: PropTypes.string,
-  sortOrder: PropTypes.string,
+  sortOrder: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   isLoading: PropTypes.bool,
   className: PropTypes.string,
   description: PropTypes.string,

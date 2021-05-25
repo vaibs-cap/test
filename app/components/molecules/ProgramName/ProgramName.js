@@ -58,7 +58,6 @@ const ProgramName = ({
               <CapIcon
                 type="star"
                 theme="filled"
-                allowSvg={false}
                 className={classnames('favorite-icon', iconClassName)}
               />
             )}
@@ -87,7 +86,7 @@ const ProgramName = ({
 
 ProgramName.propTypes = {
   name: PropTypes.string,
-  tooltip: PropTypes.string,
+  tooltip: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   showTag: PropTypes.bool,
   tagProps: PropTypes.object,
   showIcon: PropTypes.bool,

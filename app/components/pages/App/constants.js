@@ -61,7 +61,7 @@ export const getTopbarMenuDataValue = () => [
   {
     label: <FormattedMessage {...globalMessages.tab3} />,
     link: '/tab2/',
-    key: 'tab2',
+    key: 'tab3',
   },
 ];
 

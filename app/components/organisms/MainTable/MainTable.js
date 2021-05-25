@@ -290,11 +290,11 @@ MainTable.propTypes = {
   className: PropTypes.string,
   lastSyncData: PropTypes.object,
   programDetails: PropTypes.array,
-  programData: PropTypes.array,
+  programData: PropTypes.object,
   isLoading: PropTypes.bool,
   updateProgramsTableStatus: PropTypes.string,
   actions: PropTypes.object.isRequired,
-  usersData: PropTypes.object.isRequired,
+  usersData: PropTypes.object,
   dashboardDatas: PropTypes.object,
 };
 

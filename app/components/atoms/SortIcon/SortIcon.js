@@ -41,7 +41,7 @@ const SortIcon = ({ sortOrder, className }) => {
 };
 
 SortIcon.propTypes = {
-  sortOrder: PropTypes.string,
+  sortOrder: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   className: PropTypes.string,
 };
 
