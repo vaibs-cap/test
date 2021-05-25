@@ -269,8 +269,6 @@ export const MainTable = ({
     isButtonLoading: isLoading,
   };
 
-  console.log('XXXXXXX: ', programDetails);
-
   return (
     <CapRow className={className}>
       <RowHeader showSync {...tableRowHeaderProps} />

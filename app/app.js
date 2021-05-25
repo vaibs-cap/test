@@ -19,6 +19,7 @@ import 'sanitize.css/sanitize.css';
 import App from './components/pages/App';
 
 import LanguageProvider from './components/pages/LanguageProvider';
+import SomethingWentWrong from './components/pages/SomethingWentWrong';
 
 /* eslint-disable import/no-unresolved, import/extensions */
 import '!file-loader?name=[name].[ext]!./favicon.ico';
@@ -96,16 +97,16 @@ const ErrorBoundary = Bugsnag.getPlugin('react').createErrorBoundary(React);
 
 export const BugsnagClient = Bugsnag;
 
-const ErrorScreen = () => <React.Fragment />;
+const ErrorScreen = () => <SomethingWentWrong />;
 
 const render = messages => {
   ReactDOM.render(
     <Provider store={store}>
-      <ErrorBoundary FallbackComponent={ErrorScreen}>
-        <LanguageProvider messages={messages}>
+      <LanguageProvider messages={messages}>
+        <ErrorBoundary FallbackComponent={ErrorScreen}>
           <App />
-        </LanguageProvider>
-      </ErrorBoundary>
+        </ErrorBoundary>
+      </LanguageProvider>
     </Provider>,
     MOUNT_NODE,
   );
