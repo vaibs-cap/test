@@ -38,16 +38,26 @@ module.exports = options => ({
     rules: [
       {
         test: /\.js$/,
-        use: ['source-map-loader'],
-        enforce: 'pre',
+        loader: 'esbuild-loader',
+        options: {
+          loader: 'jsx', // Remove this if you're not using JSX
+          target: 'es2015', // Syntax to compile to (see options below for possible values)
+        },
+        exclude: /node_modules\/(?!@capillarytech)|cap-react-ui-library|cap-style-guide|cap-ui-library/
       },
       {
         test: /\.js$/, // Transform all .js files required somewhere with Babel
-        use: {
-          loader: 'babel-loader',
-          options: options.babelQuery,
-        },
-        exclude: /node_modules\/(?!@capillarytech)/,
+        use: [
+          {
+            loader: 'thread-loader',
+          },
+          {
+            loader: 'babel-loader',
+            options: options.babelQuery,
+          },
+        ],
+        include: /cap-react-ui-library|cap-style-guide|cap-ui-library/,
+        exclude: /cap-react-ui-library\/node_modules|cap-style-guide\/node_modules|cap-ui-library\/node_modules/,
       },
       {
         test: /\.scss$/,
