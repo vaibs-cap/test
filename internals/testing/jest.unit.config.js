@@ -6,7 +6,10 @@ module.exports = {
   testURL: 'http://localhost/',
   setupFiles: ['<rootDir>/internals/testing/jest.setup.js'],
   moduleDirectories: ['node_modules'],
-  testPathIgnorePatterns: ['<rootDir>/.storybook/'],
+  testPathIgnorePatterns: [
+    '<rootDir>/.storybook/',
+    '.integration.(test|spec).(js|jsx|ts|tsx)', //files ending with integration.test.js will be skipped
+  ],
   testResultsProcessor: 'jest-sonar-reporter',
   collectCoverage: true,
   coverageDirectory: '<rootDir>/reports/coverage',
@@ -43,5 +46,9 @@ module.exports = {
   snapshotSerializers: ['enzyme-to-json/serializer'],
   transformIgnorePatterns: [
     "node_modules/(?!(@capillarytech" + ")/)",
+  ],
+  coveragePathIgnorePatterns: [
+    '.tests.integration.',
+    /mockdata/i,
   ],
 };
