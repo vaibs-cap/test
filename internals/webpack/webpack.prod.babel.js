@@ -2,6 +2,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { ESBuildMinifyPlugin } = require('esbuild-loader')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin; //eslint-disable-line
 const CompressionPlugin = require('brotli-webpack-plugin');
 
@@ -18,6 +19,9 @@ module.exports = require('./webpack.base.babel')({
   optimization: {
     minimize: true,
     minimizer: [
+      new ESBuildMinifyPlugin({
+        target: 'es2015', // Syntax to compile to (see options below for possible values)
+      }),
     ],
     nodeEnv: 'production',
     sideEffects: true,
