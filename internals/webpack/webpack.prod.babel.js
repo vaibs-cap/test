@@ -4,7 +4,6 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin; //eslint-disable-line
 const CompressionPlugin = require('brotli-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = require('./webpack.base.babel')({
   mode: 'production',
@@ -19,23 +18,6 @@ module.exports = require('./webpack.base.babel')({
   optimization: {
     minimize: true,
     minimizer: [
-      new TerserPlugin({
-        terserOptions: {
-          warnings: false,
-          compress: {
-            comparisons: false,
-          },
-          parse: {},
-          mangle: true,
-          output: {
-            comments: false,
-            ascii_only: true,
-          },
-        },
-        parallel: true,
-        cache: true,
-        sourceMap: true,
-      }),
     ],
     nodeEnv: 'production',
     sideEffects: true,
