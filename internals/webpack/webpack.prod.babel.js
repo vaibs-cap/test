@@ -46,6 +46,10 @@ module.exports = smp.wrap(require('./webpack.base.babel')({
     filename: '[name].[chunkhash].js',
     chunkFilename: '[name].[chunkhash].chunk.js',
   },
+  stats: {
+    warnings: false,
+    children: false,
+  },
   optimization: {
     minimize: true,
     minimizer: [

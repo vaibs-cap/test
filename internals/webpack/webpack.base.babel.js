@@ -30,6 +30,7 @@ module.exports = options => ({
     fs: 'empty',
   },
   entry: options.entry,
+  stats: options.stats,
   output: Object.assign(
     {
       // Compile into js/dist.js
@@ -128,7 +129,8 @@ module.exports = options => ({
       // make fetch available
       fetch: 'exports-loader?self.fetch!whatwg-fetch',
     }),
-    extractSass,
+    // extractSass,
+    miniCssExtractPlugin,
 
     // Always expose NODE_ENV to webpack, in order to use `process.env.NODE_ENV`
     // inside your code for any environment checks; UglifyJS will automatically
