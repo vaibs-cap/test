@@ -11,7 +11,7 @@
 * Component scaffolding
 * App audit using lighthouse, size-limit and sonar
 * Storybook integrated with react-live playground
-* Jest testing framework with snapshot testing
+* Jest testing framework with react testing library for unit and integration tests
 
 ## Topics to refer
 
@@ -41,7 +41,9 @@ npm install
 * **build** - Make production build
 * **build:analyze** - Make production build along with bundle analyzer. This is meant to run locally.
 * **lint** - Run javascript linting and style linting. (Also used as a precommit hook)
-* **test** - Run jest test suites
+* **test** - Run all unit and integration jest test suites
+* **test:unit** - Run all unit jest test suites
+* **test:integration** - Run all integration jest test suites
 * **lighthouse** - Does a lighthouse audit for the webpage
 * **size** - Does a size audit for the app
 * **sonar** - Does a sonar audit for the app
