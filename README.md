@@ -3,6 +3,7 @@
 ## Features 🎉
 
 * Faster builds.
+* React fast refresh - that preserves local state when app is updated.
 * Atomic Folder Structure
 * Redux + Redux-Saga for state management
 * Styled Components
