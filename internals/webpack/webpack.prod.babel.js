@@ -103,12 +103,12 @@ module.exports = smp.wrap(require('./webpack.base.babel')({
       favicon: 'app/favicon.ico',
     }),
 
-    new CompressionPlugin({
-      asset: '[path].br[query]',
-      test: /\.(js|css|html)$/,
-      threshold: 10240,
-      minRatio: 0.8,
-    }),
+    // new CompressionPlugin({
+    //   asset: '[path].br[query]',
+    //   test: /\.(js|css|html)$/,
+    //   threshold: 10240,
+    //   minRatio: 0.8,
+    // }),
   ],
 
   performance: {
