@@ -4,7 +4,8 @@
 
 const path = require('path');
 const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+// const ExtractTextPlugin = require('extract-text-webpack-plugin');//rollback to this if style breaks
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const BugsnagPlugin = require('webpack-bugsnag-plugins');
 const chalk = require('chalk');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
@@ -15,11 +16,14 @@ const antThemeVars = require('../../ant-theme-vars');
 const bugsnagAppVersion = `YOUR_APP_HERE__${new Date().getTime()}`;
 const bugsnagApiKey = 'YOUR_KEY_HERE';
 
-const extractSass = new ExtractTextPlugin({
-  filename: '[name].[md5:contenthash:hex:20].css',
-  disable: true,
+//rollback to this if any style breaks
+// const extractSass = new ExtractTextPlugin({
+//   filename: '[name].[md5:contenthash:hex:20].css',
+//   disable: true,
+// });
+const miniCssExtractPlugin = new MiniCssExtractPlugin({
+  filename: '[name].[contenthash].css',
 });
-
 module.exports = options => ({
   mode: options.mode,
   node: {
@@ -62,16 +66,18 @@ module.exports = options => ({
       {
         test: /\.scss$/,
         exclude: /node_modules\/(?!@capillarytech)/,
-        use: extractSass.extract({
-          use: ['css-loader', 'sass-loader', 'sass-loader?sourceMap'],
-          fallback: 'style-loader',
-        }),
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'sass-loader',
+          'sass-loader?sourceMap',
+        ],
       },
       {
         test: /\.less$/,
         use: [
           {
-            loader: 'style-loader',
+            loader: MiniCssExtractPlugin.loader,
           },
           {
             loader: 'css-loader',
@@ -92,7 +98,7 @@ module.exports = options => ({
         // // they will be a part of our compilation either way.
         // // So, no need for ExtractTextPlugin here.
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2|jpg|png|gif)$/,
