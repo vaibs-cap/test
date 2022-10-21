@@ -64,8 +64,13 @@ module.exports = smp.wrap(require('./webpack.base.babel')({
       maxInitialRequests: 3,
       name: true,
       cacheGroups: {
+        capLibrary: {
+          test: /[\\/]node_modules[\\/](@capillarytech)[\\/]/,
+          name: 'capLibrary',
+          chunks: 'all',
+        },
         commons: {
-          test: /[\\/]node_modules[\\/]/,
+          test: /[\\/]node_modules[\\/](?!@capillarytech)[\\/]/,
           name: 'vendor',
           chunks: 'all',
         },
