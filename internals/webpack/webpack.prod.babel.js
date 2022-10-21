@@ -5,8 +5,38 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { ESBuildMinifyPlugin } = require('esbuild-loader')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin; //eslint-disable-line
 const CompressionPlugin = require('brotli-webpack-plugin');
+const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 
-module.exports = require('./webpack.base.babel')({
+const bundleAnalyzerEnabled = process.env.ANALYZE === 'true';
+
+bundleAnalyzer = [];
+
+// enable when build steps analysis is required to see which steps n plugins take more time
+const smp = new SpeedMeasurePlugin({
+  disable: !bundleAnalyzerEnabled,
+  // disable: false,
+  outputFormat: "human", // detailed logs
+  granularLoaderData: false,
+});
+
+if(bundleAnalyzerEnabled){
+  bundleAnalyzer.push(
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'static',
+      reportFilename: '../analysis/report.html',
+      defaultSizes: 'parsed',
+      openAnalyzer: false,
+      generateStatsFile: true,
+      statsFilename: '../analysis/stats.json',
+      statsOptions: {
+        source: false,
+      },
+      logLevel: 'info',
+    })
+  )
+}
+
+module.exports = smp.wrap(require('./webpack.base.babel')({
   mode: 'production',
   // In production, we skip all hot-reloading stuff
   entry: [path.join(process.cwd(), 'app/app.js')],
@@ -52,18 +82,7 @@ module.exports = require('./webpack.base.babel')({
   plugins: [
     new webpack.optimize.AggressiveMergingPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
-    new BundleAnalyzerPlugin({
-      analyzerMode: 'static',
-      reportFilename: '../analysis/report.html',
-      defaultSizes: 'parsed',
-      openAnalyzer: false,
-      generateStatsFile: true,
-      statsFilename: '../analysis/stats.json',
-      statsOptions: {
-        source: false,
-      },
-      logLevel: 'info',
-    }),
+    ...bundleAnalyzer,
 
     // Minify and optimize the index.html
     new HtmlWebpackPlugin({
@@ -95,4 +114,4 @@ module.exports = require('./webpack.base.babel')({
   performance: {
     assetFilter: (assetFilename) => !(/(\.map$)|(^(main\.|favicon\.))/.test(assetFilename)), //eslint-disable-line
   },
-});
+}));

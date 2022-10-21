@@ -207,6 +207,7 @@
     "shelljs": "^0.8.2",
     "size-limit": "^4.5.4",
     "sonarqube-scanner": "^2.7.0",
+    "speed-measure-webpack-plugin": "^1.5.0",
     "storybook-addon-intl": "^2.4.1",
     "style-loader": "0.23.1",
     "stylelint": "^9.10.1",
