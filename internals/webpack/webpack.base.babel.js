@@ -4,7 +4,8 @@
 
 const path = require('path');
 const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+// const ExtractTextPlugin = require('extract-text-webpack-plugin');//rollback to this if style breaks
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const BugsnagPlugin = require('webpack-bugsnag-plugins');
 const chalk = require('chalk');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
@@ -15,17 +16,21 @@ const antThemeVars = require('../../ant-theme-vars');
 const bugsnagAppVersion = `YOUR_APP_HERE__${new Date().getTime()}`;
 const bugsnagApiKey = 'YOUR_KEY_HERE';
 
-const extractSass = new ExtractTextPlugin({
-  filename: '[name].[md5:contenthash:hex:20].css',
-  disable: true,
+//rollback to this if any style breaks
+// const extractSass = new ExtractTextPlugin({
+//   filename: '[name].[md5:contenthash:hex:20].css',
+//   disable: true,
+// });
+const miniCssExtractPlugin = new MiniCssExtractPlugin({
+  filename: '[name].[contenthash].css',
 });
-
 module.exports = options => ({
   mode: options.mode,
   node: {
     fs: 'empty',
   },
   entry: options.entry,
+  stats: options.stats,
   output: Object.assign(
     {
       // Compile into js/dist.js
@@ -38,30 +43,42 @@ module.exports = options => ({
     rules: [
       {
         test: /\.js$/,
-        use: ['source-map-loader'],
-        enforce: 'pre',
+        loader: 'esbuild-loader',
+        options: {
+          loader: 'jsx', // Remove this if you're not using JSX
+          target: 'es2015', // Syntax to compile to (see options below for possible values)
+        },
+        exclude: /node_modules\/(?!@capillarytech)|cap-react-ui-library|cap-style-guide|cap-ui-library/
       },
       {
         test: /\.js$/, // Transform all .js files required somewhere with Babel
-        use: {
-          loader: 'babel-loader',
-          options: options.babelQuery,
-        },
-        exclude: /node_modules\/(?!@capillarytech)/,
+        use: [
+          {
+            loader: 'thread-loader',
+          },
+          {
+            loader: 'babel-loader',
+            options: options.babelQuery,
+          },
+        ],
+        include: /cap-react-ui-library|cap-style-guide|cap-ui-library/,
+        exclude: /cap-react-ui-library\/node_modules|cap-style-guide\/node_modules|cap-ui-library\/node_modules/,
       },
       {
         test: /\.scss$/,
         exclude: /node_modules\/(?!@capillarytech)/,
-        use: extractSass.extract({
-          use: ['css-loader', 'sass-loader', 'sass-loader?sourceMap'],
-          fallback: 'style-loader',
-        }),
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'sass-loader',
+          'sass-loader?sourceMap',
+        ],
       },
       {
         test: /\.less$/,
         use: [
           {
-            loader: 'style-loader',
+            loader: MiniCssExtractPlugin.loader,
           },
           {
             loader: 'css-loader',
@@ -82,35 +99,11 @@ module.exports = options => ({
         // // they will be a part of our compilation either way.
         // // So, no need for ExtractTextPlugin here.
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
       {
-        test: /\.(eot|svg|ttf|woff|woff2)$/,
+        test: /\.(eot|svg|ttf|woff|woff2|jpg|png|gif)$/,
         use: 'file-loader',
-      },
-      {
-        test: /\.(jpg|png|gif)$/,
-        use: [
-          'file-loader',
-          {
-            loader: 'image-webpack-loader',
-            options: {
-              mozjpeg: {
-                enabled: false,
-              },
-              gifsicle: {
-                interlaced: false,
-              },
-              optipng: {
-                optimizationLevel: 7,
-              },
-              pngquant: {
-                quality: '65-90',
-                speed: 4,
-              },
-            },
-          },
-        ],
       },
       {
         test: /\.html$/,
@@ -136,7 +129,8 @@ module.exports = options => ({
       // make fetch available
       fetch: 'exports-loader?self.fetch!whatwg-fetch',
     }),
-    extractSass,
+    // extractSass,
+    miniCssExtractPlugin,
 
     // Always expose NODE_ENV to webpack, in order to use `process.env.NODE_ENV`
     // inside your code for any environment checks; UglifyJS will automatically

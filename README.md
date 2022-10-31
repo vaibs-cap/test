@@ -1,7 +1,9 @@
-# Loyalty Plus
+# Cap React Starter Kit
 
 ## Features 🎉
 
+* Faster builds.
+* React fast refresh - that preserves local state when app is updated.
 * Atomic Folder Structure
 * Redux + Redux-Saga for state management
 * Styled Components
@@ -10,7 +12,7 @@
 * Component scaffolding
 * App audit using lighthouse, size-limit and sonar
 * Storybook integrated with react-live playground
-* Jest testing framework with snapshot testing
+* Jest testing framework with react testing library for unit and integration tests
 
 ## Topics to refer
 
@@ -34,10 +36,15 @@ npm install
 
 ## Scripts
 
-* **start** - Install dependencies and serve in development environment
+* **install** - install the dependencies
+* **clean install** - remove dependencies and reinstall the dependencies
+* **start** - serve in development environment
 * **build** - Make production build
+* **build:analyze** - Make production build along with bundle analyzer. This is meant to run locally.
 * **lint** - Run javascript linting and style linting. (Also used as a precommit hook)
-* **test** - Run jest test suites wiht snapshot testing.
+* **test** - Run all unit and integration jest test suites
+* **test:unit** - Run all unit jest test suites
+* **test:integration** - Run all integration jest test suites
 * **lighthouse** - Does a lighthouse audit for the webpage
 * **size** - Does a size audit for the app
 * **sonar** - Does a sonar audit for the app

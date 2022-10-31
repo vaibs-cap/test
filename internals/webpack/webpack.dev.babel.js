@@ -8,6 +8,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
   .BundleAnalyzerPlugin;
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 module.exports = require('./webpack.base.babel')({
   mode: 'development',
@@ -42,9 +43,10 @@ module.exports = require('./webpack.base.babel')({
       exclude: /a\.js|node_modules/, // exclude node_modules
       failOnError: false, // show a warning when there is a circular dependency
     }),
-    new BundleAnalyzerPlugin({
-      analyzerPort: 8006,
-    }),
+    // new BundleAnalyzerPlugin({
+    //   analyzerPort: 8006,
+    // }),
+    new ReactRefreshWebpackPlugin(),
   ],
 
   // Emit a source map for easier debugging
