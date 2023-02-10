@@ -49,6 +49,7 @@ module.exports = {
   ],
   coveragePathIgnorePatterns: [
     '.tests.integration.',
-    /mockdata/i,
+    'mockdata',
+    'mockData'
   ],
 };
