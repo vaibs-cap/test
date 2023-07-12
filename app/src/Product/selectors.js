@@ -5,16 +5,13 @@ import { initialState } from './reducer';
 // sets productDetail to initialState
 
 const selectProductDetailDomain = (state = fromJS({})) =>
-  state.get('productDetail', initialState);         
+  state.get('productDetail', initialState);
 
-//get productDetail State  
+//get productDetail State
 
 const makeSelectProductDetails = () =>
-createSelector(selectProductDetailDomain, (substate = fromJS({})) =>
-substate.toJS(),
-);
+  createSelector(selectProductDetailDomain, (substate = fromJS({})) =>
+    substate.toJS(),
+  );
 
-export {
-    selectProductDetailDomain,
-    makeSelectProductDetails,
-}
+export { selectProductDetailDomain, makeSelectProductDetails };
