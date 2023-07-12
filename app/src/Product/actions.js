@@ -1,11 +1,12 @@
 import * as types from './constants';
 
-export const getProducts = (query,category) => {
+export const getProducts = (query,category,skip) => {
   console.log('request');
   return {
     type: types.GET_PRODUCT_REQUEST,
     query,
-    category
+    category,
+    skip
   };
 };
 

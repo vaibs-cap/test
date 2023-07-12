@@ -27,6 +27,7 @@ import {styles} from './style';
 import withStyles from '../../utils/withStyles';
 import { getData } from './actions';
 import { makeSelectProductDetails } from './selectors';
+import { Pagination } from 'antd';
 
 export const Product = ({ actions, productDetails }) => {
   const { Search } = CapInput;
@@ -35,6 +36,8 @@ export const Product = ({ actions, productDetails }) => {
   const [query, setQuery] = useState('');
   const [products, setProducts] = useState([]);
   const [categories,setCategories] = useState([]);
+  const [total,setTotal] = useState(0);
+  const [current, setCurrent] = useState(1);
   
   
   useEffect(()=>{ const categories=fetch('http://localhost:3000/products/categories')
@@ -47,7 +50,9 @@ export const Product = ({ actions, productDetails }) => {
 
   useEffect(
     () => {
-      setProducts(productDetails.products);
+      setProducts(productDetails?.products?.data);
+      setTotal(productDetails?.products?.total);
+
     },
     [productDetails],
   );
@@ -57,8 +62,8 @@ export const Product = ({ actions, productDetails }) => {
   const [modalData,setModalData] = useState([]);
 
   useEffect(()=>{
-    actions.getProducts(query,selectedCat);
-  },[selectedCat,query])
+    actions.getProducts(query,selectedCat,current);
+  },[selectedCat,query,current])
   
   const showModal = (record) => {
     setModalData(record);
@@ -80,10 +85,12 @@ export const Product = ({ actions, productDetails }) => {
 
   const handleCatChange = value => {
     setSelectedCat(value);
+    setCurrent(1);
   }
 
   const handleChange = event => {
     setQuery(event.target.value);
+    setCurrent(1);
   };
 
   
@@ -157,19 +164,26 @@ export const Product = ({ actions, productDetails }) => {
         >
           <CapButton
             onClick={() => {
-              actions.getProducts(query,selectedCat);
+              actions.getProducts(query,selectedCat,current);
             }}
           >
             Search
           </CapButton>
         </CapColumn>
       </CapRow>
+      <Pagination
+      onChange={setCurrent}
+      total={total}
+      current={current}
+      pageSize={10}
+     />
       <CapTable
         id="capTable_1"
         ColumnGroup={columns}
         columns={columns}
         dataSource={products}
         className="hide-hover"
+        pagination={false}
       />
       <CapModal
         title="Product Details"
