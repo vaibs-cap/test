@@ -36,6 +36,7 @@ export const Product = ({ actions, productDetails }) => {
   const [products, setProducts] = useState([]);
   const [categories,setCategories] = useState([]);
   
+  
   useEffect(()=>{ const categories=fetch('http://localhost:3000/products/categories')
   .then(res => res.json()).then(res=>{
     const catObj=res.map(e=>({label:e,value:e}));
@@ -47,7 +48,6 @@ export const Product = ({ actions, productDetails }) => {
   useEffect(
     () => {
       setProducts(productDetails.products);
-      console.log('after fetch'); 
     },
     [productDetails],
   );
@@ -58,7 +58,6 @@ export const Product = ({ actions, productDetails }) => {
   const [modalData,setModalData] = useState([]);
 
   const showModal = (record) => {
-    console.log(record);
     setModalData(record);
     setModalVisibility(true);
   };
@@ -171,7 +170,6 @@ export const Product = ({ actions, productDetails }) => {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        {console.log(modalData)} 
         <div className='modal-content'>
         <img src={modalData.thumbnail}/>
         <h1>{modalData.title}</h1>
