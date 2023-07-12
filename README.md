@@ -1,27 +1,12 @@
-# Cap React Starter Kit
+# Onboarding-Assignment-1
 
-## Features 🎉
+## Features Implemented🎉
 
-* Faster builds.
-* React fast refresh - that preserves local state when app is updated.
-* Atomic Folder Structure
-* Redux + Redux-Saga for state management
-* Styled Components
-* Dynamic reducer/saga injection
-* Javascript and styles linting
-* Component scaffolding
-* App audit using lighthouse, size-limit and sonar
-* Storybook integrated with react-live playground
-* Jest testing framework with react testing library for unit and integration tests
-
-## Topics to refer
-
-* [Audit](docs/audit/README.md)
-* [CSS](docs/css/README.md)
-* [JS](docs/js/README.md)
-* [Maintenance](docs/maintenance/README.md)
-* [Testing](docs/testing/README.md)
-* [Atomic Design](http://bradfrost.com/blog/post/atomic-web-design/)
+* API Call using Redux and Saga
+* Search Functionality onChange
+* Filter by Category onClick of Search button
+* Individual Product Details shown using modal
+* Tests (yet to implement)
 
 ## Installation
 
@@ -33,6 +18,13 @@ Install dependencies using `npm`.
 ```sh
 npm install
 ```
+
+## Run Instructions
+
+Run the dummyJSON server(not included) on port 3000. 
+use `npm start` to start the server.
+Login or move to '/product' route to view component 
+
 
 ## Scripts
 

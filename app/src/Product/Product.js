@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-// import './styles.css';
+import './styles.css';
 
 import CapHeading from '@capillarytech/cap-ui-library/CapHeading';
 import CapRow from '@capillarytech/cap-ui-library/CapRow';
@@ -11,6 +11,7 @@ import CapButton from '@capillarytech/cap-ui-library/CapButton';
 import CapHeader from '@capillarytech/cap-ui-library/CapHeader';
 import CapTable from '@capillarytech/cap-ui-library/CapTable/CapTable';
 import CapIcon from '@capillarytech/cap-ui-library/CapIcon';
+import CapModal from '@capillarytech/cap-ui-library/CapModal';
 
 import { compose, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -37,8 +38,28 @@ export const Product = ({ actions, productDetails }) => {
   const [products, setProducts] = useState([]);
   const [categories,setCategories] = useState([]);
   const [selectedCat, handleCatChange] = useState(null);
+  const [modalVisibility,setModalVisibility] = useState(false);
+  const [modalData,setModalData] = useState([]);
 
   console.log(categories)
+
+  const showModal = (record) => {
+    console.log(record);
+    setModalData(record);
+    setModalVisibility(true);
+  };
+
+  const handleOk = () => {
+    setModalVisibility(false);
+  };
+
+  const handleCancel = () => {
+    setModalVisibility(false);
+  };
+
+  const clearSelection =() => {
+    handleCatChange("");
+  }
 
   const handleChange = async event => {
     await setQuery(event.target.value);
@@ -92,7 +113,7 @@ export const Product = ({ actions, productDetails }) => {
       key: 'action',
       render: (text, record) => (
         <span>
-          <a>View</a>
+          <a onClick={() => showModal(record)}>View</a>
         </span>
       ),
       width: '10%'
@@ -101,7 +122,7 @@ export const Product = ({ actions, productDetails }) => {
 
   return (
     <div className="background">
-      <CapHeading type="h1">Campaigns</CapHeading>
+      <CapHeading type="h1">Products</CapHeading>
       <CapRow type="flex" style={{ gap: '1rem' }}>
         <CapColumn className="column-item">
           <Search placeholder="Enter value" onChange={handleChange} />
@@ -121,7 +142,7 @@ export const Product = ({ actions, productDetails }) => {
 
         </CapColumn>
         <CapColumn className="column-item">
-          <CapIcon type="filter" />
+          <CapIcon onClick={clearSelection} type="filter" />
         </CapColumn>
         <CapColumn
           className="column-item"
@@ -144,6 +165,21 @@ export const Product = ({ actions, productDetails }) => {
         dataSource={products}
         className="hide-hover"
       />
+      <CapModal
+        title="Product Details"
+        visible={modalVisibility}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        {console.log(modalData)} 
+        <div className='modal-content'>
+        <img src={modalData.thumbnail}/>
+        <h1>{modalData.title}</h1>
+        <h2>{modalData.brand}</h2>
+        <h3>{modalData.description}</h3>
+        <h3>${modalData.price}</h3>
+        </div>
+      </CapModal>
     </div>
   );
 };
