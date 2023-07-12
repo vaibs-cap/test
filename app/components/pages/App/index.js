@@ -15,6 +15,7 @@ import { userIsAuthenticated } from '../../../utils/authWrapper';
 import Cap from '../Cap';
 import Login from '../Login';
 // import Login from '../components/templates/Login';
+import Product from '../../../src/Product/Product';
 import NotFoundPage from '../NotFoundPage';
 
 import GlobalStyle from '../../../global-styles';
@@ -29,7 +30,7 @@ const loginUrl =
     ? config.production.login_url
     : config.development.login_url;
 
-const Protected = userIsAuthenticated(Cap);
+const Protected = userIsAuthenticated(Product);
 
 export const App = () => (
   <>
