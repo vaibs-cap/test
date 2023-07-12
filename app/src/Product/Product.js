@@ -52,11 +52,14 @@ export const Product = ({ actions, productDetails }) => {
     [productDetails],
   );
 
-
-  const [selectedCat, handleCatChange] = useState(null);
+  const [selectedCat, setSelectedCat] = useState(null);
   const [modalVisibility,setModalVisibility] = useState(false);
   const [modalData,setModalData] = useState([]);
 
+  useEffect(()=>{
+    actions.getProducts(query,selectedCat);
+  },[selectedCat,query])
+  
   const showModal = (record) => {
     setModalData(record);
     setModalVisibility(true);
@@ -71,12 +74,15 @@ export const Product = ({ actions, productDetails }) => {
   };
 
   const clearSelection =() => {
-    handleCatChange("");
+    setSelectedCat("");
   }
 
-  const handleChange = async event => {
-    await setQuery(event.target.value);
-    actions.getProducts(query,selectedCat);
+  const handleCatChange = value => {
+    setSelectedCat(value);
+  }
+
+  const handleChange = event => {
+    setQuery(event.target.value);
   };
 
   
