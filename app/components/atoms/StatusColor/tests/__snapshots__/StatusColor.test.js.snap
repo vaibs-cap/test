@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<StatusColor /> should render the StatusColor 1`] = `
+<style
+  className=""
+  color=""
+  height="0.571rem"
+  width="0.571rem"
+/>
+`;

@@ -3,7 +3,6 @@ import * as matchers from 'redux-saga-test-plan/matchers';
 import { throwError } from 'redux-saga-test-plan/providers';
 import { takeLatest } from 'redux-saga/effects';
 import * as types from '../constants';
-import * as Api from '../../../../services/api';
 import * as saga from '../saga';
 
 const { getProductsSaga, watchForGetProducts } = saga;

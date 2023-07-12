@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AvatarIcon /> should render the AvatarIcon 1`] = `
+<CapIconAvatar
+  backgroundProps={
+    Object {
+      "fill": "",
+    }
+  }
+  className=""
+  height="2.285rem"
+  labelProps={
+    Object {
+      "style": Object {
+        "color": "",
+        "fontSize": "12px",
+        "fontWeight": "normal",
+      },
+    }
+  }
+  text=""
+  width="2.285rem"
+/>
+`;
