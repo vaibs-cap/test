@@ -6,7 +6,7 @@ export function* watchForGetProducts() {
   yield takeLatest(types.GET_PRODUCT_REQUEST, getProductsSaga);
 }
 
-const getProducts = async (query,category) => {
+export const getProducts = async (query,category) => {
   var url= `http://localhost:3000/products`+ (category?`/category/${category}`:"");
   console.log(url,query)
   const res = await fetch(url);

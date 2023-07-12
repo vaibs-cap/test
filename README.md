@@ -23,7 +23,7 @@ npm install
 
 Run the dummyJSON server(not included) on port 3000. 
 use `npm start` to start the server.
-Login or move to '/product' route to view component 
+Login or move to '/product' route to view component.     
 
 
 ## Scripts

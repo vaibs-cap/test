@@ -32,16 +32,30 @@ export const Product = ({ actions, productDetails }) => {
   const { Search } = CapInput;
   const {CapCustomSelect} = CapSelect;
 
-  console.log('prod...', productDetails.products);
-
   const [query, setQuery] = useState('');
   const [products, setProducts] = useState([]);
   const [categories,setCategories] = useState([]);
+  
+  useEffect(()=>{ const categories=fetch('http://localhost:3000/products/categories')
+  .then(res => res.json()).then(res=>{
+    const catObj=res.map(e=>({label:e,value:e}));
+    setCategories(catObj  );
+  })
+
+} ,[])
+
+  useEffect(
+    () => {
+      setProducts(productDetails.products);
+      console.log('after fetch'); 
+    },
+    [productDetails],
+  );
+
+
   const [selectedCat, handleCatChange] = useState(null);
   const [modalVisibility,setModalVisibility] = useState(false);
   const [modalData,setModalData] = useState([]);
-
-  console.log(categories)
 
   const showModal = (record) => {
     console.log(record);
@@ -66,21 +80,7 @@ export const Product = ({ actions, productDetails }) => {
     actions.getProducts(query,selectedCat);
   };
 
-  useEffect(()=>{ const categories=fetch('http://localhost:3000/products/categories')
-  .then(res => res.json()).then(res=>{
-    const catObj=res.map(e=>({label:e,value:e}));
-    setCategories(catObj  );
-  })
-
-} ,[])
-
-  useEffect(
-    () => {
-      setProducts(productDetails.products);
-      console.log('after fetch');
-    },
-    [productDetails],
-  );
+  
   const columns = [
     {
       title: (
