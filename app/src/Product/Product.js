@@ -75,6 +75,7 @@ export const Product = ({ actions, productDetails }) => {
 
   const clearSelection =() => {
     setSelectedCat("");
+    setQuery("");
   }
 
   const handleCatChange = value => {
@@ -130,7 +131,7 @@ export const Product = ({ actions, productDetails }) => {
       <CapHeading type="h1">Products</CapHeading>
       <CapRow type="flex" style={{ gap: '1rem' }}>
         <CapColumn className="column-item">
-          <Search placeholder="Enter value" onChange={handleChange} />
+          <Search placeholder="Enter value" onChange={handleChange} value={query}/>
         </CapColumn>
         <CapColumn className="column-item">
           <CapDateRangePicker />

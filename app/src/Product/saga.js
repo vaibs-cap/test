@@ -1,4 +1,5 @@
 import { takeLatest, call, put, all } from 'redux-saga/effects';
+import { delay } from "redux-saga";
 import * as types from './constants';
 import { getProductFailure, getProductSuccess } from './actions';
 
@@ -8,6 +9,7 @@ export function* watchForGetProducts() {
 
 export const getProducts = async (query,category) => {
   var url= `http://localhost:3000/products`+ (category?`/category/${category}`:"");
+  console.log("debounced")
   const res = await fetch(url);
   const data = await res.json();
   const filter = await data.products.filter(e=>e.title.toLowerCase().includes(query));
@@ -16,6 +18,7 @@ export const getProducts = async (query,category) => {
 
 export function* getProductsSaga(action) {
   console.log('workerSaga');
+  yield delay(500);
   try {
     const data = yield call(getProducts, action.query,action.category);
     console.log('fetched', data);
