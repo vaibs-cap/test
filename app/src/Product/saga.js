@@ -8,7 +8,7 @@ export function* watchForGetProducts() {
 }
 
 export const getProducts = async (query,category,skip) => {
-  var url= `http://localhost:3000/products`+ (category?`/category/${category}`:"")+`?limit=100&skip=${(skip-1)*10}`;
+  var url= `http://localhost:3000/products`+ (category ?`/category/${category}`:"")+`?limit=100&skip=${(skip-1)*10}`;
   console.log("debounced")
   const res = await fetch(url);
   const data = await res.json();

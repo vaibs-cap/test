@@ -1,12 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ConfigureKPI Reducer it handles the reducer with default type 1`] = `
-Immutable.Map {
-  "error": null,
-  "products": null,
-}
-`;
-
 exports[`getProductsReducer it handles the reducer with default type 1`] = `
 Immutable.Map {
   "error": null,

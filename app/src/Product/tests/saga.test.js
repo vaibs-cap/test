@@ -54,7 +54,7 @@ describe('ProductDetail saga', () => {
     });
   });
 
-  describe('watchForGetPrograms saga', () => {
+  describe('watchForGetProducts saga', () => {
     const generator = watchForGetProducts();
     it('should call watchers functions', () => {
       expect(generator.next().value).toEqual(
