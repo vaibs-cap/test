@@ -146,9 +146,8 @@ export const Product = ({ actions, productDetails }) => {
         <CapColumn className="column-item" span={3}>
           <CapCustomSelect
                   width="150px"
-                  // selectPlaceholder="Select"
+                  selectPlaceholder="Select Option"
                   showSearch
-                  label={<div data-testid="dropdown"></div>}
                   options={categories}
                   value={selectedCat}
                   onChange={handleCatChange}
