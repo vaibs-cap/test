@@ -5,60 +5,60 @@ import { takeLatest } from 'redux-saga/effects';
 import * as types from '../constants';
 import * as saga from '../saga';
 
-const { getProductsSaga, watchForGetProducts } = saga;
+const { setProductsSaga, watchForSetProducts } = saga;
 
 const error = new Error('error');
 
-describe('ProductDetail saga', () => {
-  describe('getProducts saga', () => {
+describe('AddProductDetail saga', () => {
+  describe('setProducts saga', () => {
     it('handle valid response from api', () => {
-      expectSaga(getProductsSaga)
+      expectSaga(setProductsSaga)
         .provide([
           [
-            matchers.call.fn(saga.getProducts),
+            matchers.call.fn(saga.setProducts),
             [],
           ],
         ])
         .put({
-            type: types.GET_PRODUCT_SUCCESS,
+            type: types.SET_PRODUCT_SUCCESS,
             payload: [],
           })
         .run();
     });
 
     it('handle error response from api', () => {
-      expectSaga(getProductsSaga)
+      expectSaga(setProductsSaga)
         .provide([
           [
-            matchers.call.fn(saga.getProducts),
+            matchers.call.fn(saga.setProducts),
             {
               error,
             },
           ],
         ])
         .put({
-          type: types.GET_PRODUCTS_FAILURE,
+          type: types.SET_PRODUCT_FAILURE,
           error,
         })
         .run();
     });
 
     it('handles error thrown from api', () => {
-      expectSaga(getProductsSaga)
-        .provide([[matchers.call.fn(saga.getProducts), throwError(error)]])
+      expectSaga(setProductsSaga)
+        .provide([[matchers.call.fn(saga.setProducts), throwError(error)]])
         .put({
-          type: types.GET_PRODUCT_FAILURE,
+          type: types.SET_PRODUCT_FAILURE,
           error,
         })
         .run();
     });
   });
 
-  describe('watchForGetProducts saga', () => {
-    const generator = watchForGetProducts();
+  describe('watchForSetProducts saga', () => {
+    const generator = watchForSetProducts();
     it('should call watchers functions', () => {
       expect(generator.next().value).toEqual(
-        takeLatest(types.GET_PRODUCT_REQUEST, getProductsSaga),
+        takeLatest(types.SET_PRODUCT_REQUEST, setProductsSaga),
       );
     });
   });
