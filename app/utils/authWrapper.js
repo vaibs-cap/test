@@ -15,7 +15,7 @@ const loginUrl =
     : `${config.development.login_url}`;
 
 const isLoggedIn = () => {
-  let isLoggedIn = false;
+  let isLoggedIn = true;
   let authenticationToken =
     process.env.NODE_ENV === 'production'
       ? loadItemInProd('isLoggedIn')

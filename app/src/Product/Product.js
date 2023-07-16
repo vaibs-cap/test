@@ -1,5 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import './styles.css';
+import history from 'utils/history';
+
 
 import CapHeading from '@capillarytech/cap-ui-library/CapHeading';
 import CapRow from '@capillarytech/cap-ui-library/CapRow';
@@ -24,7 +26,7 @@ import * as types from './constants';
 import saga from './saga';
 import reducer from './reducer';
 import {styles} from './style';
-import withStyles from '../../utils/withStyles';
+import withStyles from 'utils/withStyles';
 import { getData } from './actions';
 import { makeSelectProductDetails } from './selectors';
 import { Pagination } from 'antd';
@@ -42,7 +44,7 @@ export const Product = ({ actions, productDetails }) => {
   
   useEffect(()=>{ const categories=fetch('http://localhost:3000/products/categories')
   .then(res => res.json()).then(res=>{
-    const catObj=res.map(e=>({label:e,value:e}));
+    const catObj=res.map(e=>({label:e,value:e,key:e}));
     setCategories(catObj  );
   })
 
@@ -163,11 +165,9 @@ export const Product = ({ actions, productDetails }) => {
           style={{ marginLeft: 'auto' }}
         >
           <CapButton
-            onClick={() => {
-              actions.getProducts(query,selectedCat,current);
-            }}
+            onClick={() => history.push('/product/add')}
           >
-            Search
+            Add Product
           </CapButton>
         </CapColumn>
       </CapRow>
@@ -184,6 +184,7 @@ export const Product = ({ actions, productDetails }) => {
         dataSource={products}
         className="hide-hover"
         pagination={false}
+        rowKey={(record) => record.id}
       />
       <CapModal
         title="Product Details"

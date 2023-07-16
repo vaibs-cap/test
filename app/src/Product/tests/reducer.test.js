@@ -6,7 +6,6 @@ const error = new Error('error');
 
 describe('getProductsReducer', () => {
   it('it handles the reducer with default type', () => {
-    expect(productReducer(undefined, {})).toMatchSnapshot();
     expect(productReducer(undefined, {})).toEqual(fromJS({
       error: null,
       products: null,

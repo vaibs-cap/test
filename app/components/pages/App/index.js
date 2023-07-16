@@ -15,11 +15,12 @@ import { userIsAuthenticated } from '../../../utils/authWrapper';
 import Cap from '../Cap';
 import Login from '../Login';
 // import Login from '../components/templates/Login';
-import Product from '../../../src/Product/Product';
+import Product from '../../../src/Product';
+import ProductAdd from '../../../src/ProductAdd';
 import NotFoundPage from '../NotFoundPage';
 
 import GlobalStyle from '../../../global-styles';
-import { publicPath } from '../../../config/path';
+import { addPath, publicPath } from '../../../config/path';
 import config from '../../../config/app';
 
 import RenderRoute from '../../atoms/RenderRoute';
@@ -37,7 +38,8 @@ export const App = () => (
     <ConnectedRouter history={history}>
       <Switch>
         <RenderRoute exact path={loginUrl} component={Login} />
-        <RenderRoute path={publicPath} component={Protected} key={publicPath} />
+        <RenderRoute exact path={publicPath} component={Protected} key={publicPath} />
+        <RenderRoute exact path={addPath} component={ProductAdd} key={addPath} />
         <RenderRoute component={NotFoundPage} />
       </Switch>
     </ConnectedRouter>
