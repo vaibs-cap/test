@@ -95,6 +95,9 @@ export const Product = ({ actions, productDetails }) => {
     setCurrent(1);
   };
 
+  const gotoAdd = () => {
+    history.push('/product/add')
+  }
   
   const columns = [
     {
@@ -165,7 +168,7 @@ export const Product = ({ actions, productDetails }) => {
           style={{ marginLeft: 'auto' }}
         >
           <CapButton
-            onClick={() => history.push('/product/add')}
+            onClick={gotoAdd}
           >
             Add Product
           </CapButton>

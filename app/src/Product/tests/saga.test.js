@@ -5,6 +5,10 @@ import { takeLatest } from 'redux-saga/effects';
 import * as types from '../constants';
 import * as saga from '../saga';
 
+import fetch from 'node-fetch';
+globalThis.fetch = fetch;
+
+
 const { getProductsSaga, watchForGetProducts } = saga;
 
 const error = new Error('error');
@@ -62,4 +66,7 @@ describe('ProductDetail saga', () => {
       );
     });
   });
+
+  
 });
+
