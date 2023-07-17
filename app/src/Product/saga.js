@@ -15,8 +15,6 @@ export const getProducts = async (query,category,skip) => {
   const filter = await data.products.filter(e=>e.title.toLowerCase().includes(query));
   const total=data.total;
   return ({total:total,data:filter});
-  // const total=filter.length;
-  // return ({total:total,data:filter.slice(0,10)});
 };
 
 export function* getProductsSaga(action) {

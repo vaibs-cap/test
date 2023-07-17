@@ -5,6 +5,11 @@ import userEvent from '@testing-library/user-event'
 import '@testing-library/jest-dom';
 import * as actions from '../actions';
 import {ProductAdd} from "../ProductAdd";
+import configureStore from '../../../configureStore'
+import initialState from '../../../initialState'
+import history from 'utils/history';
+import { Provider } from 'react-redux';
+
 
 const mockPush= jest.fn();
 jest.mock('../ProductAdd', () => ({
@@ -18,7 +23,7 @@ jest.setTimeout(30000);
 describe('ProductAdd Component Tests', () => {
 
     test('should render the components', async() => {
-      render(<ProductAdd actions={actions} newProductDetails={{}}/>);
+      render(setup());
     //   screen.debug();
       const addBtn= await screen.getByRole('button', {
         name: /submit/i
@@ -33,7 +38,7 @@ describe('ProductAdd Component Tests', () => {
     })
     
     test('should enable button when fields are filled', async() => {
-        render(<ProductAdd actions={actions} newProductDetails={{}}/>);
+        render(setup());
       //   screen.debug();
         const addBtn= await screen.getByRole('button', {
           name: /submit/i
@@ -54,7 +59,7 @@ describe('ProductAdd Component Tests', () => {
     })
 
     test('should render success form', async() => {
-        render(<ProductAdd actions={actions} newProductDetails={{}}/>);
+        render(setup());
         const addBtn= await screen.findByRole('button', {
             name: /submit/i
         })
@@ -75,7 +80,7 @@ describe('ProductAdd Component Tests', () => {
     })
     
     test('should redirect to homepage', async() => {
-        render(<ProductAdd actions={actions} newProductDetails={{}}/>);
+        render(setup());
         const backBtn= await screen.findByRole('button', {
             name: /go back/i
           })
@@ -96,4 +101,11 @@ const typeText= async (element,text) =>{
 const checkAvailable = async(element) =>{
     const field=await screen.findByPlaceholderText(`Enter ${element}`)
     expect(field).toBeInTheDocument();
+}
+
+
+const setup = () => {
+  let store=configureStore(initialState,history);
+  return <Provider store={store}><ProductAdd actions={actions} newProductDetails={undefined} status='pending'/></Provider>;
+
 }
