@@ -1,0 +1,1 @@
+HTMLCanvasElement.prototype.getContext = jest.fn(); // for this error : Not implemented: HTMLCanvasElement.prototype.getContext

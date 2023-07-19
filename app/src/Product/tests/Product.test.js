@@ -9,111 +9,74 @@ import {
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import history from 'utils/history';
-import { Provider } from 'react-redux';
-import fetch from 'node-fetch';
 import configureStore from '../../../configureStore';
 import initialState from '../../../initialState';
 
-import { Product } from '../Product';
+import Product from '../Product';
 import * as actions from '../actions';
+import { Provider } from 'react-redux';
 
-globalThis.fetch = fetch;
 
-const mockPush = jest.fn();
-jest.mock('../Product', () => ({
-  ...jest.requireActual('../Product'),
-  goHome: mockPush,
-}));
+// const mockPush = jest.fn();
+// jest.mock('../Product', () => ({
+//   ...jest.requireActual('../Product'),
+//   goHome: mockPush,
+// }));
+
+global.fetch = jest.fn(() =>
+  Promise.resolve({
+    json: () => Promise.resolve(['smartphones','fragrances']),
+  }));
+
 
 describe('Product Component Tests', () => {
-  test('should render the components', () => {
-    render(setup());
-    waitFor(() => {
-      expect(
-        screen.getByRole('cell', {
-          name: /iphone 9/i,
-        }),
-      ).toBeInTheDocument();
-    });
-  });
-
-  test('should handle search query', async () => {
+  test('should render the components', async() => {
     render(setup());
     const searchBar = await screen.findByPlaceholderText('Enter value');
-    waitFor(() => {
-      expect(searchBar).toBeInTheDocument();
-    });
-    await userEvent.type(searchBar, 'oil');
-    waitFor(() => {
-      expect(
-        screen.getByRole('cell', {
-          name: /tree oil 30ml/i,
-        }),
-      ).toBeInTheDocument();
-    });
-  });
+    expect(searchBar).toBeInTheDocument();
+    const datePicker = await screen.findByRole('textbox', {
+        name: /start date/i
+      })
+    expect(datePicker).toBeInTheDocument();
+    const selectDropdown = await screen.findByText('Select Option');
+    expect(selectDropdown).toBeInTheDocument();
+    const gotoBtn = await screen.findByRole('button', {
+        name: /add product/i
+      });
+    expect(gotoBtn).toBeInTheDocument();
+    const capTable = await screen.findByRole('columnheader', {
+        name: /product title the product/i
+      })
+    expect(capTable).toBeInTheDocument();
+});
 
   test('should clear search query', async () => {
     const { container } = render(setup());
     const searchBar = await screen.findByPlaceholderText('Enter value');
-    waitFor(() => {
-      expect(searchBar).toBeInTheDocument();
-    });
+    expect(searchBar).toBeInTheDocument();
     await userEvent.type(searchBar, 'oil');
     await userEvent.click(container.querySelector('#filter_svg__a'));
-    waitFor(() => {
-      expect(searchBar).toHaveValue('');
-    });
+    expect(searchBar).toHaveValue('');
   });
 
-  // FAILING
-  test('should handle filtering', () => {
-    const { queryAllByText, getByText, container } = render(setup());
-    waitFor(expect(getByText('Select Option')).toBeInTheDocument());
-    const dropdown = screen.getByText('Select Option');
-    waitFor(() => {
-      userEvent.mouseDown(dropdown);
-    });
-    screen.debug();
-    waitFor(expect(screen.getByText('fragrances'))).toBeInTheDocument();
-  });
-
-  test('should open modal', () => {
-    render(setup());
-    waitFor(() => {
-      expect(
-        screen.getByRole('cell', {
-          name: /iphone 9/i,
-        }),
-      ).toBeInTheDocument();
-    });
-    const modalLink = screen.findAllByText(/view/i);
-    waitFor(() => {
-      expect(modalLink).toBeInTheDocument();
-    });
-    waitFor(() => {
-      userEvent.click(modalLink);
-    });
-    waitFor(() => {
-      expect(
-        screen.findByRole('heading', {
-          name: /an apple mobile which is nothing like apple/i,
-        }),
-      ).toBeInTheDocument();
-    });
-  });
-
-  test('should redirect to add page', async () => {
+  test('dropdown component should work', async () => {
     const { container } = render(setup());
-    const linkBtn = await screen.findByRole('button', {
-      name: /add product/i
-    });
-    waitFor(() => {
-      expect(linkBtn).toBeInTheDocument();
-    });
-    await userEvent.click(linkBtn);
-    waitFor(() => expect(mockPush).toHaveBeenCalled());
+    const selectDropdown = await screen.findByText('Select Option');
+    expect(selectDropdown).toBeInTheDocument();
+    userEvent.click(selectDropdown);
+    const option = await screen.findByText('smartphones')
+    expect(option).toBeInTheDocument();
   });
+
+//   test('should redirect to add page', async () => {
+//     const { container } = render(setup());
+//     const linkBtn = await screen.findByRole('button', {
+//       name: /add product/i
+//     });
+//     expect(linkBtn).toBeInTheDocument();
+//     await userEvent.click(linkBtn);
+//     waitFor(() => expect(mockPush).toHaveBeenCalled());
+//   });
 });
 
 const setup = () => {

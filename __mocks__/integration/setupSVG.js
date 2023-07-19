@@ -1,0 +1,5 @@
+window.SVGPathElement = jest.fn();
+
+
+
+

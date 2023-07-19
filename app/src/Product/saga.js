@@ -11,7 +11,7 @@ export const getProducts = async (query, category, skip) => {
   var url = `http://localhost:3000/products${
     category ? `/category/${category}` : ''
   }?limit=10&skip=${(skip - 1) * 10}`;
-  console.log('debounced');
+  console.log(url);
   const res = await fetch(url);
   const data = await res.json();
   const filter = await data.products.filter(e =>
@@ -31,7 +31,7 @@ export function* getProductsSaga(action) {
       action.category,
       action.skip,
     );
-    console.log('fetched', data);
+    // console.log('fetched', data);
     yield put(getProductSuccess(data));
   } catch (error) {
     yield put(getProductFailure(error));

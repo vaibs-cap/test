@@ -17,7 +17,7 @@ import 'sanitize.css/sanitize.css';
 
 // Import root app
 import App from './components/pages/App';
-
+import { IntlProvider } from 'react-intl';
 import LanguageProvider from './components/pages/LanguageProvider';
 import SomethingWentWrong from './components/pages/SomethingWentWrong';
 
@@ -102,11 +102,11 @@ const ErrorScreen = () => <SomethingWentWrong />;
 const render = messages => {
   ReactDOM.render(
     <Provider store={store}>
-      <LanguageProvider messages={messages}>
+      <IntlProvider messages={messages}>
         <ErrorBoundary FallbackComponent={ErrorScreen}>
           <App />
         </ErrorBoundary>
-      </LanguageProvider>
+      </IntlProvider>
     </Provider>,
     MOUNT_NODE,
   );

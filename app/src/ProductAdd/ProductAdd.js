@@ -74,7 +74,7 @@ export const ProductAdd = ({ actions, newProductDetails, status }) => {
 
   const goHome = () => {
     history.push('/product');
-  }
+  };
   useEffect(() => setButtonDisabled(!Object.values(formData).every(Boolean)), [
     formData,
   ]);
@@ -98,10 +98,8 @@ export const ProductAdd = ({ actions, newProductDetails, status }) => {
         <CapColumn>
           <CapHeading type="h1">Add Product</CapHeading>
         </CapColumn>
-        <CapColumn style={{marginLeft:'auto'}}>
-          <CapButton onClick={goHome}>
-            Go Back
-          </CapButton>
+        <CapColumn style={{ marginLeft: 'auto' }}>
+          <CapButton onClick={goHome}>Go Back</CapButton>
         </CapColumn>
       </CapRow>
       <CapRow className="form-item">
@@ -177,18 +175,18 @@ export const ProductAdd = ({ actions, newProductDetails, status }) => {
         </CapColumn>
       </CapRow>
       <CapRow className="form-item">
-      <CapButton
-        disabled={buttonDisabled}
-        onClick={() => {
-          actions.setProducts(formData);
-        }}
-      >
-        Submit
-      </CapButton>
+        <CapButton
+          disabled={buttonDisabled}
+          onClick={() => {
+            actions.setProducts(formData);
+          }}
+        >
+          Submit
+        </CapButton>
       </CapRow>
     </div>
   );
-}
+};
 
 const mapStateToProps = createStructuredSelector({
   newProductDetails: makeSelectNewProductDetails(),
