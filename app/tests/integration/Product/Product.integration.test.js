@@ -116,15 +116,4 @@ describe('Product Integration Tests', () => {
     expect(modalText).toBeInTheDocument();
   });
 
-  // test('should redirect to add page', async () => {
-  //     initializeProduct();
-  //     const linkBtn = await screen.findByRole('button', {
-  //         name: /add product/i
-  //     });
-  //     expect(linkBtn).toBeInTheDocument();
-  //     await userEvent.click(linkBtn);
-  //     await new Promise((r) => setTimeout(r, 2000));
-  //     screen.debug();
-  //     expect(history.location.pathname).toBe(`${publicPath}/add`);
-  //     });
 });

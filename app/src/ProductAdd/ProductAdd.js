@@ -27,7 +27,6 @@ import {
 } from './selectors';
 
 export const ProductAdd = ({ actions, newProductDetails, status }) => {
-  console.log(status);
 
   const blankForm = {
     title: '',
@@ -52,7 +51,6 @@ export const ProductAdd = ({ actions, newProductDetails, status }) => {
   };
 
   const clearForm = () => {
-    console.log('cleared form');
     setFormData(blankForm);
   };
 

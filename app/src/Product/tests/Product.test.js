@@ -68,15 +68,15 @@ describe('Product Component Tests', () => {
     expect(option).toBeInTheDocument();
   });
 
-//   test('should redirect to add page', async () => {
-//     const { container } = render(setup());
-//     const linkBtn = await screen.findByRole('button', {
-//       name: /add product/i
-//     });
-//     expect(linkBtn).toBeInTheDocument();
-//     await userEvent.click(linkBtn);
-//     waitFor(() => expect(mockPush).toHaveBeenCalled());
-//   });
+  test('should redirect to add page', async () => {
+    const { container } = render(setup());
+    const linkBtn = await screen.findByRole('button', {
+      name: /add product/i
+    });
+    expect(linkBtn).toBeInTheDocument();
+    userEvent.click(linkBtn);
+    expect(history.location.pathname).toBe('/product/add')
+  });
 });
 
 const setup = () => {

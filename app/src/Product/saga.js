@@ -31,7 +31,6 @@ export function* getProductsSaga(action) {
       action.category,
       action.skip,
     );
-    // console.log('fetched', data);
     yield put(getProductSuccess(data));
   } catch (error) {
     yield put(getProductFailure(error));

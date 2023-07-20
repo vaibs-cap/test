@@ -20,16 +20,13 @@ import App from '../../../components/pages/App';
 import configureStore from '../../../configureStore';
 import { publicPath } from '../../../config/path';
 import {
-  categories,
-  categoryData,
-  tableData,
   successData,
 } from './mocks/apiResponse';
 import { checkAvailable, typeText } from '../Product/mocks/helper';
 
 export const server = setupServer(
-  rest.post(`http://localhost:3000/products`, (req, res, ctx) =>
-    res(ctx.status(200), ctx.json(apiResponse.successData)),
+  rest.post(`http://localhost:3000/products/add`, (req, res, ctx) =>
+    res(ctx.status(200), ctx.json(successData)),
   ),
 );
 
@@ -77,7 +74,7 @@ describe('ProductAdd Integration Tests', () => {
     await typeText('stock', 'text');
     expect(addBtn).toBeEnabled();
     await userEvent.click(addBtn);
-    await new Promise(r => setTimeout(r, 2000)); //wait for modal load
+    await new Promise(r => setTimeout(r, 1000)); //wait for modal load
     const notif = await screen.findAllByText('New Product Added Successfully');
     expect(notif[0]).toBeInTheDocument();
     expect(screen.getByPlaceholderText(`Enter title`)).toHaveValue('');

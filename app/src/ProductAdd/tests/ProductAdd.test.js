@@ -55,15 +55,15 @@ describe('ProductAdd Component Tests', () => {
     expect(addBtn).toBeEnabled();
   });
 
-  // test('should redirect to homepage', async () => {
-  //   render(setup());
-  //   const backBtn = await screen.findByRole('button', {
-  //     name: /go back/i,
-  //   });
-  //   expect(backBtn).toBeInTheDocument();
-  //   await userEvent.click(backBtn);
-  //   waitFor(() => expect(mockPush).toHaveBeenCalled());
-  // });
+  test('should redirect to homepage', async () => {
+    const { container } = render(setup());
+    const linkBtn = await screen.findByRole('button', {
+      name: /go back/i
+    });
+    expect(linkBtn).toBeInTheDocument();
+    userEvent.click(linkBtn);
+    expect(history.location.pathname).toBe('/product')
+  });
 });
 
 const typeText = async (element, text) => {

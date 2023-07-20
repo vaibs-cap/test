@@ -8,13 +8,15 @@ export function* watchForSetProducts() {
 }
 
 export const setProducts = async (formData) => {
-  if(formData.stock=='0')
+  console.log(formData);
+  if(formData.stock==='0')
     throw new Error;
-  const res = await fetch('https://dummyjson.com/products/add', {
+  const res = await fetch('http://localhost:3000/products/add', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(formData)
   })
+  console.log("******")
   const data = await res.json();
   return data;
 };
@@ -24,7 +26,7 @@ export function* setProductsSaga(action) {
   // yield delay(500);
   try {
     const data = yield call(setProducts, action.formData);
-    console.log('fetched', data);
+    console
     yield put(setProductSuccess(data));
   } catch (error) {
     yield put(setProductFailure(error));
