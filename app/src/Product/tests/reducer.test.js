@@ -9,6 +9,7 @@ describe('getProductsReducer', () => {
     expect(productReducer(undefined, {})).toEqual(fromJS({
       error: null,
       products: null,
+      categories: null,
     }));
   });
 
@@ -19,6 +20,7 @@ describe('getProductsReducer', () => {
     expect(productReducer(undefined, action)).toEqual(fromJS({
         error: null,
         products: null,
+        categories: null,
     }));
   });
 
@@ -30,6 +32,7 @@ describe('getProductsReducer', () => {
     expect(productReducer(undefined, action)).toEqual(fromJS({
       products:[],
       error:null,
+      categories: null,
     }));
   });
 
@@ -41,6 +44,43 @@ describe('getProductsReducer', () => {
     expect(productReducer(undefined, action)).toEqual(fromJS({
       error:"failure",
       products:null,
+      categories: null,
+    }));
+  });
+
+
+  it('it handles the GET_CATEGORY_REQUEST action', () => {
+    const action = {
+      type: types.GET_CATEGORY_REQUEST,
+    };
+    expect(productReducer(undefined, action)).toEqual(fromJS({
+        error: null,
+        products: null,
+        categories: null,
+    }));
+  });
+
+  it('it handles the GET_CATEGORY_SUCCESS action', () => {
+    const action = {
+      type: types.GET_CATEGORY_SUCCESS,
+      payload: [],
+    };
+    expect(productReducer(undefined, action)).toEqual(fromJS({
+      products:null,
+      error:null,
+      categories: [],
+    }));
+  });
+
+  it('it handles the GET_CATEGORY_FAILURE action', () => {
+    const action = {
+      type: types.GET_CATEGORY_FAILURE,
+      payload:"failure",
+    };
+    expect(productReducer(undefined, action)).toEqual(fromJS({
+      error:"failure",
+      products:null,
+      categories: null,
     }));
   });
 });
