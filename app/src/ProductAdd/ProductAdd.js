@@ -25,17 +25,9 @@ import {
   makeSelectNewProductDetails,
   makeSelectProductStatus,
 } from './selectors';
+import { blankForm } from './constants';
 
 export const ProductAdd = ({ actions, newProductDetails, status }) => {
-
-  const blankForm = {
-    title: '',
-    description: '',
-    brand: '',
-    category: '',
-    price: '',
-    stock: '',
-  };
 
   const [formData, setFormData] = useState(blankForm);
   const [buttonDisabled, setButtonDisabled] = useState(true);
