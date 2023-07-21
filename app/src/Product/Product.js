@@ -27,7 +27,6 @@ import saga from './saga';
 import reducer from './reducer';
 import {styles} from './style';
 import withStyles from 'utils/withStyles';
-import { getData } from './actions';
 import { makeSelectProductDetails } from './selectors';
 import { Pagination } from 'antd';
 
@@ -42,19 +41,19 @@ export const Product = ({ actions, productDetails }) => {
   const [current, setCurrent] = useState(1);
   
   
-  useEffect(()=>{ const categories=fetch('http://localhost:3000/products/categories')
-  .then(res => res.json()).then(res=>{
-    const catObj=res.map(e=>({label:e,value:e,key:e}));
-    setCategories(catObj  );
-  })
+  useEffect(()=>{ 
+    actions.getCategories();
+  } ,[])
 
-} ,[])
+  useEffect(()=>{
+    if(productDetails.categories)
+      setCategories(productDetails.categories.map(e=>({label:e,value:e,key:e})));
 
+  },[productDetails?.categories])
   useEffect(
     () => {
       setProducts(productDetails?.products?.data);
       setTotal(productDetails?.products?.total);
-
     },
     [productDetails],
   );
