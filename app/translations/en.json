@@ -170,5 +170,27 @@
   "loyaltyPlus.components.pages.Login.loginPage": "Login Page",
   "loyaltyPlus.components.pages.Login.password": "Password",
   "loyaltyPlus.components.pages.Login.signIn": "Sign In!",
-  "loyaltyPlus.components.pages.Login.userName": "User name"
+  "loyaltyPlus.components.pages.Login.userName": "User name",
+
+
+
+  "Product.heading":"Products",
+  "Product.EnterValue":"Enter Value",
+  "Product.SelectOption":"Select option",
+  "Product.add":"Add Product",
+  "Product.title":"Title",
+  "Product.description":"Description",
+  "Product.category":"Category",
+  "Product.price":"Price",
+  "Product.action":"Action",
+  "Product.goBack":"go Back",
+  "Product.enterTitle":"Enter title",
+  "Product.enterDescription":"Enter description",
+  "Product.enterCategory":"Enter Category",
+  "Product.enterPrice":"Enter Price",
+  "Product.brand":"Brand",
+  "Product.enterBrand":"Enter Brand",
+  "Product.stock":"Stock",
+  "Product.enterStock":"Enter stock",
+  "Product.submit":"Submit"
 }

@@ -2,8 +2,9 @@ import React from 'react';
 import CapTable from '@capillarytech/cap-ui-library/CapTable/CapTable';
 import { Pagination } from 'antd';
 import { columns } from './columns';
+import { injectIntl,intlShape } from 'react-intl';
 
-const ProductTable = ({ products, setCurrent, total, current,showModal }) => {
+const ProductTable = ({ products, setCurrent, total, current,showModal,intl}) => {
   return (
     <div>
       <Pagination
@@ -14,8 +15,8 @@ const ProductTable = ({ products, setCurrent, total, current,showModal }) => {
       />
       <CapTable
         id="capTable_1"
-        ColumnGroup={columns(showModal)}
-        columns={columns(showModal)}
+        ColumnGroup={columns(showModal,intl)}
+        columns={columns(showModal,intl)}
         dataSource={products}
         className="hide-hover"
         pagination={false}
@@ -25,4 +26,4 @@ const ProductTable = ({ products, setCurrent, total, current,showModal }) => {
   );
 };
 
-export default ProductTable;
+export default injectIntl(ProductTable);

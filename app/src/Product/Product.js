@@ -19,6 +19,7 @@ import withStyles from 'utils/withStyles';
 import { makeSelectProductDetails } from './selectors';
 import ProductTable from '../ProductTable';
 import ProductTopBar from '../ProductTopBar';
+import { injectIntl, FormattedMessage } from 'react-intl';
 
 export const Product = ({ actions, productDetails }) => {
   
@@ -82,7 +83,7 @@ export const Product = ({ actions, productDetails }) => {
   
 
   return <div className="background">
-      <CapHeading type="h1">Products</CapHeading>
+      <CapHeading type="h1"><FormattedMessage id="Product.heading" /></CapHeading>
       <ProductTopBar handleChange={handleChange} handleCatChange={handleCatChange} query={query} categories={categories} selectedCat={selectedCat} clearSelection={clearSelection} />
       <ProductTable products={products} setCurrent={setCurrent} total={total} current={current} showModal={showModal} />
       <CapModal title="Product Details" visible={modalVisibility} onOk={handleCancel} onCancel={handleCancel}>
@@ -119,4 +120,4 @@ export default compose(
   withSaga,
   withReducer,
   withConnect,
-)(withStyles(Product, styles));
+)(injectIntl(withStyles(Product, styles)));

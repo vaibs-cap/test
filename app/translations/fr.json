@@ -1,0 +1,21 @@
+{
+    "Product.heading":"Des produits",
+    "Product.EnterValue":"Entrez la valeur",
+    "Product.SelectOption":"Sélectionner une option",
+    "Product.add":"Ajouter un produit",
+    "Product.title":"Titre",
+    "Product.description":"Description",
+    "Product.category":"Catégorie",
+    "Product.price":"Prix",
+    "Product.action":"Action",
+    "Product.goBack":"Retourner",
+    "Product.enterTitle":"Entrez la titre",
+    "Product.enterDescription":"Entrez la description",
+    "Product.enterCategory":"Entrez la catégorie",
+    "Product.enterPrice":"Entrez la prix",
+    "Product.brand":"Marque",
+    "Product.enterBrand":"Entrez la marque",
+    "Product.stock":"Stock",
+    "Product.enterStock":"Entrez la stock",
+    "Product.submit":"Soumettre"
+}

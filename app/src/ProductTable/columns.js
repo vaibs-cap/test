@@ -1,13 +1,15 @@
 import CapHeader from "@capillarytech/cap-ui-library/CapHeader";
 import React from "react";
+import { injectIntl } from "react-intl";
 
-export const columns = (showModal) => [
+
+export const columns = (showModal,intl) => [
     {
       title: (
         <CapHeader
           size="regular"
-          title="Product Title"
-          description="The product"
+          title={intl.formatMessage({id:"Product.title"})}
+          description={intl.formatMessage({id:"Product.description"})}
         />
       ),
       dataIndex: 'title',
@@ -16,20 +18,20 @@ export const columns = (showModal) => [
     },
     {
       title: (
-        <CapHeader size="regular" title="Category" withHiddenDescription />
+        <CapHeader size="regular" title={intl.formatMessage({id:"Product.category"})} withHiddenDescription />
       ),
       dataIndex: 'category',
       key: 'category',
       width: '20%',
     },
     {
-      title: <CapHeader size="regular" title="Price" withHiddenDescription />,
+      title: <CapHeader size="regular" title={intl.formatMessage({id:"Product.price"})} withHiddenDescription />,
       dataIndex: 'price',
       key: 'price',
       width: '20%',
     },
     {
-      title: <CapHeader size="regular" title="Action" withHiddenDescription />,
+      title: <CapHeader size="regular" title={intl.formatMessage({id:"Product.action"})} withHiddenDescription />,
       key: 'action',
       render: (text, record) => (
         <span>

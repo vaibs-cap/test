@@ -26,8 +26,9 @@ import {
   makeSelectProductStatus,
 } from './selectors';
 import { blankForm } from './constants';
+import { FormattedMessage, injectIntl,intlShape } from 'react-intl';
 
-export const ProductAdd = ({ actions, newProductDetails, status }) => {
+export const ProductAdd = ({ actions, newProductDetails, status,intl }) => {
 
   const [formData, setFormData] = useState(blankForm);
   const [buttonDisabled, setButtonDisabled] = useState(true);
@@ -86,20 +87,20 @@ export const ProductAdd = ({ actions, newProductDetails, status }) => {
     <div className="main">
       <CapRow type="flex">
         <CapColumn>
-          <CapHeading type="h1">Add Product</CapHeading>
+          <CapHeading type="h1"><FormattedMessage id="Product.add" /></CapHeading>
         </CapColumn>
         <CapColumn style={{ marginLeft: 'auto' }}>
-          <CapButton onClick={goHome}>Go Back</CapButton>
+          <CapButton onClick={goHome}><FormattedMessage id="Product.goBack" /></CapButton>
         </CapColumn>
       </CapRow>
       <CapRow className="form-item">
         <CapColumn span={11}>
           <CapInput
             labelPosition="top"
-            label="Product Title"
+            label={intl.formatMessage({id:"Product.title"})}
             value={formData.title}
             name="title"
-            placeholder="Enter title"
+            placeholder={intl.formatMessage({id:"Product.enterTitle"})}
             onChange={handleFormChange}
           />
         </CapColumn>
@@ -108,10 +109,10 @@ export const ProductAdd = ({ actions, newProductDetails, status }) => {
         <CapColumn span={11}>
           <CapInput
             labelPosition="top"
-            label="Product Description"
+            label={intl.formatMessage({id:"Product.description"})}
             value={formData.description}
             name="description"
-            placeholder="Enter description"
+            placeholder={intl.formatMessage({id:"Product.enterDescription"})}
             onChange={handleFormChange}
           />
         </CapColumn>
@@ -120,10 +121,10 @@ export const ProductAdd = ({ actions, newProductDetails, status }) => {
         <CapColumn span={11}>
           <CapInput
             labelPosition="top"
-            label="Brand"
+            label={intl.formatMessage({id:"Product.brand"})}
             value={formData.brand}
             name="brand"
-            placeholder="Enter brand"
+            placeholder={intl.formatMessage({id:"Product.enterBrand"})}
             onChange={handleFormChange}
           />
         </CapColumn>
@@ -132,10 +133,10 @@ export const ProductAdd = ({ actions, newProductDetails, status }) => {
         <CapColumn span={11}>
           <CapInput
             labelPosition="top"
-            label="Category"
+            label={intl.formatMessage({id:"Product.category"})}
             value={formData.category}
             name="category"
-            placeholder="Enter category"
+            placeholder={intl.formatMessage({id:"Product.enterCategory"})}
             onChange={handleFormChange}
           />
         </CapColumn>
@@ -144,10 +145,10 @@ export const ProductAdd = ({ actions, newProductDetails, status }) => {
         <CapColumn span={11}>
           <CapInput
             labelPosition="top"
-            label="Price"
+            label={intl.formatMessage({id:"Product.price"})}
             value={formData.price}
             name="price"
-            placeholder="Enter price"
+            placeholder={intl.formatMessage({id:"Product.enterPrice"})}
             onChange={handleFormChange}
           />
         </CapColumn>
@@ -156,10 +157,10 @@ export const ProductAdd = ({ actions, newProductDetails, status }) => {
         <CapColumn span={11}>
           <CapInput
             labelPosition="top"
-            label="Stock"
+            label={intl.formatMessage({id:"Product.stock"})}
             value={formData.stock}
             name="stock"
-            placeholder="Enter stock"
+            placeholder={intl.formatMessage({id:"Product.enterStock"})}
             onChange={handleFormChange}
           />
         </CapColumn>
@@ -171,7 +172,7 @@ export const ProductAdd = ({ actions, newProductDetails, status }) => {
             actions.setProducts(formData);
           }}
         >
-          Submit
+          <FormattedMessage id="Product.submit" />
         </CapButton>
       </CapRow>
     </div>
@@ -201,4 +202,4 @@ export default compose(
   withSaga,
   withReducer,
   withConnect,
-)(withStyles(ProductAdd, styles));
+)(injectIntl(withStyles(ProductAdd, styles)));
