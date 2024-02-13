@@ -102,7 +102,7 @@ const ErrorScreen = () => <SomethingWentWrong />;
 const render = messages => {
   ReactDOM.render(
     <Provider store={store}>
-      <IntlProvider messages={translationMessages['fr']} locale="fr">
+      <IntlProvider messages={translationMessages['en']} locale="en">
         <ErrorBoundary FallbackComponent={ErrorScreen}>
           <App />
         </ErrorBoundary>
