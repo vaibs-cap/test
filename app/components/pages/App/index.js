@@ -20,7 +20,7 @@ import ProductAdd from '../../../src/ProductAdd';
 import NotFoundPage from '../NotFoundPage';
 
 import GlobalStyle from '../../../global-styles';
-import { addPath, publicPath } from '../../../config/path';
+import { publicPath } from '../../../config/path';
 import config from '../../../config/app';
 
 import RenderRoute from '../../atoms/RenderRoute';
@@ -39,7 +39,6 @@ export const App = () => (
       <Switch>
         <RenderRoute exact path={loginUrl} component={Login} />
         <RenderRoute exact path={publicPath} component={Protected} key={publicPath} />
-        <RenderRoute exact path={addPath} component={ProductAdd} key={addPath} />
         <RenderRoute component={NotFoundPage} />
       </Switch>
     </ConnectedRouter>
