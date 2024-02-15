@@ -4,7 +4,17 @@ import PropTypes from 'prop-types';
 import messages from './messages';
 
 const ProfilePage = ({ className, intl: { formatMessage } }) => {
-  return <div>{formatMessage(messages.sampleHeader)}</div>;
+  return (
+    <div>
+      <p>{formatMessage(messages.sampleHeader)}</p>
+      <p>
+        {formatMessage(messages.sampleCalculate, {
+          xValue: 100,
+          yValue: 200,
+        })}
+      </p>
+    </div>
+  );
 };
 
 ProfilePage.propTypes = {
