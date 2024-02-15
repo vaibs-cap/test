@@ -1,0 +1,72 @@
+[
+  {
+    "all_books": [
+      {
+        "book_id": "",
+        "book_name": "",
+        "book_author": "",
+        "book_genre": "",
+        "count": ""
+      }
+    ],
+
+    "issued_books": [
+      {
+        "book_id": "",
+        "issued_users": [
+          {
+            "email": "",
+            "issue_date": "",
+            "due_date": ""
+          }
+        ]
+      }
+    ],
+
+    "users": [
+      {
+        "user_id": "",
+        "email": "",
+        "name": "",
+        "password": "",
+        "isAdmin": "",
+        "token": "",
+        "issued_books": [
+          {
+            "book_id": "",
+            "issue_date": "",
+            "due_date": ""
+          }
+        ],
+        "requested_books": [
+          {
+            "book_id": "",
+            "request_date": ""
+          }
+        ]
+      }
+    ],
+
+    "request_queue": [
+      {
+        "book_id": "",
+        "request_users": [
+          {
+            "email": "",
+            "reqeuest_date": ""
+          }
+        ]
+      }
+    ],
+
+    "new__books_request_queue": [
+      {
+        "request_id": "",
+        "email": "",
+        "date": "",
+        "book_name": "",
+        "book_author": ""
+      }
+    ]
+  }
+]

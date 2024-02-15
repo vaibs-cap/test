@@ -12,7 +12,7 @@ import { ConnectedRouter } from 'connected-react-router/immutable';
 import history from 'utils/history';
 import { userIsAuthenticated } from '../../../utils/authWrapper';
 
-import Cap from '../Cap';
+// import Cap from '../Cap';
 import Login from '../Login';
 // import Login from '../components/templates/Login';
 import Product from '../../../src/Product';
@@ -25,6 +25,7 @@ import config from '../../../config/app';
 
 import RenderRoute from '../../atoms/RenderRoute';
 import { PRODUCTION } from '../Cap/constants';
+import { HomePage } from '../HomePage/HomePage';
 
 const loginUrl =
   process.env.NODE_ENV === PRODUCTION
@@ -38,8 +39,19 @@ export const App = () => (
     <ConnectedRouter history={history}>
       <Switch>
         <RenderRoute exact path={loginUrl} component={Login} />
-        <RenderRoute exact path={publicPath} component={Protected} key={publicPath} />
-        <RenderRoute exact path={addPath} component={ProductAdd} key={addPath} />
+        <RenderRoute
+          exact
+          path={publicPath}
+          component={Protected}
+          key={publicPath}
+        />
+        <RenderRoute
+          exact
+          path={addPath}
+          component={ProductAdd}
+          key={addPath}
+        />
+        <RenderRoute exact path="/book-list" component={HomePage} />
         <RenderRoute component={NotFoundPage} />
       </Switch>
     </ConnectedRouter>
