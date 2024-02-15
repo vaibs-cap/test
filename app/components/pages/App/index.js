@@ -25,13 +25,14 @@ import config from '../../../config/app';
 
 import RenderRoute from '../../atoms/RenderRoute';
 import { PRODUCTION } from '../Cap/constants';
+import ProfilePage from '../ProfilePage';
 
 const loginUrl =
   process.env.NODE_ENV === PRODUCTION
     ? config.production.login_url
     : config.development.login_url;
 
-const Protected = userIsAuthenticated(Product);
+const Protected = userIsAuthenticated(Cap);
 
 export const App = () => (
   <>
@@ -39,6 +40,7 @@ export const App = () => (
       <Switch>
         <RenderRoute exact path={loginUrl} component={Login} />
         <RenderRoute exact path={publicPath} component={Protected} key={publicPath} />
+        <RenderRoute exact path={`${publicPath}/profile-page`} component={ProfilePage} key={`${publicPath}/profile-page`} />
         <RenderRoute component={NotFoundPage} />
       </Switch>
     </ConnectedRouter>
