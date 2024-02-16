@@ -30,7 +30,6 @@ const ProfilePageBorrowTable = () => {
 
   return (
     <>
-      <CapHeading type="h1">My Books</CapHeading>
       <CapTable columns={columns} dataSource={dataSource} />
     </>
   );

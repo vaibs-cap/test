@@ -7,7 +7,8 @@ import {
 } from '@capillarytech/cap-ui-library';
 import bookData from '../../pages/ProfilePage/bookData';
 import withStyles from '../../../utils/withStyles';
-import styles from '../../pages/ProfilePage/style';
+// import styles from '../../pages/ProfilePage/style';
+import styles from './styles';
 
 const userReqBooks = bookData[0].users[0].requested_books;
 const bookIds = [];
@@ -28,7 +29,7 @@ bookIds.forEach(book => {
 
 dataSource.forEach((book, index) => {
   reqQueue.forEach(req => {
-    if (req.book_id === book.book_id){
+    if (req.book_id === book.book_id) {
       // req.request_users.forEach((email)=>{
       //   if(book.users[0].email===email){
       //     dataSource
@@ -90,16 +91,13 @@ const columns = [
 ];
 const ProfilePageRequestTable = ({ className }) => {
   return (
-    <Fragment>
-      <CapRow className={className}>
-        <CapHeading type="h1">Requests</CapHeading>
-        <CapTable
-          dataSource={dataSource}
-          id="capTable_rentedBooks"
-          columns={columns}
-        />
-      </CapRow>
-    </Fragment>
+    <CapRow className={className}>
+      <CapTable
+        dataSource={dataSource}
+        id="capTable_rentedBooks"
+        columns={columns}
+      />
+    </CapRow>
   );
 };
 
