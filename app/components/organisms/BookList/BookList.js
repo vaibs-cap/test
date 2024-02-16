@@ -1,10 +1,11 @@
 import React from 'react';
 import CapTable from '@capillarytech/cap-ui-library/CapTable/CapTable';
 import CapHeader from '@capillarytech/cap-ui-library/CapHeader';
-// import CapRow from '@capillarytech/cap-ui-library/CapRow';
 import CapButton from '@capillarytech/cap-ui-library/CapButton';
-// import { Button } from 'antd';
+import withStyles from 'utils/withStyles';
+import CapRow from '@capillarytech/cap-ui-library/CapRow';
 import mockdata from '../../pages/HomePage/mockdata';
+import style from './styles';
 
 const dataSource = mockdata[0].all_books;
 
@@ -37,9 +38,9 @@ const columns = [
   },
 
   {
-    title: <CapHeader size="small" title="Count" />,
-    dataIndex: 'count',
-    key: 'count',
+    title: <CapHeader size="small" title="Available Count" />,
+    dataIndex: 'current_count',
+    key: 'current_count',
     width: '15%',
   },
 
@@ -50,24 +51,31 @@ const columns = [
     width: '10%',
 
     render: (text, record) =>
-      record.count > 0 ? (
+      record.current_count > 0 ? (
         <CapButton size="small" color="primary" variant="contained">
-          Borrow
+          Get Book
         </CapButton>
       ) : (
-        <CapButton size="small" color="primary" variant="contained">
-          Request
+        <CapButton
+          className="request-btn"
+          size="small"
+          color="primary"
+          variant="contained"
+        >
+          Reserve
         </CapButton>
       ),
   },
 ];
 
-function BookList() {
+function BookList({ className }) {
   return (
     <>
-      <CapTable dataSource={dataSource} columns={columns} />
+      <CapRow className={className}>
+        <CapTable dataSource={dataSource} columns={columns} />
+      </CapRow>
     </>
   );
 }
 
-export default BookList;
+export default withStyles(BookList, style);
