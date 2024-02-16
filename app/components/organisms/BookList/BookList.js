@@ -53,7 +53,7 @@ const columns = [
     render: (text, record) =>
       record.current_count > 0 ? (
         <CapButton size="small" color="primary" variant="contained">
-          Borrow
+          Get Book
         </CapButton>
       ) : (
         <CapButton
@@ -62,7 +62,7 @@ const columns = [
           color="primary"
           variant="contained"
         >
-          Request
+          Reserve
         </CapButton>
       ),
   },
