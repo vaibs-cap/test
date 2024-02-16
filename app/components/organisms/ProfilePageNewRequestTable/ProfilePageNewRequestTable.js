@@ -1,5 +1,5 @@
-import React from 'react';
-import { CapTable, CapHeader, CapHeading } from '@capillarytech/cap-ui-library';
+import React, { Fragment } from 'react';
+import { CapTable, CapHeading } from '@capillarytech/cap-ui-library';
 import bookData from '../../pages/ProfilePage/bookData';
 
 const ProfilePageNewRequestTable = () => {
@@ -10,19 +10,21 @@ const ProfilePageNewRequestTable = () => {
   console.log(dataSource);
   const columns = [
     {
-      title: <CapHeader size="small" title="Book name" />,
+      title: <CapHeading type="h3">Book Name</CapHeading>,
       dataIndex: 'book_name',
       key: 'book_name',
       width: '20%',
     },
     {
-      title: <CapHeader size="small" title="Book Author" />,
+      title: <CapHeading type="h3">Book Author</CapHeading>,
+
       dataIndex: 'book_author',
       key: 'book_author',
       width: '20%',
     },
     {
-      title: <CapHeader size="small" title="Request Date" />,
+      title: <CapHeading type="h3">Request Date</CapHeading>,
+
       dataIndex: 'date',
       key: 'date',
       width: '15%',
@@ -30,10 +32,10 @@ const ProfilePageNewRequestTable = () => {
   ];
 
   return (
-    <div>
+    <Fragment>
       <CapHeading type="h1">New Requests</CapHeading>
       <CapTable dataSource={dataSource} columns={columns} />
-    </div>
+    </Fragment>
   );
 };
 

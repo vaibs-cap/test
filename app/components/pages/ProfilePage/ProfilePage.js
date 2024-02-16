@@ -1,7 +1,6 @@
 import React from 'react';
 import { injectIntl, intlShape } from 'react-intl';
 import PropTypes from 'prop-types';
-import { bookData } from './bookData';
 import ProfilePageRequestTable from '../../organisms/ProfilePageRequestTable/ProfilePageRequestTable';
 import ProfilePageBorrowTable from '../../organisms/ProfilePageBorrowTable/ProfilePageBorrowTable';
 import ProfilePageNewRequestTable from '../../organisms/ProfilePageNewRequestTable/ProfilePageNewRequestTable';
@@ -9,7 +8,7 @@ import ProfilePageNewRequestTable from '../../organisms/ProfilePageNewRequestTab
 const ProfilePage = ({ className, intl: { formatMessage } }) => {
   return (
     <div>
-      <ProfilePageBorrowTable/>
+      <ProfilePageBorrowTable />
       <ProfilePageRequestTable />
       <ProfilePageNewRequestTable />
     </div>
