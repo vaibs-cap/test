@@ -7,12 +7,12 @@ import ProfilePageNewRequestTable from '../../organisms/ProfilePageNewRequestTab
 import { CapButton, CapMenu } from '@capillarytech/cap-ui-library';
 
 const ProfilePage = ({ className, intl: { formatMessage } }) => {
-  const displayBorrowTable = true;
-  const displayRequestTable = false;
-  const [toggleTable, setToggleTable] = useState(displayBorrowTable);
+  const isAdmin = true;
+  const [menu, setMenu]=useState(0);
   const handleClick = e => {
-    if (e.key === 'request') setToggleTable(displayRequestTable);
-    else setToggleTable(displayBorrowTable);
+    if (e.key === 'borrow') setMenu(1);
+    else if(e.key ==='request') setMenu(2);
+    else if(e.key ==='new_request') setMenu(3);
   };
   return (
     <div>
@@ -23,9 +23,14 @@ const ProfilePage = ({ className, intl: { formatMessage } }) => {
         <CapMenu.Item key="request" onClick={handleClick}>
           Requested Books
         </CapMenu.Item>
+        {(isAdmin)?
+        <CapMenu.Item key="new_request" onClick={handleClick}>
+          New Requested Books
+        </CapMenu.Item>
+        :<></>
+        } 
       </CapMenu>
-      {toggleTable ? <ProfilePageBorrowTable /> : <ProfilePageRequestTable />}
-      <ProfilePageNewRequestTable />
+      {menu===1 ? <ProfilePageBorrowTable /> : menu===2 ? <ProfilePageRequestTable /> : <ProfilePageNewRequestTable />}
     </div>
   );
 };
