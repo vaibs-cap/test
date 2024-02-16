@@ -17,6 +17,7 @@ const config = {
       'https://crm-nightly-new.cc.capillarytech.com/arya/api/v1/bi',
     login_url: '/login',
     dashboard_url: path.publicPath,
+    mock_endpoint: 'http://localhost:4000', // Can be used during development; the port can be changed according to your local server port.
   },
   testing: {
     api_endpoint: '',
