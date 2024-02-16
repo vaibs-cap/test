@@ -1,5 +1,10 @@
 import React from 'react';
-import { CapTable, CapHeader, CapHeading, CapButton } from '@capillarytech/cap-ui-library';
+import {
+  CapTable,
+  CapHeader,
+  CapHeading,
+  CapButton,
+} from '@capillarytech/cap-ui-library';
 import bookData from '../../pages/ProfilePage/bookData';
 
 const ProfilePageNewRequestTable = () => {
