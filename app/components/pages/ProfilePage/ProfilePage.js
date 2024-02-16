@@ -5,7 +5,8 @@ import ProfilePageRequestTable from '../../organisms/ProfilePageRequestTable/Pro
 import ProfilePageBorrowTable from '../../organisms/ProfilePageBorrowTable/ProfilePageBorrowTable';
 import ProfilePageNewRequestTable from '../../organisms/ProfilePageNewRequestTable/ProfilePageNewRequestTable';
 import { CapButton, CapMenu } from '@capillarytech/cap-ui-library';
-
+import styles from './styles';
+import withStyles from 'utils/withStyles';
 const ProfilePage = ({ className, intl: { formatMessage } }) => {
   const displayBorrowTable = true;
   const displayRequestTable = false;
@@ -15,7 +16,7 @@ const ProfilePage = ({ className, intl: { formatMessage } }) => {
     else setToggleTable(displayBorrowTable);
   };
   return (
-    <div>
+    <div className="m-20">
       <CapMenu mode="horizontal">
         <CapMenu.Item key="borrow" onClick={handleClick}>
           Borrowed Books
@@ -37,4 +38,4 @@ ProfilePage.propTypes = {
 
 ProfilePage.defaultProps = {};
 
-export default injectIntl(ProfilePage);
+export default withStyles(injectIntl(ProfilePage), styles);

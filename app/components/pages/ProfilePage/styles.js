@@ -9,4 +9,7 @@ export default css`
     color: white;
     background-color: red !important;
   }
+  .m-20 {
+    margin: 20px;
+  } 
 `;
