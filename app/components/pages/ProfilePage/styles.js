@@ -11,5 +11,5 @@ export default css`
   }
   .m-20 {
     margin: 20px;
-  } 
+  }
 `;

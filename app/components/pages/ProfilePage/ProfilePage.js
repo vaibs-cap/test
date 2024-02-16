@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { injectIntl, intlShape } from 'react-intl';
 import PropTypes from 'prop-types';
+import { CapButton, CapMenu } from '@capillarytech/cap-ui-library';
+import withStyles from 'utils/withStyles';
 import ProfilePageRequestTable from '../../organisms/ProfilePageRequestTable/ProfilePageRequestTable';
 import ProfilePageBorrowTable from '../../organisms/ProfilePageBorrowTable/ProfilePageBorrowTable';
 import ProfilePageNewRequestTable from '../../organisms/ProfilePageNewRequestTable/ProfilePageNewRequestTable';
-import { CapButton, CapMenu } from '@capillarytech/cap-ui-library';
 import styles from './styles';
-import withStyles from 'utils/withStyles';
 const ProfilePage = ({ className, intl: { formatMessage } }) => {
   const displayBorrowTable = true;
   const displayRequestTable = false;
