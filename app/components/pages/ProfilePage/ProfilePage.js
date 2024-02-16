@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { injectIntl, intlShape } from 'react-intl';
 import PropTypes from 'prop-types';
-import { CapButton, CapMenu } from '@capillarytech/cap-ui-library';
+import { CapMenu } from '@capillarytech/cap-ui-library';
 import ProfilePageRequestTable from '../../organisms/ProfilePageRequestTable/ProfilePageRequestTable';
 import ProfilePageBorrowTable from '../../organisms/ProfilePageBorrowTable/ProfilePageBorrowTable';
 import ProfilePageNewRequestTable from '../../organisms/ProfilePageNewRequestTable/ProfilePageNewRequestTable';

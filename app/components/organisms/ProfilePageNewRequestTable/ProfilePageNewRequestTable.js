@@ -1,6 +1,5 @@
 import {
   CapTable,
-  CapHeader,
   CapHeading,
   CapButton,
   CapRow,
