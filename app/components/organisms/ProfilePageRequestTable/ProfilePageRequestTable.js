@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { CapTable, CapButton, CapHeading } from '@capillarytech/cap-ui-library';
 import bookData from '../../pages/ProfilePage/bookData';
 
@@ -64,13 +64,15 @@ const columns = [
 ];
 const ProfilePageRequestTable = () => {
   return (
-    <CapTable
-      dataSource={dataSource}
-      id="capTable_rentedBooks"
-      columns={columns}
-    />
+    <Fragment>
+      <CapHeading type="h1">Requests</CapHeading>
+      <CapTable
+        dataSource={dataSource}
+        id="capTable_rentedBooks"
+        columns={columns}
+      />
+    </Fragment>
   );
 };
 
 export default ProfilePageRequestTable;
-

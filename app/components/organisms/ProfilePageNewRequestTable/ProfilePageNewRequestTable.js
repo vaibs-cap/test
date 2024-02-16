@@ -1,10 +1,10 @@
 import React from 'react';
-import { CapTable, CapHeader } from '@capillarytech/cap-ui-library';
-import { bookdata } from '../../pages/ProfilePage/bookData';
+import { CapTable, CapHeader, CapHeading } from '@capillarytech/cap-ui-library';
+import bookData from '../../pages/ProfilePage/bookData';
 
-const ProfilePageRequestTable = () => {
+const ProfilePageNewRequestTable = () => {
   const userEmail = 'admin@example.com';
-  const dataSource = bookdata[0].new_books_request_queue.filter(
+  const dataSource = bookData[0].new_books_request_queue.filter(
     obj => obj.email === userEmail,
   );
   console.log(dataSource);
@@ -31,9 +31,10 @@ const ProfilePageRequestTable = () => {
 
   return (
     <div>
+      <CapHeading type="h1">New Requests</CapHeading>
       <CapTable dataSource={dataSource} columns={columns} />
     </div>
   );
 };
 
-export default ProfilePageRequestTable;
+export default ProfilePageNewRequestTable;
