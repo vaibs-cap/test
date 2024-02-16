@@ -6,14 +6,16 @@ const mockdata = [
         book_name: 'To Kill a Mockingbird',
         book_author: 'Harper Lee',
         book_genre: 'Fiction',
-        count: 5,
+        total_count: 5,
+        current_count: 4,
       },
       {
         book_id: '2',
         book_name: '1984',
         book_author: 'George Orwell',
         book_genre: 'Science Fiction',
-        count: 0,
+        total_count: 7,
+        current_count: 2,
       },
 
       {
@@ -21,7 +23,8 @@ const mockdata = [
         book_name: 'Five Point Someone',
         book_author: 'Chetan Bhagat',
         book_genre: 'Fiction',
-        count: 11,
+        total_count: 3,
+        current_count: 0,
       },
 
       {
@@ -29,87 +32,62 @@ const mockdata = [
         book_name: 'Room Number 108',
         book_author: 'Chetan Bhagat',
         book_genre: 'Crime Fiction',
-        count: 6,
+        total_count: 2,
+        current_count: 2,
       },
 
       {
-        book_id: '4',
+        book_id: '5',
         book_name: 'Room Number 108',
         book_author: 'Chetan Bhagat',
         book_genre: 'Crime Fiction',
-        count: 6,
+        total_count: 11,
+        current_count: 10,
       },
 
       {
-        book_id: '4',
+        book_id: '6',
         book_name: 'Room Number 108',
         book_author: 'Chetan Bhagat',
         book_genre: 'Crime Fiction',
-        count: 0,
+        total_count: 15,
+        current_count: 0,
       },
 
       {
-        book_id: '4',
+        book_id: '7',
         book_name: 'Room Number 108',
         book_author: 'Chetan Bhagat',
         book_genre: 'Crime Fiction',
-        count: 6,
+        total_count: 6,
+        current_count: 3,
       },
 
       {
-        book_id: '4',
+        book_id: '8',
         book_name: 'Room Number 108',
         book_author: 'Chetan Bhagat',
         book_genre: 'Crime Fiction',
-        count: 0,
+        total_count: 5,
+        current_count: 2,
       },
 
       {
-        book_id: '4',
+        book_id: '9',
         book_name: 'Room Number 108',
         book_author: 'Chetan Bhagat',
         book_genre: 'Crime Fiction',
-        count: 6,
+        total_count: 5,
+        current_count: 2,
       },
 
       {
-        book_id: '4',
+        book_id: '10',
         book_name: 'Room Number 108',
         book_author: 'Chetan Bhagat',
         book_genre: 'Crime Fiction',
-        count: 0,
-      },
-
-      {
-        book_id: '4',
-        book_name: 'Room Number 108',
-        book_author: 'Chetan Bhagat',
-        book_genre: 'Crime Fiction',
-        count: 3,
-      },
-
-      {
-        book_id: '4',
-        book_name: 'Room Number 108',
-        book_author: 'Chetan Bhagat',
-        book_genre: 'Crime Fiction',
-        count: 0,
-      },
-
-      {
-        book_id: '4',
-        book_name: 'Room Number 108',
-        book_author: 'Chetan Bhagat',
-        book_genre: 'Crime Fiction',
-        count: 0,
-      },
-
-      {
-        book_id: '4',
-        book_name: 'Room Number 108',
-        book_author: 'Chetan Bhagat',
-        book_genre: 'Crime Fiction',
-        count: 6,
+        total_count: 2,
+        current_count: 0,
       },
     ],
     issued_books: [
