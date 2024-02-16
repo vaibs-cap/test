@@ -38,6 +38,13 @@ const columns = [
   },
 
   {
+    title: <CapHeader size="small" title="Available Count" />,
+    dataIndex: 'current_count',
+    key: 'current_count',
+    width: '15%',
+  },
+
+  {
     title: <CapHeader size="small" title="Button" />,
     dataIndex: 'button',
     key: 'button',
