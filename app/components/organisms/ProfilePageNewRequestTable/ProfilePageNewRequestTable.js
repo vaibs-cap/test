@@ -1,5 +1,5 @@
 import React from 'react';
-import { CapTable, CapHeader, CapHeading } from '@capillarytech/cap-ui-library';
+import { CapTable, CapHeader, CapHeading, CapButton } from '@capillarytech/cap-ui-library';
 import bookData from '../../pages/ProfilePage/bookData';
 
 const ProfilePageNewRequestTable = () => {
@@ -9,6 +9,12 @@ const ProfilePageNewRequestTable = () => {
   );
   console.log(dataSource);
   const columns = [
+    {
+      title: <CapHeader size="small" title="User" />,
+      dataIndex: 'email',
+      key: 'email',
+      width: '20%',
+    },
     {
       title: <CapHeader size="small" title="Book name" />,
       dataIndex: 'book_name',
@@ -26,6 +32,13 @@ const ProfilePageNewRequestTable = () => {
       dataIndex: 'date',
       key: 'date',
       width: '15%',
+    },
+    {
+      render: (text, record) => (
+        <CapButton type="secondary" size="small" variant="contained">
+          Cancel
+        </CapButton>
+      ),
     },
   ];
 
