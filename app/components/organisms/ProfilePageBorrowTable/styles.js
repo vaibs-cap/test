@@ -1,5 +1,8 @@
 import { css } from 'styled-components';
 
-export const styles = css`
-  padding: 20px;
+export default css`
+  .padding {
+    padding: 20px;
+    color: red;
+  }
 `;
