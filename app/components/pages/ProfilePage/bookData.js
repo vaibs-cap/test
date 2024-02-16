@@ -1,4 +1,4 @@
-export const bookdata = [
+const bookData = [
   {
     all_books: [
       {
@@ -160,3 +160,5 @@ export const bookdata = [
     ],
   },
 ];
+
+export default bookData;
