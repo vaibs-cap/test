@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { injectIntl, intlShape } from 'react-intl';
 import PropTypes from 'prop-types';
-import { CapButton, CapMenu } from '@capillarytech/cap-ui-library';
-import withStyles from 'utils/withStyles';
+import { CapButton, CapMenu, CapRow } from '@capillarytech/cap-ui-library';
+import withStyles from '../../../utils/withStyles';
 import ProfilePageRequestTable from '../../organisms/ProfilePageRequestTable/ProfilePageRequestTable';
 import ProfilePageBorrowTable from '../../organisms/ProfilePageBorrowTable/ProfilePageBorrowTable';
 import ProfilePageNewRequestTable from '../../organisms/ProfilePageNewRequestTable/ProfilePageNewRequestTable';
@@ -16,7 +16,7 @@ const ProfilePage = ({ className, intl: { formatMessage } }) => {
     else if (e.key === 'new_request') setMenu(3);
   };
   return (
-    <div className="m-20">
+    <CapRow className={className}>
       <CapMenu mode="horizontal">
         <CapMenu.Item key="borrow" onClick={handleClick}>
           Borrowed Books
@@ -33,13 +33,13 @@ const ProfilePage = ({ className, intl: { formatMessage } }) => {
         )}
       </CapMenu>
       {menu === 1 ? (
-        <ProfilePageBorrowTable />
+        <ProfilePageBorrowTable/>
       ) : menu === 2 ? (
         <ProfilePageRequestTable />
       ) : (
         <ProfilePageNewRequestTable />
       )}
-    </div>
+    </CapRow>
   );
 };
 

@@ -1,11 +1,12 @@
 import React from 'react';
-import { CapHeading, CapTable } from '@capillarytech/cap-ui-library';
-import withStyles from 'utils/withStyles';
+import { CapHeading, CapRow, CapTable } from '@capillarytech/cap-ui-library';
 import { columns } from './constants';
 import bookData from '../../pages/ProfilePage/bookData';
-import { styles } from './styles';
+import withStyles from '../../../utils/withStyles';
+import styles from './styles';
 
-const ProfilePageBorrowTable = () => {
+
+const ProfilePageBorrowTable = ({className}) => {
   const { issued_books } = bookData[0].users[0];
   const bookIds = [];
   const dataSource = [];
@@ -29,9 +30,9 @@ const ProfilePageBorrowTable = () => {
   });
 
   return (
-    <>
-      <CapTable columns={columns} dataSource={dataSource} />
-    </>
+    <CapRow className={className}>
+      <CapTable className="m-30" columns={columns} dataSource={dataSource} />
+    </CapRow>
   );
 };
 

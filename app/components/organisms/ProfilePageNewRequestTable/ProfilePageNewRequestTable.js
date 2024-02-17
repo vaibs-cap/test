@@ -6,8 +6,10 @@ import {
 } from '@capillarytech/cap-ui-library';
 import React, { Fragment } from 'react';
 import bookData from '../../pages/ProfilePage/bookData';
+import withStyles from '../../../utils/withStyles';
+import styles from './styles';
 
-const ProfilePageNewRequestTable = () => {
+const ProfilePageNewRequestTable = ({className}) => {
   const userEmail = 'admin@example.com';
   const dataSource = bookData[0].new_books_request_queue.filter(
     obj => obj.email === userEmail,
@@ -40,7 +42,7 @@ const ProfilePageNewRequestTable = () => {
     },
     {
       render: (text, record) => (
-        <CapButton type="secondary" size="small" variant="contained">
+        <CapButton className="request-cancel-btn" type="secondary" size="small" variant="contained">
           Cancel
         </CapButton>
       ),
@@ -48,10 +50,10 @@ const ProfilePageNewRequestTable = () => {
   ];
 
   return (
-    <CapRow>
-      <CapTable dataSource={dataSource} columns={columns} />
+    <CapRow className={className}>
+      <CapTable className="m-30" dataSource={dataSource} columns={columns} />
     </CapRow>
   );
 };
 
-export default ProfilePageNewRequestTable;
+export default withStyles(ProfilePageNewRequestTable, styles);

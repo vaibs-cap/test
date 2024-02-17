@@ -96,6 +96,7 @@ const ProfilePageRequestTable = ({ className }) => {
         dataSource={dataSource}
         id="capTable_rentedBooks"
         columns={columns}
+        className="m-30"
       />
     </CapRow>
   );
