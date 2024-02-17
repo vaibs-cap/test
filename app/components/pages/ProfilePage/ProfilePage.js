@@ -9,7 +9,7 @@ import ProfilePageNewRequestTable from '../../organisms/ProfilePageNewRequestTab
 import styles from './styles';
 const ProfilePage = ({ className, intl: { formatMessage } }) => {
   const isAdmin = true;
-  const [menu, setMenu] = useState(0);
+  const [menu, setMenu] = useState(1);
   const handleClick = e => {
     if (e.key === 'borrow') setMenu(1);
     else if (e.key === 'request') setMenu(2);
