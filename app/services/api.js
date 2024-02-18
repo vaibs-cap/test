@@ -228,8 +228,14 @@ export const upsertExpiryStrategy = (programId, payload) => {
   return request(url, getAPICallObject('POST', payload));
 };
 
-export const getBookList = () => {
+export const getBookList = (query = {}) => {
   //Todo: It's mock endpoint right now, needs to change when server is ready.
-  const url = `${MOCK_API_ENDPOINT}/books`;
+  let url = `${MOCK_API_ENDPOINT}/books?`;
+  url += `page=${query && query.page ? query.page : 1}`;
+
+  if (query && query.genre) url += `&genre=${query.genre}`;
+
+  if (query && query.authorName) url += `&authorName=${query.authorName}`;
+
   return request(url, getAPICallObject('GET'));
 };

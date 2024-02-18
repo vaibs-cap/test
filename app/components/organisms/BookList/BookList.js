@@ -4,10 +4,7 @@ import CapHeader from '@capillarytech/cap-ui-library/CapHeader';
 import CapButton from '@capillarytech/cap-ui-library/CapButton';
 import withStyles from 'utils/withStyles';
 import CapRow from '@capillarytech/cap-ui-library/CapRow';
-import mockdata from '../../pages/HomePage/mockdata';
 import style from './styles';
-
-const dataSource = mockdata[0].all_books;
 
 const columns = [
   {
@@ -38,6 +35,13 @@ const columns = [
   },
 
   {
+    title: <CapHeader size="small" title="Available Count" />,
+    dataIndex: 'current_count',
+    key: 'current_count',
+    width: '15%',
+  },
+
+  {
     title: <CapHeader size="small" title="Button" />,
     dataIndex: 'button',
     key: 'button',
@@ -46,7 +50,7 @@ const columns = [
     render: (text, record) =>
       record.current_count > 0 ? (
         <CapButton size="small" color="primary" variant="contained">
-          Borrow
+          Get Book
         </CapButton>
       ) : (
         <CapButton
@@ -55,17 +59,23 @@ const columns = [
           color="primary"
           variant="contained"
         >
-          Request
+          Reserve
         </CapButton>
       ),
   },
 ];
 
-function BookList({ className }) {
+function BookList({ className, dataSource, loading, pagination, onChange }) {
   return (
     <>
       <CapRow className={className}>
-        <CapTable dataSource={dataSource} columns={columns} />
+        <CapTable
+          loading={loading}
+          onChange={data => onChange(data)}
+          pagination={pagination}
+          dataSource={dataSource}
+          columns={columns}
+        />
       </CapRow>
     </>
   );
