@@ -25,7 +25,7 @@ import config from '../../../config/app';
 
 import RenderRoute from '../../atoms/RenderRoute';
 import { PRODUCTION } from '../Cap/constants';
-import { HomePage } from '../HomePage/HomePage';
+import HomePage from '../HomePage/HomePage';
 
 const loginUrl =
   process.env.NODE_ENV === PRODUCTION

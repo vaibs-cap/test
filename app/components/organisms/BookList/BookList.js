@@ -4,10 +4,7 @@ import CapHeader from '@capillarytech/cap-ui-library/CapHeader';
 import CapButton from '@capillarytech/cap-ui-library/CapButton';
 import withStyles from 'utils/withStyles';
 import CapRow from '@capillarytech/cap-ui-library/CapRow';
-import mockdata from '../../pages/HomePage/mockdata';
 import style from './styles';
-
-const dataSource = mockdata[0].all_books;
 
 const columns = [
   {
@@ -68,11 +65,17 @@ const columns = [
   },
 ];
 
-function BookList({ className }) {
+function BookList({ className, dataSource, loading, pagination, onChange }) {
   return (
     <>
       <CapRow className={className}>
-        <CapTable dataSource={dataSource} columns={columns} />
+        <CapTable
+          loading={loading}
+          onChange={data => onChange(data)}
+          pagination={pagination}
+          dataSource={dataSource}
+          columns={columns}
+        />
       </CapRow>
     </>
   );
