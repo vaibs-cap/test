@@ -13,11 +13,12 @@ export default css`
   }
   .imageIcon {
     margin: 30px 30px 0 30px;
- };
- .cap-icon-background {
+  }
+  .cap-icon-background {
     border-radius: 40px;
   }
-  .main {
+  .profileMain {
     text-align: center;
+    padding-top: 0px;
   }
 `;

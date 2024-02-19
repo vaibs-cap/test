@@ -18,7 +18,8 @@ const ProfilePage = ({ className, intl: { formatMessage } }) => {
   };
   return (
     <CapRow className={className}>
-    <ProfilePageHeader/>
+      <ProfilePageHeader />
+      <CapRow className="p-20">
       <CapMenu mode="horizontal">
         <CapMenu.Item key="borrow" onClick={handleClick}>
           Borrowed Books
@@ -34,8 +35,9 @@ const ProfilePage = ({ className, intl: { formatMessage } }) => {
           <></>
         )}
       </CapMenu>
+      </CapRow>
       {menu === 1 ? (
-        <ProfilePageBorrowTable/>
+        <ProfilePageBorrowTable />
       ) : menu === 2 ? (
         <ProfilePageRequestTable />
       ) : (
