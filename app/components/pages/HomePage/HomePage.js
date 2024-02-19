@@ -52,10 +52,12 @@ const HomePage = ({ allBooks = [], totalBooks = 0, isLoading, actions }) => {
   }
 
   function filterByGenre(value) {
+    setCurrentPageNumber(1);
     setGenreFilter(value);
   }
 
   function filterByAuthor(value) {
+    setCurrentPageNumber(1);
     setAuthorNameFiler(value);
   }
 
