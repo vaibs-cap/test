@@ -171,6 +171,13 @@ const bookData = [
         book_name: 'Pride and Prejudice',
         book_author: 'Jane Austen',
       },
+      {
+        request_id: '2',
+        email: 'user1@example.com',
+        date: '2024-03-15',
+        book_name: 'Jurassic',
+        book_author: 'Michael Austen',
+      },
     ],
   },
 ];

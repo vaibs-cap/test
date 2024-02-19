@@ -41,7 +41,9 @@ const GlobalStyle = createGlobalStyle`
     }
   }
   
-  
+  .ant-modal.cap-modal-v2 {
+    max-width: 700px;
+  }
   ul, ol {
     list-style: none;
     padding: 0;
