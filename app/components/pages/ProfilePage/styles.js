@@ -4,9 +4,25 @@ export default css`
   .m-30 {
     margin: 10px 30px;
   }
+  .p-20 {
+    padding: 20px;
+  }
   .request-cancel-btn {
     color: white;
     background-color: red !important;
   }
+<<<<<<< HEAD
   
+=======
+  .imageIcon {
+    margin: 30px 30px 0 30px;
+  }
+  .cap-icon-background {
+    border-radius: 40px;
+  }
+  .profileMain {
+    text-align: center;
+    padding-top: 0px;
+  }
+>>>>>>> bf595b4f857ea2cc7f568aa318ea799f109c19a3
 `;
