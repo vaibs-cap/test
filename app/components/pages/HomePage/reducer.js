@@ -18,6 +18,10 @@ const bookListReducer = (state = initialState, action) => {
       return state.set('allBookList', []).set('error', action.error);
     case types.SET_LOADING_STATE:
       return state.set('isLoading', action.loadingState);
+    case types.ISSUE_BOOK_SUCCESS:
+      return state;
+    case types.ISSUE_BOOK_FAILURE:
+      return state;
     default:
       return state;
   }

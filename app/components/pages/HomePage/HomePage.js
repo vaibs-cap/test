@@ -12,18 +12,6 @@ import {
 
 const RECORDS_PER_PAGE = 10;
 
-const mapStateToProps = createStructuredSelector({
-  allBooks: makeAllBookListSelector(),
-  totalBooks: makeTotalBooksSelctor(),
-  isLoading: makeLoadingState(),
-});
-
-const mapDispatchToProps = dispatch => ({
-  actions: {
-    fetchBookList: payload => dispatch(fetchBookList(payload)),
-  },
-});
-
 const HomePage = ({ allBooks = [], totalBooks = 0, isLoading, actions }) => {
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const [authorNameFilter, setAuthorNameFiler] = useState(null);
@@ -83,6 +71,18 @@ const HomePage = ({ allBooks = [], totalBooks = 0, isLoading, actions }) => {
     </>
   );
 };
+
+const mapStateToProps = createStructuredSelector({
+  allBooks: makeAllBookListSelector(),
+  totalBooks: makeTotalBooksSelctor(),
+  isLoading: makeLoadingState(),
+});
+
+const mapDispatchToProps = dispatch => ({
+  actions: {
+    fetchBookList: payload => dispatch(fetchBookList(payload)),
+  },
+});
 
 export default connect(
   mapStateToProps,
