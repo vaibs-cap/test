@@ -11,9 +11,6 @@ export default css`
     color: white;
     background-color: red !important;
   }
-<<<<<<< HEAD
-  
-=======
   .imageIcon {
     margin: 30px 30px 0 30px;
   }
@@ -24,5 +21,4 @@ export default css`
     text-align: center;
     padding-top: 0px;
   }
->>>>>>> bf595b4f857ea2cc7f568aa318ea799f109c19a3
 `;
