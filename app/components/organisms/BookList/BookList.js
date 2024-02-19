@@ -4,7 +4,11 @@ import CapHeader from '@capillarytech/cap-ui-library/CapHeader';
 import CapButton from '@capillarytech/cap-ui-library/CapButton';
 import withStyles from 'utils/withStyles';
 import CapRow from '@capillarytech/cap-ui-library/CapRow';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import style from './styles';
+import bookListReducer from '../../pages/HomePage/reducer';
+import { getBook } from '../../pages/HomePage/actions';
 
 const columns = [
   {
@@ -81,4 +85,17 @@ function BookList({ className, dataSource, loading, pagination, onChange }) {
   );
 }
 
+// const mapDispatchToProps = dispatch => ({
+//   getBook: bookId => dispatch(getBook(bookId)),
+// });
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators({ getBook }, dispatch),
+  };
+}
+
+// function mapStateToProps() {
+
+// }
 export default withStyles(BookList, style);

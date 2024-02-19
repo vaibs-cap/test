@@ -1,5 +1,7 @@
 import { fromJS } from 'immutable';
+import { FromJS } from 'immutable';
 import * as types from './constant';
+import { ISSUE_BOOK, RESERVE_BOOK } from './constant';
 
 export const initialState = fromJS({
   allBookList: [],
@@ -18,6 +20,20 @@ const bookListReducer = (state = initialState, action) => {
       return state.set('allBookList', []).set('error', action.error);
     case types.SET_LOADING_STATE:
       return state.set('isLoading', action.loadingState);
+
+    case ISSUE_BOOK:
+      return {
+        allBookList: state.allBookList.map(book => {
+          if (book.book_id === action.payload) {
+            return {
+              ...book,
+              current_count: book.current_count - 1,
+            };
+          }
+          return book;
+        }),
+      };
+
     default:
       return state;
   }

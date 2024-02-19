@@ -19,3 +19,24 @@ export const setLoadingState = loadingState => ({
   type: types.SET_LOADING_STATE,
   loadingState,
 });
+
+export function issueBook(book_id) {
+  return {
+    type: ISSUE_BOOK,
+    payload: book_id,
+  };
+}
+
+export function issueBookSuccess(book_id) {
+  return {
+    type: types.ISSUE_BOOK_SUCCESS,
+    payload: book_id,
+  };
+}
+
+export function issueBookFailure(error) {
+  return {
+    type: types.ISSUE_BOOK_FAILED,
+    payload: error,
+  };
+}
