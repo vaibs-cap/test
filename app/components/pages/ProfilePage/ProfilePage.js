@@ -6,6 +6,7 @@ import withStyles from '../../../utils/withStyles';
 import ProfilePageRequestTable from '../../organisms/ProfilePageRequestTable/ProfilePageRequestTable';
 import ProfilePageBorrowTable from '../../organisms/ProfilePageBorrowTable/ProfilePageBorrowTable';
 import ProfilePageNewRequestTable from '../../organisms/ProfilePageNewRequestTable/ProfilePageNewRequestTable';
+import ProfilePageHeader from '../../organisms/ProfilePageHeader/ProfilePageHeader';
 import styles from './styles';
 const ProfilePage = ({ className, intl: { formatMessage } }) => {
   const isAdmin = true;
@@ -17,6 +18,7 @@ const ProfilePage = ({ className, intl: { formatMessage } }) => {
   };
   return (
     <CapRow className={className}>
+    <ProfilePageHeader/>
       <CapMenu mode="horizontal">
         <CapMenu.Item key="borrow" onClick={handleClick}>
           Borrowed Books
