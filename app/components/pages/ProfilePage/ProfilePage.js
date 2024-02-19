@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { injectIntl, intlShape } from 'react-intl';
 import PropTypes from 'prop-types';
-import { CapButton, CapMenu, CapRow } from '@capillarytech/cap-ui-library';
+import { CapRow, CapTab } from '@capillarytech/cap-ui-library';
 import withStyles from '../../../utils/withStyles';
 import ProfilePageRequestTable from '../../organisms/ProfilePageRequestTable/ProfilePageRequestTable';
 import ProfilePageBorrowTable from '../../organisms/ProfilePageBorrowTable/ProfilePageBorrowTable';
@@ -10,39 +10,18 @@ import ProfilePageHeader from '../../organisms/ProfilePageHeader/ProfilePageHead
 import styles from './styles';
 const ProfilePage = ({ className, intl: { formatMessage } }) => {
   const isAdmin = true;
-  const [menu, setMenu] = useState(1);
-  const handleClick = e => {
-    if (e.key === 'borrow') setMenu(1);
-    else if (e.key === 'request') setMenu(2);
-    else if (e.key === 'new_request') setMenu(3);
-  };
+  const panes =  [{key : 'borrow', tab: 'Borrowed Books', content: <ProfilePageBorrowTable />}, 
+  {key:'request', tab:'Requested Books', content:  <ProfilePageRequestTable />}];
+  isAdmin ? panes.push({key: 'new_request', tab:'New Requested Books', content:  <ProfilePageNewRequestTable />}) : {};
+
   return (
     <CapRow className={className}>
       <ProfilePageHeader />
       <CapRow className="p-20">
-      <CapMenu mode="horizontal">
-        <CapMenu.Item key="borrow" onClick={handleClick}>
-          Borrowed Books
-        </CapMenu.Item>
-        <CapMenu.Item key="request" onClick={handleClick}>
-          Requested Books
-        </CapMenu.Item>
-        {isAdmin ? (
-          <CapMenu.Item key="new_request" onClick={handleClick}>
-            New Requested Books
-          </CapMenu.Item>
-        ) : (
-          <></>
-        )}
-      </CapMenu>
+      <CapTab mode="horizontal" 
+          panes={panes}>
+      </CapTab>
       </CapRow>
-      {menu === 1 ? (
-        <ProfilePageBorrowTable />
-      ) : menu === 2 ? (
-        <ProfilePageRequestTable />
-      ) : (
-        <ProfilePageNewRequestTable />
-      )}
     </CapRow>
   );
 };
