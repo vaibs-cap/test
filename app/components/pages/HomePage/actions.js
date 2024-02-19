@@ -10,7 +10,7 @@ export const fetchBookListSuccess = result => ({
   result,
 });
 
-export const fetchBookListFAiled = error => ({
+export const fetchBookListFailed = error => ({
   type: types.FETCH_ALL_BOOKLIST_FAILED,
   error,
 });
@@ -20,23 +20,17 @@ export const setLoadingState = loadingState => ({
   loadingState,
 });
 
-export function issueBook(book_id) {
-  return {
-    type: ISSUE_BOOK,
-    payload: book_id,
-  };
-}
+export const issueBook = payload => ({
+  type: types.ISSUE_BOOK,
+  payload,
+});
 
-export function issueBookSuccess(book_id) {
-  return {
-    type: types.ISSUE_BOOK_SUCCESS,
-    payload: book_id,
-  };
-}
+export const issueBookSuccess = payload => ({
+  type: types.ISSUE_BOOK_SUCCESS,
+  payload,
+});
 
-export function issueBookFailure(error) {
-  return {
-    type: types.ISSUE_BOOK_FAILED,
-    payload: error,
-  };
-}
+export const issueBookFailure = error => ({
+  type: types.ISSUE_BOOK_FAILURE,
+  error,
+});

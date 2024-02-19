@@ -4,5 +4,6 @@ export const FETCH_ALL_BOOKLIST_FAILED = 'booklist/FETCH_ALL_BOOKLIST_FAILED';
 export const SET_LOADING_STATE = 'booklist/SET_LOADING_STATE';
 export const ISSUE_BOOK = 'booklist/ISSUE_BOOK';
 export const RESERVE_BOOK = 'booklist/RESERVE_BOOK';
-export const ISSUE_BOOK_SUCCESS = 'booklist/ISSUE_BOOK_SUCCESS';
 export const ISSUE_BOOK_FAILED = 'booklist/ISSUE_BOOK_FAILED';
+export const ISSUE_BOOK_SUCCESS = 'booklist/ISSUE_BOOK_SUCCESS';
+export const ISSUE_BOOK_FAILURE = 'booklist/ISSUE_BOOK_FAILURE';

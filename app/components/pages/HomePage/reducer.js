@@ -34,6 +34,10 @@ const bookListReducer = (state = initialState, action) => {
         }),
       };
 
+    case types.ISSUE_BOOK_SUCCESS:
+      return state;
+    case types.ISSUE_BOOK_FAILURE:
+      return state;
     default:
       return state;
   }
