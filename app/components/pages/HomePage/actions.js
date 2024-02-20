@@ -34,3 +34,13 @@ export const issueBookFailure = error => ({
   type: types.ISSUE_BOOK_FAILURE,
   error,
 });
+
+export const cancelIssueBook = payload => ({
+  type: types.CANCEL_ISSUE_BOOK,
+  payload,
+});
+
+export const reserveBook = payload => ({
+  type: types.RESERVE_BOOK,
+  payload,
+});

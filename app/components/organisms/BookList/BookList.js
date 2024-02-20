@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CapTable from '@capillarytech/cap-ui-library/CapTable/CapTable';
 import CapHeader from '@capillarytech/cap-ui-library/CapHeader';
 import CapButton from '@capillarytech/cap-ui-library/CapButton';
@@ -7,15 +7,14 @@ import CapRow from '@capillarytech/cap-ui-library/CapRow';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import style from './styles';
-import { issueBook } from '../../pages/HomePage/actions';
+import { issueBook, cancelIssueBook } from '../../pages/HomePage/actions';
 import {
   makeAllBookListSelector,
   makeTotalBooksSelctor,
   makeLoadingState,
 } from '../../pages/HomePage/selector';
 
-let toggleFlag = false;
-
+let issued_books_array = [];
 const BookList = ({
   className,
   dataSource,
@@ -24,13 +23,22 @@ const BookList = ({
   onChange,
   actions,
 }) => {
+  const [issuedBooksArray, setIssuedBooksArray] = useState([]);
   function issueOnClick(data) {
-    // toggleFlag = true;
+    setIssuedBooksArray(prevArray => [...prevArray, data.book_id]);
+    console.log('This is issued array', issued_books_array);
     const requestPayload = {
       book_id: data.book_id,
     };
-
     actions.issueBook(requestPayload);
+  }
+
+  function cancelOnClick(bookId) {
+    setIssuedBooksArray(prevArray => prevArray.filter(id => id !== bookId));
+    const requestPayload = {
+      book_id: bookId,
+    };
+    actions.cancelIssueBook(requestPayload);
   }
   const columns = [
     {
@@ -68,7 +76,10 @@ const BookList = ({
       width: '10%',
 
       render: (text, record) => {
-        if (record.current_count > 0 && toggleFlag === false) {
+        if (
+          record.current_count > 0 &&
+          !issuedBooksArray.includes(record.book_id)
+        ) {
           return (
             <CapButton
               size="small"
@@ -79,13 +90,17 @@ const BookList = ({
               Get Book
             </CapButton>
           );
-        } else if (record.current_count > 0 && toggleFlag === true) {
+        } else if (
+          record.current_count > 0 &&
+          issuedBooksArray.includes(record.book_id)
+        ) {
           return (
             <CapButton
               size="small"
               color="primary"
               variant="contained"
-              onClick={() => issueOnClick(record)}
+              className="cancel-btn"
+              onClick={() => cancelOnClick(record.book_id)}
             >
               Cancel
             </CapButton>
@@ -130,6 +145,7 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = dispatch => ({
   actions: {
     issueBook: payload => dispatch(issueBook(payload)),
+    cancelIssueBook: payload => dispatch(cancelIssueBook(payload)),
   },
 });
 
