@@ -25,7 +25,7 @@ const BookList = ({
   actions,
 }) => {
   function issueOnClick(data) {
-    toggleFlag = true;
+    // toggleFlag = true;
     const requestPayload = {
       book_id: data.book_id,
     };
@@ -33,12 +33,6 @@ const BookList = ({
     actions.issueBook(requestPayload);
   }
   const columns = [
-    {
-      title: <CapHeader size="small" title="Book ID" />,
-      dataIndex: 'book_id',
-      key: 'book_id',
-      width: '15%',
-    },
     {
       title: <CapHeader size="small" title="Book Name" />,
       dataIndex: 'book_name',
