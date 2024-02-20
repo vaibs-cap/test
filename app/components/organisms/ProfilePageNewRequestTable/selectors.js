@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { fromJS} from 'immutable';
+import { fromJS } from 'immutable';
 import { initialState } from './reducer';
 /**
  * Direct selector to the newBookRequests state domain
@@ -13,8 +13,9 @@ const selectUserNewBookRequestsDetailDomain = (state = fromJS({})) =>
  */
 
 const makeSelectUserNewBookRequestsDetail = () =>
-  createSelector(selectUserNewBookRequestsDetailDomain, (substate = fromJS({})) =>
-    substate.toJS(),
+  createSelector(
+    selectUserNewBookRequestsDetailDomain,
+    (substate = fromJS({})) => substate.toJS(),
   );
 
 const makeSelectUserNewBookRequestsData = () =>
