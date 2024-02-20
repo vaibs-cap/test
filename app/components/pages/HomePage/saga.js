@@ -1,10 +1,9 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { FETCH_ALL_BOOKLIST, GET_BOOK, ISSUE_BOOK } from './constant';
+import { FETCH_ALL_BOOKLIST, ISSUE_BOOK } from './constant';
 import {
   fetchBookListSuccess,
   fetchBookListFailed,
   setLoadingState,
-  getBook,
   issueBookSuccess,
   issueBookFailure,
 } from './actions';
@@ -33,39 +32,7 @@ export function* issueBookSaga(action) {
   }
 }
 
-// export function* issueSaga(action) {
-//   console.log('*******saga is getting called');
-//   const book_id = action.payload;
-
-//   yield put(getBook(book_id));
-// }
-
-// export function* watchForIssueSaga() {
-//   console.log('*******saga is getting called');
-//   yield takeLatest(GET_BOOK, getBookSaga);
-// }
-
 export function* watchForBookListSaga() {
   yield takeLatest(FETCH_ALL_BOOKLIST, getBookListSaga);
   yield takeLatest(ISSUE_BOOK, issueBookSaga);
-}
-
-export function* issueSaga(action) {
-  try {
-    console.log('*******saga is getting called');
-    const book_id = action.payload;
-
-    yield put(getBook(book_id));
-  } catch (error) {
-    console.error('Error in issueSaga:', error);
-  }
-}
-
-export function* watchForIssueSaga() {
-  try {
-    console.log('*******saga is getting called');
-    yield takeLatest(GET_BOOK, issueSaga);
-  } catch (error) {
-    console.error('Error in watchForIssueSaga:', error);
-  }
 }
