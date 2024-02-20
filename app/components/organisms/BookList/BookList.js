@@ -5,12 +5,7 @@ import CapButton from '@capillarytech/cap-ui-library/CapButton';
 import withStyles from 'utils/withStyles';
 import CapRow from '@capillarytech/cap-ui-library/CapRow';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import style from './styles';
-import bookListReducer from '../../pages/HomePage/reducer';
-import { getBook } from '../../pages/HomePage/actions';
 import { createStructuredSelector } from 'reselect';
-import { connect } from 'react-redux';
 import style from './styles';
 import { issueBook } from '../../pages/HomePage/actions';
 import {
@@ -18,6 +13,8 @@ import {
   makeTotalBooksSelctor,
   makeLoadingState,
 } from '../../pages/HomePage/selector';
+
+let toggleFlag = false;
 
 const BookList = ({
   className,
@@ -28,6 +25,7 @@ const BookList = ({
   actions,
 }) => {
   function issueOnClick(data) {
+    // toggleFlag = true;
     const requestPayload = {
       book_id: data.book_id,
     };
@@ -35,12 +33,6 @@ const BookList = ({
     actions.issueBook(requestPayload);
   }
   const columns = [
-    {
-      title: <CapHeader size="small" title="Book ID" />,
-      dataIndex: 'book_id',
-      key: 'book_id',
-      width: '15%',
-    },
     {
       title: <CapHeader size="small" title="Book Name" />,
       dataIndex: 'book_name',
@@ -75,26 +67,42 @@ const BookList = ({
       key: 'button',
       width: '10%',
 
-      render: (text, record) =>
-        record.current_count > 0 ? (
-          <CapButton
-            size="small"
-            color="primary"
-            variant="contained"
-            onClick={() => issueOnClick(record)}
-          >
-            Get Book
-          </CapButton>
-        ) : (
-          <CapButton
-            className="request-btn"
-            size="small"
-            color="primary"
-            variant="contained"
-          >
-            Reserve
-          </CapButton>
-        ),
+      render: (text, record) => {
+        if (record.current_count > 0 && toggleFlag === false) {
+          return (
+            <CapButton
+              size="small"
+              color="primary"
+              variant="contained"
+              onClick={() => issueOnClick(record)}
+            >
+              Get Book
+            </CapButton>
+          );
+        } else if (record.current_count > 0 && toggleFlag === true) {
+          return (
+            <CapButton
+              size="small"
+              color="primary"
+              variant="contained"
+              onClick={() => issueOnClick(record)}
+            >
+              Cancel
+            </CapButton>
+          );
+        } else {
+          return (
+            <CapButton
+              className="request-btn"
+              size="small"
+              color="primary"
+              variant="contained"
+            >
+              Reserve
+            </CapButton>
+          );
+        }
+      },
     },
   ];
 
@@ -113,19 +121,6 @@ const BookList = ({
   );
 };
 
-// const mapDispatchToProps = dispatch => ({
-//   getBook: bookId => dispatch(getBook(bookId)),
-// });
-
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators({ getBook }, dispatch),
-  };
-}
-
-// function mapStateToProps() {
-
-// }
 const mapStateToProps = createStructuredSelector({
   allBooks: makeAllBookListSelector(),
   totalBooks: makeTotalBooksSelctor(),
