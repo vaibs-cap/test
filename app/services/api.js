@@ -237,5 +237,7 @@ export const getBookList = (query = {}) => {
 
   if (query && query.authorName) url += `&authorName=${query.authorName}`;
 
+  if (query && query.bookName) url += `&bookName=${query.bookName}`;
+
   return request(url, getAPICallObject('GET'));
 };

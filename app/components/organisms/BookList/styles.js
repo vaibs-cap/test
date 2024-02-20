@@ -10,6 +10,6 @@ export default css`
   }
 
   .cap-table-v2 {
-    margin: 50px;
+    margin: 15px 25px;
   }
 `;

@@ -1,3 +1,11 @@
+const FILTER_BY_OPTIONS = [
+  { label: 'No filter', value: 'NO_FILTER' },
+  // { label: 'All filters', value: 'ALL_FILTERS' },
+  { label: 'By Genre', value: 'BY_GENRE' },
+  { label: 'By Author', value: 'BY_AUTHOR' },
+  { label: 'By Name', value: 'BY_NAME' },
+];
+
 const GENRE_FILTER_OPTIONS = [
   { label: 'Fiction', value: 'Fiction' },
   { label: 'Science Fiction', value: 'Science Fiction' },
@@ -30,4 +38,4 @@ const AUTHOR_FILTER_OPTIONS = [
   { label: 'Dan Brown', value: 'Dan Brown' },
 ];
 
-export { GENRE_FILTER_OPTIONS, AUTHOR_FILTER_OPTIONS };
+export { GENRE_FILTER_OPTIONS, AUTHOR_FILTER_OPTIONS, FILTER_BY_OPTIONS };

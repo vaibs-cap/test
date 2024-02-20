@@ -16,12 +16,14 @@ const HomePage = ({ allBooks = [], totalBooks = 0, isLoading, actions }) => {
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const [authorNameFilter, setAuthorNameFiler] = useState(null);
   const [genreFilter, setGenreFilter] = useState(null);
+  const [enteredBookName, setEnteredBookName] = useState('');
+  const [filterBy, selectedFilterBy] = useState(null);
 
   useEffect(
     () => {
       fetchBooks();
     },
-    [currentPageNumber, genreFilter, authorNameFilter],
+    [currentPageNumber, genreFilter, authorNameFilter, enteredBookName],
   );
 
   function onchange(data) {
@@ -34,19 +36,37 @@ const HomePage = ({ allBooks = [], totalBooks = 0, isLoading, actions }) => {
       page: currentPageNumber,
       authorName: authorNameFilter,
       genre: genreFilter,
+      bookName: enteredBookName,
     };
 
     actions.fetchBookList(requestPayload);
   }
 
+  function setFilterBy(value) {
+    if (value == 'NO_FILTER') resetAllFilterFieldValues();
+    selectedFilterBy(value);
+  }
+
   function filterByGenre(value) {
-    setCurrentPageNumber(1);
+    resetAllFilterFieldValues();
     setGenreFilter(value);
   }
 
   function filterByAuthor(value) {
-    setCurrentPageNumber(1);
+    resetAllFilterFieldValues();
     setAuthorNameFiler(value);
+  }
+
+  function onBookNameChange(value) {
+    resetAllFilterFieldValues();
+    setEnteredBookName(value);
+  }
+
+  function resetAllFilterFieldValues() {
+    setCurrentPageNumber(1);
+    setAuthorNameFiler(null);
+    setGenreFilter(null);
+    setEnteredBookName('');
   }
 
   return (
@@ -54,6 +74,10 @@ const HomePage = ({ allBooks = [], totalBooks = 0, isLoading, actions }) => {
       <Filter
         selectedGenre={genreFilter}
         selectedAuthor={authorNameFilter}
+        selectedFilterBy={filterBy}
+        enteredBookName={enteredBookName}
+        handleBookNameChange={onBookNameChange}
+        handleFilterByChange={setFilterBy}
         handleGenreChange={filterByGenre}
         handleAuthorChange={filterByAuthor}
       />
