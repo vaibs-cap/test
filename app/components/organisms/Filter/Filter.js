@@ -7,22 +7,27 @@ import CapHeading from '@capillarytech/cap-ui-library/CapHeading';
 import CapRow from '@capillarytech/cap-ui-library/CapRow';
 import withStyles from 'utils/withStyles';
 import style from './styles';
-import {
-  GENRE_FILTER_OPTIONS,
-  AUTHOR_FILTER_OPTIONS,
-  FILTER_BY_OPTIONS,
-} from './constants';
+import { FILTER_BY_OPTIONS } from './constants';
+
+function getPlaceHolderValue(selectedFilterBy) {
+  switch (selectedFilterBy) {
+    case 'NO_FILTER':
+      return 'Select filter by field';
+    case 'BY_GENRE':
+      return 'Search by book genre...';
+    case 'BY_AUTHOR':
+      return 'Search by author name...';
+    case 'BY_NAME':
+      return 'Search by book name...';
+  }
+}
 
 const Filter = ({
   className,
-  selectedGenre,
-  selectedAuthor,
   selectedFilterBy,
-  enteredBookName,
+  filterValue,
   handleFilterByChange,
-  handleGenreChange,
-  handleAuthorChange,
-  handleBookNameChange,
+  handleFilterValueChange,
 }) => (
   <CapRow className={className}>
     <CapRow className="filter-container">
@@ -41,65 +46,25 @@ const Filter = ({
           onChange={val => handleFilterByChange(val)}
           options={[...FILTER_BY_OPTIONS]}
         />
-      </CapRow>
-      {selectedFilterBy !== 'NO_FILTER' && (
-        <CapRow className="filter-books-search-container">
-          {(selectedFilterBy === 'BY_GENRE' ||
-            selectedFilterBy === 'ALL_FILTERS') && (
-            <CapCustomSelect
-              width="28rem"
-              className="book-filter-field"
-              showSearch
-              selectPlaceholder="Select Genre"
-              value={selectedGenre ? selectedGenre : ''}
-              onChange={val => handleGenreChange(val)}
-              options={[
-                { label: 'All Genres', value: '' },
-                ...GENRE_FILTER_OPTIONS,
-              ]}
-            />
-          )}
-          {(selectedFilterBy === 'BY_AUTHOR' ||
-            selectedFilterBy === 'ALL_FILTERS') && (
-            <CapCustomSelect
-              className="book-filter-field"
-              width="28rem"
-              showSearch
-              selectPlaceholder="Select Author"
-              value={selectedAuthor ? selectedAuthor : ''}
-              onChange={val => handleAuthorChange(val)}
-              options={[
-                { label: 'All Authors', value: '' },
-                ...AUTHOR_FILTER_OPTIONS,
-              ]}
-            />
-          )}
 
-          {(selectedFilterBy === 'BY_NAME' ||
-            selectedFilterBy === 'ALL_FILTERS') && (
-            <CapInput
-              className="book-filter-field"
-              value={enteredBookName}
-              onChange={event => handleBookNameChange(event.target.value)}
-              placeholder="Search by book name..."
-            />
-          )}
-        </CapRow>
-      )}
+        <CapInput
+          className="book-filter-field"
+          value={filterValue}
+          disabled={selectedFilterBy === 'NO_FILTER'}
+          onChange={event => handleFilterValueChange(event.target.value)}
+          placeholder={getPlaceHolderValue(selectedFilterBy)}
+        />
+      </CapRow>
     </CapRow>
   </CapRow>
 );
 
 Filter.propTypes = {
   className: PropTypes.string,
-  selectedGenre: PropTypes.string,
-  selectedAuthor: PropTypes.string,
-  handleGenreChange: PropTypes.func,
-  handleAuthorChange: PropTypes.func,
   selectedFilterBy: PropTypes.func,
-  enteredBookName: PropTypes.string,
+  filterValue: PropTypes.string,
   handleFilterByChange: PropTypes.func,
-  handleBookNameChange: PropTypes.func,
+  handleFilterValueChange: PropTypes.func,
 };
 
 export default withStyles(Filter, style);
