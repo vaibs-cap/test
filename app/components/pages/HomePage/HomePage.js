@@ -38,7 +38,6 @@ const HomePage = ({ allBooks = [], totalBooks = 0, isLoading, actions }) => {
       genre: genreFilter,
       bookName: enteredBookName,
     };
-
     actions.fetchBookList(requestPayload);
   }
 
