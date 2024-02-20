@@ -25,9 +25,9 @@ export const issueBook = payload => ({
   payload,
 });
 
-export const issueBookSuccess = payload => ({
+export const issueBookSuccess = result => ({
   type: types.ISSUE_BOOK_SUCCESS,
-  payload,
+  result,
 });
 
 export const issueBookFailure = error => ({
@@ -43,4 +43,14 @@ export const cancelIssueBook = payload => ({
 export const reserveBook = payload => ({
   type: types.RESERVE_BOOK,
   payload,
+});
+
+export const reserveBookSuccess = result => ({
+  type: types.RESERVE_BOOK_SUCCESS,
+  result,
+});
+
+export const reserveBookFailure = error => ({
+  type: types.RESERVE_BOOK_FAILURE,
+  error,
 });

@@ -7,3 +7,5 @@ export const ISSUE_BOOK_SUCCESS = 'booklist/ISSUE_BOOK_SUCCESS';
 export const ISSUE_BOOK_FAILURE = 'booklist/ISSUE_BOOK_FAILURE';
 export const CANCEL_ISSUE_BOOK = 'booklist/CANCEL_ISSUE_BOOK';
 export const RESERVE_BOOK = 'booklist/RESERVE_BOOK';
+export const RESERVE_BOOK_SUCCESS = 'booklist/RESERVE_BOOK_SUCCESS';
+export const RESERVE_BOOK_FAILURE = 'booklist/RESERVE_BOOK_FAILURE';

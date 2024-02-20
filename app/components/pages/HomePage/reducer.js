@@ -33,8 +33,14 @@ const bookListReducer = (state = initialState, action) => {
     case types.ISSUE_BOOK_SUCCESS:
       return state;
     case types.ISSUE_BOOK_FAILURE:
+      return state.set('error', action.error);
+    case types.RESERVE_BOOK:
+      console.log('reserved');
       return state;
-
+    case types.RESERVE_BOOK_SUCCESS:
+      return state;
+    case types.RESERVE_BOOK_FAILURE:
+      return state.set('error', action.error);
     case types.CANCEL_ISSUE_BOOK:
       return state.update('allBookList', allBookList =>
         allBookList.map(book => {

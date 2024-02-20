@@ -10,7 +10,15 @@ export default css`
   }
 
   .cap-table-v2 {
-    margin: 50px;
+    margin: 15px 25px;
+  }
+
+  .cap-button-v2.cancel-btn {
+    background-color: #ee4b2b;
+  }
+
+  .cap-button-v2.cancel-btn:hover {
+    background-color: #880808;
   }
 
   .cap-button-v2.cancel-btn {
