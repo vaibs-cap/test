@@ -22,7 +22,7 @@ const makeSelectUserNewBookRequestsData = () =>
   createSelector(
     selectUserNewBookRequestsDetailDomain,
     (substate = fromJS({})) => ({
-      getBookRequests: substate.get('userNewRequestedBooks'),
+      getBookRequests: substate.get('userNewRequestedBooks').toJS(),
       getLoading: substate.get('loading'),
       getError: substate.get('error'),
     }),

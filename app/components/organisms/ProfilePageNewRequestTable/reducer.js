@@ -25,6 +25,14 @@ export const profilePageNewRequestReducer = (state = initialState, action) => {
       return state.set('loading', false);
     case types.CANCEL_USER_NEW_REQUESTED_BOOKS_FAILURE:
       return state.set('loading', false).set('error', action.payload);
+
+    case types.ACCEPT_USER_NEW_BOOK_REQUEST:
+      return state.set('loading', true);
+    case types.ACCEPT_USER_NEW_BOOK_REQUEST_SUCCESS:
+      return state.set('loading', false);
+    case types.ACCEPT_USER_NEW_BOOK_REQUEST_FAILURE:
+      return state.set('loading', false).set('error', action.payload);
+    
     default:
       return state;
   }
