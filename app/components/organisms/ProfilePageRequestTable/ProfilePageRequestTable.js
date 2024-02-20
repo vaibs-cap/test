@@ -9,17 +9,18 @@ import bookData from '../../pages/ProfilePage/bookData';
 import withStyles from '../../../utils/withStyles';
 import styles from './styles';
 import { connect } from 'react-redux';
-import { cancelUserRequestedBooks } from './redux/actions';
+import { cancelUserRequestedBooks } from './actions';
 import injectReducer from '@capillarytech/cap-coupons/utils/injectReducer';
-import profilePageRequestReducer from './redux/reducer';
+import profilePageRequestReducer from './reducer';
 import { compose, bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import { makeSelectUserBookRequestsData } from './redux/selectors';
-import * as actions from './redux/actions';
+import { makeSelectUserBookRequestsData } from './selectors';
+import * as actions from './actions';
 import { useEffect } from 'react';
 
 const ProfilePageRequestTable = ({ bookRequestsData, className, actions }) => {
   const userReqBooks = bookRequestsData.getBookRequests;
+  console.log('state****', userReqBooks);
 
   const bookIds = [];
   userReqBooks.forEach(book => {

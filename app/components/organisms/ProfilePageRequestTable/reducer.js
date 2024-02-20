@@ -2,8 +2,8 @@ import { fromJS } from 'immutable';
 import {
   CANCEL_USER_REQUESTED_BOOKS,
   FETCH_USER_REQUESTED_BOOKS,
-} from '../constants';
-import bookData from '../../../pages/ProfilePage/bookData';
+} from './constants';
+import bookData from '../../pages/ProfilePage/bookData';
 
 export const initialState = fromJS({
   userRequestedBooks: bookData[0].users[0].requested_books,
