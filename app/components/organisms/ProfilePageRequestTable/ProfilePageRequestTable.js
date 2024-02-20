@@ -14,40 +14,36 @@ import injectReducer from '@capillarytech/cap-coupons/utils/injectReducer';
 import profilePageRequestReducer from './redux/reducer';
 import { compose, bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
+import { makeSelectUserBookRequestsData } from './redux/selectors';
+import * as actions from './redux/actions';
+import { useEffect } from 'react';
 
-const userReqBooks = bookData[0].users[0].requested_books;
-// console.log('*******', bookData[0].users[0].requested_books);
+const ProfilePageRequestTable = ({ bookRequestsData, className, actions }) => {
+  const userReqBooks = bookRequestsData.getBookRequests;
 
-const bookIds = [];
-userReqBooks.forEach(book => {
-  bookIds.push({ bookId: book.book_id, reqDate: book.request_date });
-});
-
-const reqQueue = bookData[0].request_queue;
-
-const dataSource = [];
-
-const allBooks = bookData[0].all_books;
-
-bookIds.forEach(book => {
-  const id = book.bookId - 1;
-  dataSource.push({ request_date: book.reqDate, ...allBooks[id] });
-});
-
-dataSource.forEach((book, index) => {
-  reqQueue.forEach(req => {
-    if (req.book_id === book.book_id) {
-      dataSource[index] = { ...book, waitlist_no: index + 1 };
-    }
+  const bookIds = [];
+  userReqBooks.forEach(book => {
+    bookIds.push({ bookId: book.book_id, reqDate: book.request_date });
   });
-});
 
-const ProfilePageRequestTable = ({
-  cancelUserRequestedBooks,
-  userRequestedBooks,
-  className,
-}) => {
-  console.log('****#####', userRequestedBooks);
+  const reqQueue = bookData[0].request_queue;
+
+  const dataSource = [];
+
+  const allBooks = bookData[0].all_books;
+
+  bookIds.forEach(book => {
+    const id = book.bookId - 1;
+    dataSource.push({ request_date: book.reqDate, ...allBooks[id] });
+  });
+
+  dataSource.forEach((book, index) => {
+    reqQueue.forEach(req => {
+      if (req.book_id === book.book_id) {
+        dataSource[index] = { ...book, waitlist_no: index + 1 };
+      }
+    });
+  });
 
   const columns = [
     {
@@ -94,8 +90,7 @@ const ProfilePageRequestTable = ({
           className="request-cancel-btn"
           onClick={() => {
             console.log(record);
-            console.log('after', userRequestedBooks);
-            cancelUserRequestedBooks(record.book_id);
+            actions.cancelUserRequestedBooks(record.book_id);
           }}
         >
           Cancel
@@ -111,20 +106,14 @@ const ProfilePageRequestTable = ({
   );
 };
 
-const mapStateToProps = state => {
-  console.log('.....', state.get('userRequestedBooks').toJS());
-  return {
-    userRequestedBooks: state.get('userRequestedBooks'),
-  };
-  // createStructuredSelector({
-  //   userRequestedBooks:makeSel
-  // })
-};
+const mapStateToProps = state =>
+  createStructuredSelector({
+    bookRequestsData: makeSelectUserBookRequestsData(state),
+  });
 
 const mapDispatchToProps = dispatch => {
   return {
-    cancelUserRequestedBooks: bookId =>
-      dispatch(cancelUserRequestedBooks(bookId)),
+    actions: bindActionCreators(actions, dispatch),
   };
 };
 

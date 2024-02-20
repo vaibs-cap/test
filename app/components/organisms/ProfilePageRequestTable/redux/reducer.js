@@ -5,27 +5,16 @@ import {
 } from '../constants';
 import bookData from '../../../pages/ProfilePage/bookData';
 
-
-const initialState = fromJS({
-  userRequestedBooks: [
-    {
-      book_id: '2',
-      request_date: '2024-02-10',
-    },
-    {
-      book_id: '9',
-      request_date: '2024-02-15',
-    },
-  ],
-  // userRequestedBooks:bookData[0].users[0].requested_books,
+export const initialState = fromJS({
+  userRequestedBooks: bookData[0].users[0].requested_books,
   loading: true,
-  errors: []
+  errors: null,
 });
 
 export const profilePageRequestReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_USER_REQUESTED_BOOKS:
-      return state;
+      return state.set('loading', true);
 
     case CANCEL_USER_REQUESTED_BOOKS:
       const arr = state.get('userRequestedBooks');
