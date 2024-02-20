@@ -11,13 +11,28 @@ import React from 'react';
 import bookData from '../../pages/ProfilePage/bookData';
 import withStyles from '../../../utils/withStyles';
 import styles from './styles';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 
+import saga from './saga';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import injectSaga from 'utils/injectSaga';
+import injectReducer from 'utils/injectReducer';
+import { bindActionCreators } from 'redux';
+import { createStructuredSelector } from 'reselect';
+import * as actions from './actions';
+import { profilePageNewRequestReducer } from './reducer';
+import { makeSelectUserNewBookRequestsData } from './selectors';
 
-const ProfilePageNewRequestTable = ({className}) => {
+const ProfilePageNewRequestTable = ({className, bookRequestsData, actions}) => {
+  useEffect(async () => {
+    actions.fetchUserNewRequestedBooks();
+  }, []);
+
   const [isAcceptModalOpen, setIsAcceptModalOpen] = useState(false);
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
-  const dataSource = bookData[0].new_books_request_queue
+  const dataSource = bookRequestsData.getBookRequests.toJS()
   const [newReq, setNewReq] = useState({});
   const [reason, setReason] = useState({});
 
@@ -25,6 +40,7 @@ const ProfilePageNewRequestTable = ({className}) => {
     const { name, value } = event.target;
     setReason(prev=>({...prev, [name]:value}));
   }
+
   const handleChange=(event)=>{
     const { name, value } = event.target;
     setNewReq(prevFormData => {
@@ -34,6 +50,7 @@ const ProfilePageNewRequestTable = ({className}) => {
       };
     });
   }
+
   function handleDate(date, dateString) {
     setNewReq(prevFormData => {
       return {
@@ -42,6 +59,7 @@ const ProfilePageNewRequestTable = ({className}) => {
       };
     });
   }
+  
   const showAcceptModal=(id)=>
   {
     const tempRow = dataSource.find(obj=>obj?.request_id===id)
@@ -168,4 +186,29 @@ const ProfilePageNewRequestTable = ({className}) => {
   );
 };
 
-export default withStyles(ProfilePageNewRequestTable, styles);
+
+const mapStateToProps = state =>
+  createStructuredSelector({
+    bookRequestsData: makeSelectUserNewBookRequestsData(state),
+  });
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(actions, dispatch),
+});
+
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
+
+const withSaga = injectSaga({ key: 'userNewBookRequests', saga });
+const withReducer = injectReducer({
+  key: 'profilePageNewRequest',
+  reducer: profilePageNewRequestReducer,
+});
+
+export default compose(
+  withSaga,
+  withReducer,
+  withConnect,
+)(withRouter(withStyles(ProfilePageNewRequestTable, styles)));
