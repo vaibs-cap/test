@@ -14,72 +14,62 @@ const RECORDS_PER_PAGE = 10;
 
 const HomePage = ({ allBooks = [], totalBooks = 0, isLoading, actions }) => {
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
-  const [authorNameFilter, setAuthorNameFiler] = useState(null);
-  const [genreFilter, setGenreFilter] = useState(null);
-  const [enteredBookName, setEnteredBookName] = useState('');
+  const [enteredFilterValue, setEnteredFilterValue] = useState('');
   const [filterBy, selectedFilterBy] = useState(null);
 
   useEffect(
     () => {
       fetchBooks();
     },
-    [currentPageNumber, genreFilter, authorNameFilter, enteredBookName],
+    [currentPageNumber, enteredFilterValue],
   );
 
   function onchange(data) {
     setCurrentPageNumber(data.current);
   }
 
+  function getFilterKey() {
+    switch (filterBy) {
+      case 'BY_GENRE':
+        return 'genre';
+      case 'BY_AUTHOR':
+        return 'authorName';
+      case 'BY_NAME':
+        return 'bookName';
+      case 'NO_FILTER':
+      default:
+        return '';
+    }
+  }
+
   function fetchBooks() {
     const requestPayload = {
       limit: RECORDS_PER_PAGE,
       page: currentPageNumber,
-      authorName: authorNameFilter,
-      genre: genreFilter,
-      bookName: enteredBookName,
     };
+
+    const filterKey = getFilterKey();
+
+    if (filterBy !== '') requestPayload[filterKey] = enteredFilterValue;
 
     actions.fetchBookList(requestPayload);
   }
 
   function setFilterBy(value) {
-    if (value == 'NO_FILTER') resetAllFilterFieldValues();
     selectedFilterBy(value);
   }
 
-  function filterByGenre(value) {
-    resetAllFilterFieldValues();
-    setGenreFilter(value);
-  }
-
-  function filterByAuthor(value) {
-    resetAllFilterFieldValues();
-    setAuthorNameFiler(value);
-  }
-
-  function onBookNameChange(value) {
-    resetAllFilterFieldValues();
-    setEnteredBookName(value);
-  }
-
-  function resetAllFilterFieldValues() {
-    setCurrentPageNumber(1);
-    setAuthorNameFiler(null);
-    setGenreFilter(null);
-    setEnteredBookName('');
+  function onFilterValueChange(value) {
+    setEnteredFilterValue(value);
   }
 
   return (
     <>
       <Filter
-        selectedGenre={genreFilter}
-        selectedAuthor={authorNameFilter}
         selectedFilterBy={filterBy}
-        enteredBookName={enteredBookName}
-        handleBookNameChange={onBookNameChange}
         handleFilterByChange={setFilterBy}
-        handleGenreChange={filterByGenre}
-        handleAuthorChange={filterByAuthor}
+        filterValue={enteredFilterValue}
+        handleFilterValueChange={onFilterValueChange}
       />
       <BookList
         pagination={{
