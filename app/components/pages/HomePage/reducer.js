@@ -41,6 +41,18 @@ const bookListReducer = (state = initialState, action) => {
       return state;
     case types.RESERVE_BOOK_FAILURE:
       return state.set('error', action.error);
+    case types.CANCEL_ISSUE_BOOK:
+      return state.update('allBookList', allBookList =>
+        allBookList.map(book => {
+          if (book.book_id === action.payload.book_id) {
+            return {
+              ...book,
+              current_count: book.current_count + 1,
+            };
+          }
+          return book;
+        }),
+      );
     default:
       return state;
   }

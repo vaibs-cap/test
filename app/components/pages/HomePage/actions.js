@@ -35,6 +35,11 @@ export const issueBookFailure = error => ({
   error,
 });
 
+export const cancelIssueBook = payload => ({
+  type: types.CANCEL_ISSUE_BOOK,
+  payload,
+});
+
 export const reserveBook = payload => ({
   type: types.RESERVE_BOOK,
   payload,
