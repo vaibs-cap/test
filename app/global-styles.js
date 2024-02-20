@@ -89,6 +89,7 @@ const GlobalStyle = createGlobalStyle`
       &:focus, &:hover{
         border-color: ${FONT_COLOR_01}!important;
   }
+}
 `;
 
 export default GlobalStyle;
