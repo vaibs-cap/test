@@ -119,7 +119,6 @@ const bookData = [
             book_id: '2',
             request_date: '2024-02-10',
           },
-          // %%%%%
           {
             book_id:'9',
             request_date: '2024-02-15',

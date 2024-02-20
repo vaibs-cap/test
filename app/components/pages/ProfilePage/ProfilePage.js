@@ -8,6 +8,8 @@ import ProfilePageBorrowTable from '../../organisms/ProfilePageBorrowTable/Profi
 import ProfilePageNewRequestTable from '../../organisms/ProfilePageNewRequestTable/ProfilePageNewRequestTable';
 import ProfilePageHeader from '../../organisms/ProfilePageHeader/ProfilePageHeader';
 import styles from './styles';
+import bookData from './bookData';
+
 const ProfilePage = ({ className, intl: { formatMessage } }) => {
   const isAdmin = true;
   const panes =  [{key : 'borrow', tab: 'Borrowed Books', content: <ProfilePageBorrowTable />}, 
