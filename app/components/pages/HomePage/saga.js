@@ -1,11 +1,13 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { FETCH_ALL_BOOKLIST, ISSUE_BOOK } from './constant';
+import { FETCH_ALL_BOOKLIST, ISSUE_BOOK, RESERVE_BOOK } from './constant';
 import {
   fetchBookListSuccess,
   fetchBookListFailed,
   setLoadingState,
   issueBookSuccess,
   issueBookFailure,
+  reserveBookSuccess,
+  reserveBookFailure,
 } from './actions';
 import { getBookList } from '../../../services/api';
 
@@ -24,7 +26,7 @@ export function* getBookListSaga(action) {
 export function* issueBookSaga(action) {
   try {
     yield put(setLoadingState(true));
-    yield put(issueBookSuccess(action.payload.book_id));
+    yield put(issueBookSuccess(action.payload)); //write api calls
     yield put(setLoadingState(false));
   } catch (e) {
     yield put(setLoadingState(false));
@@ -32,7 +34,19 @@ export function* issueBookSaga(action) {
   }
 }
 
+export function* reserveBookSaga(action) {
+  try {
+    yield put(setLoadingState(true));
+    yield put(reserveBookSuccess(action.payload));
+    yield put(setLoadingState(false));
+  } catch (e) {
+    yield put(setLoadingState(false));
+    yield put(reserveBookFailure(e));
+  }
+}
+
 export function* watchForBookListSaga() {
   yield takeLatest(FETCH_ALL_BOOKLIST, getBookListSaga);
   yield takeLatest(ISSUE_BOOK, issueBookSaga);
+  yield takeLatest(RESERVE_BOOK, reserveBookSaga);
 }
