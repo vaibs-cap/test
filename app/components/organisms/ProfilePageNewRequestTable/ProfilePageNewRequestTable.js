@@ -36,7 +36,7 @@ const ProfilePageNewRequestTable = ({
 
   const [isAcceptModalOpen, setIsAcceptModalOpen] = useState(false);
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
-  const dataSource = bookRequestsData.getBookRequests.toJS();
+  const dataSource = bookRequestsData.getBookRequests;
   const [newReq, setNewReq] = useState({});
   const [reason, setReason] = useState({});
 
@@ -75,7 +75,6 @@ const ProfilePageNewRequestTable = ({
   };
 
   const showCancelModal = id => {
-    const tempRow = dataSource.find(obj => obj?.request_id === id);
     setReason(prevFormData => ({
       ...prevFormData,
       request_id: id,
@@ -85,7 +84,8 @@ const ProfilePageNewRequestTable = ({
 
   const handleAcceptModalAdd = () => {
     setIsAcceptModalOpen(false);
-    console.log(newReq);
+    actions.acceptNewBookRequest(newReq);
+    // console.log(newReq);
   };
 
   const handleAcceptModalCancel = () => {
@@ -94,7 +94,7 @@ const ProfilePageNewRequestTable = ({
 
   const handleCancelModalAdd = () => {
     setIsCancelModalOpen(false);
-    console.log(reason);
+    actions.cancelUserNewRequestedBooks(reason);
   };
 
   const handleCancelModalCancel = () => {
