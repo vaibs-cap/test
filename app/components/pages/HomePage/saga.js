@@ -9,7 +9,7 @@ import {
   reserveBookSuccess,
   reserveBookFailure,
 } from './actions';
-import { getBookList } from '../../../services/api';
+import { getBookList, requestBook } from '../../../services/api';
 
 export function* getBookListSaga(action) {
   try {
@@ -36,6 +36,7 @@ export function* issueBookSaga(action) {
 
 export function* reserveBookSaga(action) {
   try {
+    yield call(requestBook, action.payload);
     yield put(setLoadingState(true));
     yield put(reserveBookSuccess(action.payload));
     yield put(setLoadingState(false));

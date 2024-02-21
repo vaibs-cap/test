@@ -7,7 +7,11 @@ import CapRow from '@capillarytech/cap-ui-library/CapRow';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import style from './styles';
-import { issueBook, cancelIssueBook } from '../../pages/HomePage/actions';
+import {
+  issueBook,
+  cancelIssueBook,
+  reserveBook,
+} from '../../pages/HomePage/actions';
 import {
   makeAllBookListSelector,
   makeTotalBooksSelctor,
@@ -40,6 +44,15 @@ const BookList = ({
     };
     actions.cancelIssueBook(requestPayload);
   }
+
+  function reserveOnClick(bookId, userId = '123') {
+    const requestPayload = {
+      book_id: bookId,
+      user_id: userId,
+    };
+    actions.reserveBook(requestPayload);
+  }
+
   const columns = [
     {
       title: <CapHeader size="small" title="Book Name" />,
@@ -112,6 +125,7 @@ const BookList = ({
               size="small"
               color="primary"
               variant="contained"
+              onClick={() => reserveOnClick(record._id)}
             >
               Reserve
             </CapButton>
@@ -144,6 +158,7 @@ const mapDispatchToProps = dispatch => ({
   actions: {
     issueBook: payload => dispatch(issueBook(payload)),
     cancelIssueBook: payload => dispatch(cancelIssueBook(payload)),
+    reserveBook: payload => dispatch(reserveBook(payload)),
   },
 });
 

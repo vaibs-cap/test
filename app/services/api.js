@@ -241,3 +241,9 @@ export const getBookList = (query = {}) => {
 
   return request(url, getAPICallObject('GET'));
 };
+
+export const requestBook = (query = {}) => {
+  let url = `${MOCK_API_ENDPOINT}/books/reserve?user_id=${query.user_id}&book_id=${query.book_id}`;
+  
+  return request(url, getAPICallObject('PUT'));
+};
