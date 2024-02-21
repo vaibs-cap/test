@@ -17,8 +17,13 @@ import { createStructuredSelector } from 'reselect';
 import { makeSelectUserBookRequestsData } from './selectors';
 import * as actions from './actions';
 import { useEffect } from 'react';
+import saga from './saga';
+import injectSaga from '@capillarytech/cap-coupons/utils/injectSaga';
 
 const ProfilePageRequestTable = ({ bookRequestsData, className, actions }) => {
+  useEffect(async () => {
+    actions.fetchUserRequestedBooks();
+  }, []);
   const userReqBooks = bookRequestsData.getBookRequests;
   console.log('state****', userReqBooks);
 
@@ -123,12 +128,15 @@ const withConnect = connect(
   mapDispatchToProps,
 );
 
+const withSaga = injectSaga({ key: 'userRequest', saga });
+
 const withReducer = injectReducer({
   key: 'userRequest',
   reducer: profilePageRequestReducer,
 });
 
 export default compose(
+  withSaga,
   withReducer,
   withConnect,
 )(withStyles(ProfilePageRequestTable, styles));

@@ -226,3 +226,23 @@ export const upsertExpiryStrategy = (programId, payload) => {
   const url = `${API_ENDPOINT}/strategy/points-expiry/${programId}`;
   return request(url, getAPICallObject('POST', payload));
 };
+
+export const getUserRequestedBooks = (userId) => {
+  const url = `${API_ENDPOINT}/books/request/${userId}`;
+  return request(url, getAPICallObject('GET'));
+};
+
+export const cancelUserRequests = (userId, bookId) => {
+  const url = `${API_ENDPOINT}/books/cancel_request/${userId}/${bookId}`;
+  return request(url, getAPICallObject('GET'));
+};
+
+export const getUserBorrowedBooks = (userId) => {
+  const url = `${API_ENDPOINT}/books/borrow/${userId}`;
+  return request(url, getAPICallObject('GET'));
+};
+
+export const returnBook = (userId, bookId) => {
+  const url = `${API_ENDPOINT}/books/return/${userId}/${bookId}`;
+  return request(url, getAPICallObject('GET'));
+};

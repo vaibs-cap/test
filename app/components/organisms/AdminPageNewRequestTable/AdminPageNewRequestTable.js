@@ -15,8 +15,7 @@ import { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
+import injectReducer from '@capillarytech/cap-coupons/utils/injectReducer';
 import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import saga from './saga';
@@ -27,6 +26,7 @@ import { profilePageNewRequestReducer } from './reducer';
 import { makeSelectUserNewBookRequestsData } from './selectors';
 import moment from 'moment';
 import CapFormItem from '@capillarytech/cap-ui-library';
+import injectSaga from '@capillarytech/cap-coupons/utils/injectSaga';
 
 const AdminPageNewRequestTable = ({ className, bookRequestsData, actions }) => {
   useEffect(async () => {
@@ -237,7 +237,8 @@ const withConnect = connect(
   mapDispatchToProps,
 );
 
-const withSaga = injectSaga({ key: 'userNewBookRequests', saga });
+const withSaga = injectSaga({ key: 'profilePageNewRequest', saga });
+
 const withReducer = injectReducer({
   key: 'profilePageNewRequest',
   reducer: profilePageNewRequestReducer,
