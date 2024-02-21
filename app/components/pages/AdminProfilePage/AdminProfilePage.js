@@ -9,8 +9,8 @@ import ProfilePageNewRequestTable from '../../organisms/ProfilePageNewRequestTab
 import ProfilePageHeader from '../../organisms/ProfilePageHeader/ProfilePageHeader';
 import styles from './styles';
 
-const ProfilePage = ({ className, intl: { formatMessage } }) => {
-  const isAdmin = false;
+const AdminProfilePage = ({ className, intl: { formatMessage } }) => {
+  const isAdmin = true;
   const panes =  [{key : 'borrow', tab: 'Borrowed Books', content: <ProfilePageBorrowTable />}, 
   {key:'request', tab:'Requested Books', content:  <ProfilePageRequestTable />}];
   isAdmin ? panes.push({key: 'new_request', tab:'New Requested Books', content:  <ProfilePageNewRequestTable />}) : {};
@@ -27,11 +27,11 @@ const ProfilePage = ({ className, intl: { formatMessage } }) => {
   );
 };
 
-ProfilePage.propTypes = {
+AdminProfilePage.propTypes = {
   className: PropTypes.string,
   intl: intlShape.isRequired,
 };
 
-ProfilePage.defaultProps = {};
+AdminProfilePage.defaultProps = {};
 
-export default withStyles(injectIntl(ProfilePage), styles);
+export default withStyles(injectIntl(AdminProfilePage), styles);

@@ -22,7 +22,12 @@ const routes = [
     type: 'profilePage',
     component: lazy(() => import('../ProfilePage')),
   },
-
+  {
+    exact: true,
+    path: `${publicPath}/admin-profile-page`,
+    type: 'adminProfilePage',
+    component: lazy(() => import('../AdminProfilePage')),
+  },
 ];
 
 export default routes;

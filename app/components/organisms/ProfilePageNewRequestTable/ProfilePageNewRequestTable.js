@@ -21,7 +21,6 @@ import { createStructuredSelector } from 'reselect';
 import saga from './saga';
 import styles from './styles';
 import withStyles from '../../../utils/withStyles';
-import bookData from '../../pages/ProfilePage/bookData';
 import * as actions from './actions';
 import { profilePageNewRequestReducer } from './reducer';
 import { makeSelectUserNewBookRequestsData } from './selectors';
@@ -85,7 +84,7 @@ const ProfilePageNewRequestTable = ({
   };
 
   const handleAcceptModalAdd = () => {
-    console.log(newReq);
+    // console.log(newReq);
     actions.acceptNewBookRequest(newReq);
     setIsAcceptModalOpen(false);
   };
@@ -192,7 +191,7 @@ const ProfilePageNewRequestTable = ({
           <CapDatePicker
             value = {moment()}
             name="anticipated date"
-            label="Ancipated Date"
+            label="Anticipated Date"
             onChange={handleDate}
           />
         </CapModal>
