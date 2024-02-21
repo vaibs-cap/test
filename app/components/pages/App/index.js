@@ -26,6 +26,7 @@ import config from '../../../config/app';
 import RenderRoute from '../../atoms/RenderRoute';
 import { PRODUCTION } from '../Cap/constants';
 import ProfilePage from '../ProfilePage';
+import AdminProfilePage from '../AdminProfilePage';
 
 const loginUrl =
   process.env.NODE_ENV === PRODUCTION
@@ -41,6 +42,7 @@ export const App = () => (
         <RenderRoute exact path={loginUrl} component={Login} />
         <RenderRoute exact path={publicPath} component={Protected} key={publicPath} />
         <RenderRoute exact path={`${publicPath}/profile-page`} component={ProfilePage} key={`${publicPath}/profile-page`} />
+        <RenderRoute exact path={`${publicPath}/admin-profile-page`} component={AdminProfilePage} key={`${publicPath}/admin-profile-page`} />
         <RenderRoute component={NotFoundPage} />
       </Switch>
     </ConnectedRouter>

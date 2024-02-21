@@ -6,6 +6,7 @@ import {
   CapButton,
   CapInput,
   CapDatePicker,
+  CapAlert,
 } from '@capillarytech/cap-ui-library';
 import React from 'react';
 import { useState, useEffect } from 'react';
@@ -20,10 +21,10 @@ import { createStructuredSelector } from 'reselect';
 import saga from './saga';
 import styles from './styles';
 import withStyles from '../../../utils/withStyles';
-import bookData from '../../pages/ProfilePage/bookData';
 import * as actions from './actions';
 import { profilePageNewRequestReducer } from './reducer';
 import { makeSelectUserNewBookRequestsData } from './selectors';
+import moment from 'moment';
 
 const ProfilePageNewRequestTable = ({
   className,
@@ -69,7 +70,7 @@ const ProfilePageNewRequestTable = ({
       book_author: tempRow.book_author,
       book_genre: '',
       book_description: '',
-      anticipated_date: '',
+      anticipated_date: moment(),
     }));
     setIsAcceptModalOpen(true);
   };
@@ -83,9 +84,9 @@ const ProfilePageNewRequestTable = ({
   };
 
   const handleAcceptModalAdd = () => {
-    setIsAcceptModalOpen(false);
-    actions.acceptNewBookRequest(newReq);
     // console.log(newReq);
+    actions.acceptNewBookRequest(newReq);
+    setIsAcceptModalOpen(false);
   };
 
   const handleAcceptModalCancel = () => {
@@ -180,15 +181,17 @@ const ProfilePageNewRequestTable = ({
             label="Author"
             onChange={handleChange}
           />
-          <CapInput name="book_genre" label="Genre" onChange={handleChange} />
+          <CapInput name="book_genre" label="Genre" value={newReq.book_genre} onChange={handleChange} />
           <CapInput
+            value={newReq.book_description}
             name="book_description"
             label="Description"
             onChange={handleChange}
           />
           <CapDatePicker
+            value = {moment()}
             name="anticipated date"
-            label="Ancipated Date"
+            label="Anticipated Date"
             onChange={handleDate}
           />
         </CapModal>
