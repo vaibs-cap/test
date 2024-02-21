@@ -1,10 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'utils/withStyles';
-import style from './styles';
-import { FILTER_BY_OPTIONS } from './constants';
 import { FormattedMessage } from 'react-intl';
-import messages from './messages';
 import {
   CapButton,
   CapHeading,
@@ -12,6 +9,9 @@ import {
   CapRow,
   CapSelect,
 } from '@capillarytech/cap-ui-library';
+import style from './styles';
+import { FILTER_BY_OPTIONS } from './constants';
+import messages from './messages';
 
 function getPlaceHolderValue(selectedFilterBy) {
   switch (selectedFilterBy) {
@@ -38,7 +38,7 @@ const Filter = ({
       <CapHeading type="h1" className="heading-text">
         <FormattedMessage {...messages.headingText} />
       </CapHeading>
-      <CapButton onClick={() => { }}>
+      <CapButton onClick={() => {}}>
         <FormattedMessage {...messages.buttonText} />
       </CapButton>
     </CapRow>

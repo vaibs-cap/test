@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { CapRow } from '@capillarytech/cap-ui-library';
 import BookList from '../../organisms/BookList/BookList';
 import Filter from '../../organisms/Filter/Filter';
 import { fetchBookList } from './actions';
@@ -11,11 +12,16 @@ import {
 } from './selector';
 import withStyles from '../../../utils/withStyles';
 import styles from './styles';
-import { CapRow } from '@capillarytech/cap-ui-library';
 
 const RECORDS_PER_PAGE = 10;
 
-const HomePage = ({ className, allBooks = [], totalBooks = 0, isLoading, actions }) => {
+const HomePage = ({
+  className,
+  allBooks = [],
+  totalBooks = 0,
+  isLoading,
+  actions,
+}) => {
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const [enteredFilterValue, setEnteredFilterValue] = useState('');
   const [filterBy, selectedFilterBy] = useState(null);

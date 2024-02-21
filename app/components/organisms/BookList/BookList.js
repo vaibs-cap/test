@@ -138,11 +138,11 @@ const BookList = ({
   return (
     <CapRow className="table">
       <CapTable
-       loading={loading}
-       onChange={data => onChange(data)}
-       pagination={pagination}
-       dataSource={dataSource}
-       columns={columns}
+        loading={loading}
+        onChange={data => onChange(data)}
+        pagination={pagination}
+        dataSource={dataSource}
+        columns={columns}
       />
     </CapRow>
   );
