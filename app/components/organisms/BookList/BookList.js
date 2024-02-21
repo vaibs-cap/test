@@ -107,17 +107,17 @@ const BookList = ({
           record.current_count > 0 &&
           issuedBooksArray.includes(record.book_id)
         ) {
-          return (
-            <CapButton
-              size="small"
-              color="primary"
-              variant="contained"
-              className="cancel-btn"
-              onClick={() => cancelOnClick(record.book_id)}
-            >
-              Cancel
-            </CapButton>
-          );
+          // return (
+          //   <CapButton
+          //     size="small"
+          //     color="primary"
+          //     variant="contained"
+          //     className="cancel-btn"
+          //     onClick={() => cancelOnClick(record.book_id)}
+          //   >
+          //     Cancel
+          //   </CapButton>
+          // );
         } else {
           return (
             <CapButton
