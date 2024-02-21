@@ -1,21 +1,22 @@
-import axios from "axios";
-import { put, call, takeLatest } from "redux-saga/effects";
+import axios from 'axios';
+import { put, call, takeLatest } from 'redux-saga/effects';
 import {
-  receiveTaskFailure,
-  receiveTaskSuccess,
-} from "../components/redux/actions";
-import { FETCH_TASK } from "../components/redux/constants";
+  fetchUserRequestedBooksFailure,
+  fetchUserRequestedBooksSuccess,
+} from './actions';
+import { FETCH_USER_REQUESTED_BOOKS } from './constants';
 
-function* onFetchTask() {
+function* onFetchUserRequestedBooks() {
   try {
-    const res = yield call(axios.get, ["http://localhost:3000/tasks"]);
-    console.log(res.data);
-    yield put(receiveTaskSuccess(res.data));
+    const res = yield call(axios.get, ['']);
+    yield put(fetchUserRequestedBooksSuccess(res.data));
+    console.log('******', res.data);
   } catch (err) {
-    yield put(receiveTaskFailure(err));
+    yield put(fetchUserRequestedBooksFailure(err));
+    console.log('(((((((', err);
   }
 }
 
-export function* fetchTasksSaga() {
-  yield takeLatest(FETCH_TASK, onFetchTask);
+export function* fetchUserRequestedBooksSaga() {
+  yield takeLatest(FETCH_USER_REQUESTED_BOOKS, onFetchUserRequestedBooks);
 }
