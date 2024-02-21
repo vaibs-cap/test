@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { CapRow } from '@capillarytech/cap-ui-library';
 import BookList from '../../organisms/BookList/BookList';
 import Filter from '../../organisms/Filter/Filter';
 import { fetchBookList } from './actions';
@@ -9,10 +10,18 @@ import {
   makeTotalBooksSelctor,
   makeLoadingState,
 } from './selector';
+import withStyles from '../../../utils/withStyles';
+import styles from './styles';
 
 const RECORDS_PER_PAGE = 10;
 
-const HomePage = ({ allBooks = [], totalBooks = 0, isLoading, actions }) => {
+const HomePage = ({
+  className,
+  allBooks = [],
+  totalBooks = 0,
+  isLoading,
+  actions,
+}) => {
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const [enteredFilterValue, setEnteredFilterValue] = useState('');
   const [filterBy, selectedFilterBy] = useState(null);
@@ -64,25 +73,27 @@ const HomePage = ({ allBooks = [], totalBooks = 0, isLoading, actions }) => {
   }
 
   return (
-    <>
-      <Filter
-        selectedFilterBy={filterBy}
-        handleFilterByChange={setFilterBy}
-        filterValue={enteredFilterValue}
-        handleFilterValueChange={onFilterValueChange}
-      />
-      <BookList
-        pagination={{
-          current: currentPageNumber,
-          pageSize: 10,
-          total: totalBooks,
-        }}
-        loading={isLoading}
-        onChange={onchange}
-        dataSource={allBooks}
-        totalBooks={totalBooks}
-      />
-    </>
+    <CapRow className={className}>
+      <CapRow className="requests-container">
+        <Filter
+          selectedFilterBy={filterBy}
+          handleFilterByChange={setFilterBy}
+          filterValue={enteredFilterValue}
+          handleFilterValueChange={onFilterValueChange}
+        />
+        <BookList
+          pagination={{
+            current: currentPageNumber,
+            pageSize: 10,
+            total: totalBooks,
+          }}
+          loading={isLoading}
+          onChange={onchange}
+          dataSource={allBooks}
+          totalBooks={totalBooks}
+        />
+      </CapRow>
+    </CapRow>
   );
 };
 
@@ -101,4 +112,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(HomePage);
+)(withStyles(HomePage, styles));
