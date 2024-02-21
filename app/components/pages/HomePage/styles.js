@@ -36,4 +36,20 @@ export default css`
   .ant-select-selection {
     width: 200px !important;
   }
+
+  .cap-button-v2.cancel-btn {
+    background-color: #ee4b2b;
+  }
+
+  .cap-button-v2.cancel-btn:hover {
+    background-color: #880808;
+  }
+
+  .cap-button-v2.request-btn {
+    background-color: #a89532;
+  }
+
+  .cap-button-v2.request-btn:hover {
+    background-color: #a88932;
+  }
 `;

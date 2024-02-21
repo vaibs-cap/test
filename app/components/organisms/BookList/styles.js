@@ -38,10 +38,10 @@ export default css`
   }
 
   .cap-button-v2.cancel-btn {
-    background-color: #ee4b2b;
+    background-color: #ee4b2b !important;
   }
 
   .cap-button-v2.cancel-btn:hover {
-    background-color: #880808;
+    background-color: #880808 !important;
   }
 `;
