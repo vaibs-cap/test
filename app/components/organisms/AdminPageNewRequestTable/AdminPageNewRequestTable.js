@@ -7,6 +7,7 @@ import {
   CapInput,
   CapDatePicker,
   CapAlert,
+  CapForm,
 } from '@capillarytech/cap-ui-library';
 import React from 'react';
 import { useState, useEffect } from 'react';
@@ -25,12 +26,9 @@ import * as actions from './actions';
 import { profilePageNewRequestReducer } from './reducer';
 import { makeSelectUserNewBookRequestsData } from './selectors';
 import moment from 'moment';
+import CapFormItem from '@capillarytech/cap-ui-library';
 
-const ProfilePageNewRequestTable = ({
-  className,
-  bookRequestsData,
-  actions,
-}) => {
+const AdminPageNewRequestTable = ({ className, bookRequestsData, actions }) => {
   useEffect(async () => {
     actions.fetchUserNewRequestedBooks();
   }, []);
@@ -150,19 +148,21 @@ const ProfilePageNewRequestTable = ({
           variant="contained"
           onClick={() => showCancelModal(text.request_id)}
         >
-          Cancel
+          Reject
         </CapButton>
       ),
       width: '7%',
     },
   ];
+
+  // const [form]=CapForm.useForm();
   return (
     <CapRow className={className}>
       <CapTable className="m-30" dataSource={dataSource} columns={columns} />
       <CapRow className="modal">
         <CapModal
           title="Accept New Request"
-          okText="Add"
+          okText="Approve"
           closeText="cancel"
           visible={isAcceptModalOpen}
           onOk={handleAcceptModalAdd}
@@ -181,15 +181,21 @@ const ProfilePageNewRequestTable = ({
             label="Author"
             onChange={handleChange}
           />
-          <CapInput name="book_genre" label="Genre" value={newReq.book_genre} onChange={handleChange} />
+          <CapInput
+            name="book_genre"
+            label="Genre"
+            value={newReq.book_genre}
+            onChange={handleChange}
+          />
           <CapInput
             value={newReq.book_description}
             name="book_description"
             label="Description"
             onChange={handleChange}
+            rules={[{ required: true }]}
           />
           <CapDatePicker
-            value = {moment()}
+            value={moment()}
             name="anticipated date"
             label="Anticipated Date"
             onChange={handleDate}
@@ -197,8 +203,8 @@ const ProfilePageNewRequestTable = ({
         </CapModal>
 
         <CapModal
-          title="Cancel Request"
-          okText="Cancel"
+          title="Reject Request"
+          okText="Reject"
           closeText="back"
           visible={isCancelModalOpen}
           onOk={handleCancelModalAdd}
@@ -209,6 +215,7 @@ const ProfilePageNewRequestTable = ({
             name="reason"
             label="Reason"
             onChange={handleCancelChange}
+            required
           />
         </CapModal>
       </CapRow>
@@ -240,4 +247,4 @@ export default compose(
   withSaga,
   withReducer,
   withConnect,
-)(withRouter(withStyles(ProfilePageNewRequestTable, styles)));
+)(withRouter(withStyles(AdminPageNewRequestTable, styles)));

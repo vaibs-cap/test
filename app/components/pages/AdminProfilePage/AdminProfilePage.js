@@ -5,23 +5,25 @@ import { CapRow, CapTab } from '@capillarytech/cap-ui-library';
 import withStyles from '../../../utils/withStyles';
 import ProfilePageRequestTable from '../../organisms/ProfilePageRequestTable/ProfilePageRequestTable';
 import ProfilePageBorrowTable from '../../organisms/ProfilePageBorrowTable/ProfilePageBorrowTable';
-import ProfilePageNewRequestTable from '../../organisms/ProfilePageNewRequestTable/ProfilePageNewRequestTable';
+import ProfilePageNewRequestTable from '../../organisms/AdminPageNewRequestTable/AdminPageNewRequestTable';
 import ProfilePageHeader from '../../organisms/ProfilePageHeader/ProfilePageHeader';
 import styles from './styles';
 
 const AdminProfilePage = ({ className, intl: { formatMessage } }) => {
   const isAdmin = true;
-  const panes =  [{key : 'borrow', tab: 'Borrowed Books', content: <ProfilePageBorrowTable />}, 
-  {key:'request', tab:'Requested Books', content:  <ProfilePageRequestTable />}];
-  isAdmin ? panes.push({key: 'new_request', tab:'New Requested Books', content:  <ProfilePageNewRequestTable />}) : {};
 
+  const panes = [
+    {
+      key: 'new_request',
+      tab: 'Requested Books',
+      content: <ProfilePageNewRequestTable />,
+    },
+  ];
   return (
     <CapRow className={className}>
       <ProfilePageHeader />
       <CapRow className="p-20">
-      <CapTab mode="horizontal" 
-          panes={panes}>
-      </CapTab>
+        <CapTab mode="horizontal" panes={panes} />
       </CapRow>
     </CapRow>
   );
