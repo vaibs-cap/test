@@ -6,7 +6,7 @@ import { initialState } from './reducer';
  */
 
 const selectUserBorrowedRequestsDetailDomain = (state = fromJS({})) =>
-  state.get('userBorrowedBooks', initialState);
+  state.get('profilePageBorrowedReducer', initialState);
 
 /**
  * Default selector used by loyaltyDetail
@@ -18,15 +18,17 @@ const makeSelectUserBorrowedBooksDetail = () =>
     (substate = fromJS({})) => substate.toJS(),
   );
 
-const makeSelectUserBorrowedBooksData = () =>
-  createSelector(
+const makeSelectUserBorrowedBooksData = (state) =>
+{
+  return createSelector(
     selectUserBorrowedRequestsDetailDomain,
     (substate = fromJS({})) => ({
       getBooksBorrowed: substate.get('userBorrowedBooks').toJS(),
       getLoading: substate.get('loading'),
       getError: substate.get('error'),
     }),
-);
+)
+};
 
 export {
   makeSelectUserBorrowedBooksDetail,

@@ -1,7 +1,8 @@
 import * as types from './constants';
 
-export const fetchUserBorrowedBooks = () => ({
+export const fetchUserBorrowedBooks = (data) => ({
   type: types.FETCH_USER_BORROWED_BOOKS,
+  payload: data,
 });
 
 export const fetchUserBorrowedBooksSuccess = data => ({

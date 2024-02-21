@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { CapHeading, CapRow, CapTable } from '@capillarytech/cap-ui-library';
+import { CapButton, CapHeading, CapRow, CapTable } from '@capillarytech/cap-ui-library';
 import { columns } from './constants';
 
 import { withRouter } from 'react-router-dom';
@@ -21,33 +21,77 @@ const ProfilePageBorrowTable = ({
   className,
   bookBorrowedData,
   actions,}) => {
-  useEffect(async () => {
-    actions.fetchUserBorrowedBooks();
-  }, []);
-  const { issued_books } = bookData[0].users[0];
-  const bookIds = [];
+  const [toggle,setToggle] = useState(0);
+  useEffect( () => {
+     actions.fetchUserBorrowedBooks({userId:"uaGK2b7z84vUQXlH"});
+     
+  }, [toggle]);
+
+  const borrowedBooks= bookBorrowedData.getBooksBorrowed;
   const dataSource = [];
-  issued_books.forEach(book => {
-    bookIds.push({
-      bookId: book.book_id,
-      issue_date: book.issue_date,
-      due_date: book.due_date,
-    });
-  });
-
-  const allBooks = bookData[0].all_books;
-
-  bookIds.forEach(book => {
-    const id = book.bookId - 1;
+  borrowedBooks.forEach(book=>{
     dataSource.push({
-      request_date: book.issue_date,
-      due_date: book.due_date,
-      ...allBooks[id],
-    });
-  });
+      _id:book?._id,
+      book_id:book?.book_id,
+      book_name:book?.book_name,
+      book_author:book?.book_author,
+      book_genre:book?.book_genre,
+      request_date: book?.borrowers.find((borrower)=>borrower.userId==="uaGK2b7z84vUQXlH").borrowedDate,
+      due_date: book?.borrowers.find((borrower)=>borrower.userId==="uaGK2b7z84vUQXlH").borrowedDate,
+    })
+  })
+  
+  const handleReturn=(userId,bookId)=>{
+    setToggle(prev=>(1-prev));
+    actions.returnUserBorrowedBooks({userId:userId, bookId:bookId});
+  }
+
+  const columns = [
+    {
+      title: <CapHeading type="h3">Book Title</CapHeading>,
+      dataIndex: 'book_name',
+      key: 'book_name',
+      width: '15%',
+    },
+    {
+      title: <CapHeading type="h3">Book Author</CapHeading>,
+      dataIndex: 'book_author',
+      key: 'book_author',
+      width: '15%',
+    },
+  
+    {
+      title: <CapHeading type="h3">Book Genre</CapHeading>,
+      dataIndex: 'book_genre',
+      key: 'book_genre',
+      width: '15%',
+    },
+  
+    {
+      title: <CapHeading type="h3">Request Date</CapHeading>,
+      dataIndex: 'request_date',
+      key: 'request_date',
+      width: '15%',
+    },
+  
+    {
+      title: <CapHeading type="h3">Due Date</CapHeading>,
+      dataIndex: 'due_date',
+      key: 'due_date',
+      width: '15%',
+    },
+    {
+      render: (text,record) => (
+        <CapButton type="secondary" size="small" variant="contained" onClick={()=>handleReturn("uaGK2b7z84vUQXlH",record._id)}>
+          Return Book
+        </CapButton>
+      ),
+    },
+  ];
 
   return (
     <CapRow className={className}>
+      {/* <CapButton onClick={handleDelete}>Click me</CapButton> */}
       <CapTable className="m-30" columns={columns} dataSource={dataSource} />
     </CapRow>
   );
