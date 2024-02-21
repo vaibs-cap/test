@@ -6,8 +6,6 @@ import {
   CapButton,
   CapInput,
   CapDatePicker,
-  CapAlert,
-  CapForm,
 } from '@capillarytech/cap-ui-library';
 import React from 'react';
 import { useState, useEffect } from 'react';
@@ -25,7 +23,6 @@ import * as actions from './actions';
 import { profilePageNewRequestReducer } from './reducer';
 import { makeSelectUserNewBookRequestsData } from './selectors';
 import moment from 'moment';
-import CapFormItem from '@capillarytech/cap-ui-library';
 import injectSaga from '@capillarytech/cap-coupons/utils/injectSaga';
 
 const AdminPageNewRequestTable = ({ className, bookRequestsData, actions }) => {
@@ -38,13 +35,24 @@ const AdminPageNewRequestTable = ({ className, bookRequestsData, actions }) => {
   const dataSource = bookRequestsData.getBookRequests;
   const [newReq, setNewReq] = useState({});
   const [reason, setReason] = useState({});
+  const [loading, setLoading] = useState(false);
 
+  const [nameError, setNameError] = useState(null);
+  const [authorError, setAuthorError] = useState(null);
+  const [dateError, setDateError] = useState(null);
   const handleCancelChange = event => {
     const { name, value } = event.target;
     setReason(prev => ({ ...prev, [name]: value }));
   };
 
   const handleChange = event => {
+
+    setAuthorError(null);
+    setDateError(null);
+    setNameError(null);
+    if (!checkvalidation()) {
+      setLoading(false);
+    }
     const { name, value } = event.target;
     setNewReq(prevFormData => ({
       ...prevFormData,
@@ -67,7 +75,6 @@ const AdminPageNewRequestTable = ({ className, bookRequestsData, actions }) => {
       book_name: tempRow.book_name,
       book_author: tempRow.book_author,
       book_genre: '',
-      book_description: '',
       anticipated_date: moment(),
     }));
     setIsAcceptModalOpen(true);
@@ -82,11 +89,30 @@ const AdminPageNewRequestTable = ({ className, bookRequestsData, actions }) => {
   };
 
   const handleAcceptModalAdd = () => {
-    // console.log(newReq);
-    actions.acceptNewBookRequest(newReq);
-    setIsAcceptModalOpen(false);
+    setLoading(true);
+    if (!checkvalidation()) {
+      setLoading(false);
+    } else {
+      setIsAcceptModalOpen(false);
+      setLoading(false);
+      actions.acceptNewBookRequest(newReq);
+    }
   };
 
+  const checkvalidation = () => {
+    if (newReq.book_name == '') {
+      setNameError('Please enter book title!');
+      return false;
+    } else if (newReq.book_author == '') {
+      setAuthorError('Please enter author name!');
+      return false;
+    } else if (newReq.anticipated_date == '') {
+      setDateError('Please select date!');
+      return false;
+    } else {
+      return true;
+    }
+  }
   const handleAcceptModalCancel = () => {
     setIsAcceptModalOpen(false);
   };
@@ -162,24 +188,33 @@ const AdminPageNewRequestTable = ({ className, bookRequestsData, actions }) => {
       <CapRow className="modal">
         <CapModal
           title="Accept New Request"
-          okText="Approve"
-          closeText="cancel"
           visible={isAcceptModalOpen}
-          onOk={handleAcceptModalAdd}
-          onCancel={handleAcceptModalCancel}
           width={700}
+          onCancel={handleAcceptModalCancel}
+          footer={[<CapButton type="secondary" key="close" onClick={handleAcceptModalCancel}>
+            Close
+          </CapButton>,
+          <CapButton key="submit" htmlType="submit" type="primary" loading={loading} onClick={handleAcceptModalAdd}>
+            Approve
+          </CapButton>]}
         >
+
           <CapInput
             value={newReq.book_name}
             name="book_name"
             label="Title"
+            isRequired={true}
+            errorMessage={nameError}
             onChange={handleChange}
           />
+          <CapRow></CapRow>
           <CapInput
             value={newReq.book_author}
             name="book_author"
             label="Author"
+            isRequired={true}
             onChange={handleChange}
+            errorMessage={authorError}
           />
           <CapInput
             name="book_genre"
@@ -187,25 +222,19 @@ const AdminPageNewRequestTable = ({ className, bookRequestsData, actions }) => {
             value={newReq.book_genre}
             onChange={handleChange}
           />
-          <CapInput
-            value={newReq.book_description}
-            name="book_description"
-            label="Description"
-            onChange={handleChange}
-            rules={[{ required: true }]}
-          />
           <CapDatePicker
             value={moment()}
             name="anticipated date"
             label="Anticipated Date"
             onChange={handleDate}
+            errorMessage={dateError}
+            isRequired={true}
           />
         </CapModal>
-
         <CapModal
           title="Reject Request"
           okText="Reject"
-          closeText="back"
+          closeText="Close"
           visible={isCancelModalOpen}
           onOk={handleCancelModalAdd}
           onCancel={handleCancelModalCancel}
@@ -215,7 +244,7 @@ const AdminPageNewRequestTable = ({ className, bookRequestsData, actions }) => {
             name="reason"
             label="Reason"
             onChange={handleCancelChange}
-            required
+            isRequired={true}
           />
         </CapModal>
       </CapRow>

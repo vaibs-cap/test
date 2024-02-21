@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { injectIntl, intlShape } from 'react-intl';
 import PropTypes from 'prop-types';
 import { CapRow, CapTab } from '@capillarytech/cap-ui-library';
 import withStyles from '../../../utils/withStyles';
-import ProfilePageRequestTable from '../../organisms/ProfilePageRequestTable/ProfilePageRequestTable';
-import ProfilePageBorrowTable from '../../organisms/ProfilePageBorrowTable/ProfilePageBorrowTable';
 import ProfilePageNewRequestTable from '../../organisms/AdminPageNewRequestTable/AdminPageNewRequestTable';
 import ProfilePageHeader from '../../organisms/ProfilePageHeader/ProfilePageHeader';
 import styles from './styles';
