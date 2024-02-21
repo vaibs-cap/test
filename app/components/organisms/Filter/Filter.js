@@ -1,13 +1,17 @@
-import CapHeader from '@capillarytech/cap-ui-library/CapHeader';
 import React from 'react';
 import PropTypes from 'prop-types';
-import CapCustomSelect from '@capillarytech/cap-ui-library/CapCustomSelect';
-import CapInput from '@capillarytech/cap-ui-library/CapInput';
-import CapHeading from '@capillarytech/cap-ui-library/CapHeading';
-import CapRow from '@capillarytech/cap-ui-library/CapRow';
 import withStyles from 'utils/withStyles';
 import style from './styles';
 import { FILTER_BY_OPTIONS } from './constants';
+import { FormattedMessage } from 'react-intl';
+import messages from './messages';
+import {
+  CapButton,
+  CapHeading,
+  CapInput,
+  CapRow,
+  CapSelect,
+} from '@capillarytech/cap-ui-library';
 
 function getPlaceHolderValue(selectedFilterBy) {
   switch (selectedFilterBy) {
@@ -29,34 +33,32 @@ const Filter = ({
   handleFilterByChange,
   handleFilterValueChange,
 }) => (
-  <CapRow className={className}>
-    <CapRow className="filter-container">
-      <CapHeader
-        title="Capillary Library"
-        description="Issue books from Capillary Library"
-      />
-      <CapHeading class="filter-heading" type="h3">
-        Filter Books
+  <>
+    <CapRow className="top-section" type="flex">
+      <CapHeading type="h1" className="heading-text">
+        <FormattedMessage {...messages.headingText} />
       </CapHeading>
-      <CapRow className="filter-by-container">
-        <CapCustomSelect
-          width="28rem"
-          selectPlaceholder="Filter by:"
-          value={selectedFilterBy ? selectedFilterBy : ''}
-          onChange={val => handleFilterByChange(val)}
-          options={[...FILTER_BY_OPTIONS]}
-        />
-
-        <CapInput
-          className="book-filter-field"
-          value={filterValue}
-          disabled={selectedFilterBy === 'NO_FILTER'}
-          onChange={event => handleFilterValueChange(event.target.value)}
-          placeholder={getPlaceHolderValue(selectedFilterBy)}
-        />
-      </CapRow>
+      <CapButton onClick={() => { }}>
+        <FormattedMessage {...messages.buttonText} />
+      </CapButton>
     </CapRow>
-  </CapRow>
+    <CapRow className="search-section" type="flex">
+      <CapInput
+        className="search-field"
+        value={filterValue}
+        disabled={selectedFilterBy === 'NO_FILTER'}
+        onChange={event => handleFilterValueChange(event.target.value)}
+        placeholder={getPlaceHolderValue(selectedFilterBy)}
+      />
+      <CapSelect
+        className="search-field"
+        selectPlaceholder="Filter by:"
+        value={selectedFilterBy ? selectedFilterBy : ''}
+        onChange={val => handleFilterByChange(val)}
+        options={[...FILTER_BY_OPTIONS]}
+      />
+    </CapRow>
+  </>
 );
 
 Filter.propTypes = {
