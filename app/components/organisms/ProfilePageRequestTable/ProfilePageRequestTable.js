@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {
   CapTable,
   CapRow,
@@ -11,7 +11,7 @@ import styles from './styles';
 import { connect } from 'react-redux';
 import { cancelUserRequestedBooks } from './actions';
 import injectReducer from '@capillarytech/cap-coupons/utils/injectReducer';
-import profilePageRequestReducer from './reducer';
+import {profilePageRequestReducer} from './reducer';
 import { compose, bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import { makeSelectUserBookRequestsData } from './selectors';
@@ -21,35 +21,31 @@ import saga from './saga';
 import injectSaga from '@capillarytech/cap-coupons/utils/injectSaga';
 
 const ProfilePageRequestTable = ({ bookRequestsData, className, actions }) => {
-  useEffect(async () => {
-    actions.fetchUserRequestedBooks();
-  }, []);
-  const userReqBooks = bookRequestsData.getBookRequests;
-  console.log('state****', userReqBooks);
+  const [toggle,setToggle] = useState(0);
 
-  const bookIds = [];
-  userReqBooks.forEach(book => {
-    bookIds.push({ bookId: book.book_id, reqDate: book.request_date });
-  });
+  useEffect(() => {
+    actions.fetchUserRequestedBooks({userId:"uaGK2b7z84vUQXlH"});
+  }, [toggle]);
 
-  const reqQueue = bookData[0].request_queue;
+  const requestBooks= bookRequestsData.getBookRequests; 
 
   const dataSource = [];
+  requestBooks.forEach(book=>{
+    dataSource.push({
+      _id:book?._id,
+      book_id:book?.book_id,
+      book_name:book?.book_name,
+      book_author:book?.book_author,
+      book_genre:book?.book_genre,
+      request_date: book?.requests.find((requester)=>requester.userId==="uaGK2b7z84vUQXlH").requestDate,
+      waitlist_no: book?.current_count,
+    })
+  })
 
-  const allBooks = bookData[0].all_books;
-
-  bookIds.forEach(book => {
-    const id = book.bookId - 1;
-    dataSource.push({ request_date: book.reqDate, ...allBooks[id] });
-  });
-
-  dataSource.forEach((book, index) => {
-    reqQueue.forEach(req => {
-      if (req.book_id === book.book_id) {
-        dataSource[index] = { ...book, waitlist_no: index + 1 };
-      }
-    });
-  });
+  const handleCancel=(userId,bookId)=>{
+    setToggle(prev=>(1-prev));
+    actions.cancelUserRequestedBooks({userId:userId, bookId:bookId});
+  }
 
   const columns = [
     {
@@ -94,10 +90,7 @@ const ProfilePageRequestTable = ({ bookRequestsData, className, actions }) => {
           size="small"
           variant="contained"
           className="request-cancel-btn"
-          onClick={() => {
-            console.log(record);
-            actions.cancelUserRequestedBooks(record.book_id);
-          }}
+          onClick={()=>handleCancel("uaGK2b7z84vUQXlH",record._id)}
         >
           Cancel
         </CapButton>

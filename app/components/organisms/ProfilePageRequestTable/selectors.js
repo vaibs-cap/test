@@ -6,7 +6,7 @@ import { initialState } from './reducer';
  */
 
 const selectUserBookRequestsDetailDomain = (state = fromJS({})) =>
-  state.get('userRequestedBooks', initialState);
+  state.get('userRequest', initialState);
 
 /**
  * Default selector used by loyaltyDetail

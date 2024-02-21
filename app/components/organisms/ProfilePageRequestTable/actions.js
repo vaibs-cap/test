@@ -1,33 +1,31 @@
-import {
-  CANCEL_USER_REQUESTED_BOOKS,
-  CANCEL_USER_REQUESTED_BOOKS_FAILURE,
-  CANCEL_USER_REQUESTED_BOOKS_SUCCESS,
-  FETCH_USER_REQUESTED_BOOKS,
-  FETCH_USER_REQUESTED_BOOKS_FAILURE,
-  FETCH_USER_REQUESTED_BOOKS_SUCCESS,
-} from './constants';
+import * as types from './constants';
 
-export const fetchUserRequestedBooks = () => ({
-  type: FETCH_USER_REQUESTED_BOOKS,
+export const fetchUserRequestedBooks = (data) => ({
+  type: types.FETCH_USER_REQUESTED_BOOKS,
+  payload: data,
 });
 
-export const fetchUserRequestedBooksSuccess = () => ({
-  type: FETCH_USER_REQUESTED_BOOKS_SUCCESS,
+export const fetchUserRequestedBooksSuccess = data => ({
+  type: types.FETCH_USER_REQUESTED_BOOKS_SUCCESS,
+  payload: data,
 });
 
-export const fetchUserRequestedBooksFailure = () => ({
-  type: FETCH_USER_REQUESTED_BOOKS_FAILURE,
+export const fetchUserRequestedBooksFailure = data => ({
+  type: types.FETCH_USER_REQUESTED_BOOKS_FAILURE,
+  payload: data,
 });
 
-export const cancelUserRequestedBooks = bookId => ({
-  type: CANCEL_USER_REQUESTED_BOOKS,
-  payload: bookId,
+export const cancelUserRequestedBooks = data => ({
+  type: types.CANCEL_USER_REQUESTED_BOOKS,
+  payload: data,
 });
 
 export const cancelUserRequestedBooksSuccess = () => ({
-  type: CANCEL_USER_REQUESTED_BOOKS_SUCCESS,
+  type: types.CANCEL_USER_REQUESTED_BOOKS_SUCCESS,
 });
 
-export const cancelUserRequestedBooksFailure = () => ({
-  type: CANCEL_USER_REQUESTED_BOOKS_FAILURE,
+export const cancelUserRequestedBooksFailure = data => ({
+  type: types.CANCEL_USER_REQUESTED_BOOKS_FAILURE,
+  payload: data,
 });
+
