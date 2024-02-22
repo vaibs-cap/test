@@ -1,24 +1,19 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import * as Api from '../../../services/api';
 import * as types from './constants';
+import { fetchUserNewRequestedBooksSuccess, fetchUserNewRequestedBooksFailure, cancelUserNewRequestedBooksSuccess, cancelUserNewRequestedBooksFailure, acceptNewBookRequestSuccess, acceptNewBookRequestFailure } from './actions';
 
-export function* getBookRequests() {
+export function* getBookRequests(action) {
   try {
-    const res = yield call(Api.getUserBookRequests);
-    console.log('RESLT: ', res.status);
+    const res = yield call(Api.getUserNewRequestedBooks, action.payload);
+    console.log(res);
     if (res?.success) {
-      yield put({
-        type: types.FETCH_USER_NEW_REQUESTED_BOOKS_SUCCESS,
-        result: res?.result || [],
-      });
+      yield put(fetchUserNewRequestedBooksSuccess({result:res.result, count: res.totalRequests}));
     } else {
-      yield put({
-        type: types.FETCH_USER_NEW_REQUESTED_BOOKS_FAILURE,
-        error: res?.error || res?.message,
-      });
+      yield put(fetchUserNewRequestedBooksFailure(res.error));
     }
   } catch (error) {
-    yield put({ type: types.FETCH_ALL_BOOK_REQUESTS_FAILURE, error });
+    yield put(fetchUserNewRequestedBooksFailure(error));
   }
 }
 
@@ -26,6 +21,47 @@ export function* watchForGetBookRequests() {
   yield takeLatest(types.FETCH_USER_NEW_REQUESTED_BOOKS, getBookRequests);
 }
 
+export function* cancelBookRequests(action) {
+  try {
+    console.log("********cancel saga",action.payload);
+    const res = yield call(Api.cancelNewRequest, action.payload);
+    
+    if (res?.status==200) {
+      yield put(cancelUserNewRequestedBooksSuccess());
+    } else {
+      yield put(cancelUserNewRequestedBooksFailure(res.error));
+    }
+  } catch (error) {
+    yield put(cancelUserNewRequestedBooksFailure(error));
+  }
+}
+
+export function* watchForCancelBookRequests() {
+  yield takeLatest(types.CANCEL_USER_NEW_REQUESTED_BOOKS, cancelBookRequests);
+}
+
+
+export function* acceptBookRequests(action) {
+  try {
+    console.log("********accept saga",action.payload);
+    const res = yield call(Api.acceptNewRequest, action.payload);
+    
+
+    if (res?.status==200) {
+      yield put(acceptNewBookRequestSuccess());
+    } else {
+      yield put(acceptNewBookRequestFailure(res.error));
+    }
+  } catch (error) {
+    yield put(acceptNewBookRequestFailure(error));
+  }
+}
+
+export function* watchForAcceptBookRequests() {
+  yield takeLatest(types.ACCEPT_USER_NEW_BOOK_REQUEST, acceptBookRequests);
+}
+
+
 export default function*() {
-  yield all([watchForGetBookRequests()]);
+  yield all([watchForGetBookRequests(),watchForCancelBookRequests(), watchForAcceptBookRequests()]);
 }

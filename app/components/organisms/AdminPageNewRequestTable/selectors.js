@@ -6,7 +6,7 @@ import { initialState } from './reducer';
  */
 
 const selectUserNewBookRequestsDetailDomain = (state = fromJS({})) =>
-  state.get('userNewRequestedBooks', initialState);
+  state.get('profilePageNewRequest', initialState);
 
 /**
  * Default selector used by loyaltyDetail
@@ -25,6 +25,7 @@ const makeSelectUserNewBookRequestsData = () =>
       getBookRequests: substate.get('userNewRequestedBooks').toJS(),
       getLoading: substate.get('loading'),
       getError: substate.get('error'),
+      getCount: substate.get('totalCount'),
     }),
   );
 

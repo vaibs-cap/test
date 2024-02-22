@@ -1,7 +1,8 @@
 import * as types from './constants';
 
-export const fetchUserNewRequestedBooks = () => ({
+export const fetchUserNewRequestedBooks = (data) => ({
   type: types.FETCH_USER_NEW_REQUESTED_BOOKS,
+  payload: data
 });
 
 export const fetchUserNewRequestedBooksSuccess = data => ({
@@ -28,10 +29,14 @@ export const cancelUserNewRequestedBooksFailure = data => ({
   payload: data,
 });
 
-export const acceptNewBookRequest = data => ({
-  type: types.ACCEPT_USER_NEW_BOOK_REQUEST,
-  payload: data,
-});
+export const acceptNewBookRequest = data => {
+  // console.log("******actions",data);
+  return ({
+    type: types.ACCEPT_USER_NEW_BOOK_REQUEST,
+    payload: data,
+  });
+}
+
 
 export const acceptNewBookRequestSuccess = () => ({
   type: types.ACCEPT_USER_NEW_BOOK_REQUEST_SUCCESS,

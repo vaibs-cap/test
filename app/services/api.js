@@ -246,3 +246,18 @@ export const returnBook = (userId, bookId) => {
   const url = `${API_ENDPOINT}/books/return/${userId}/${bookId}`;
   return request(url, getAPICallObject('GET'));
 };
+
+export const getUserNewRequestedBooks = (page) => {
+  const url = `${API_ENDPOINT}/books/requests?page=${page}`;
+  return request(url, getAPICallObject('GET'));
+};
+
+export const cancelNewRequest = (payload) => {
+  const url = `${API_ENDPOINT}/books/new_request/cancel`;
+  return request(url, getAPICallObject('POST', payload));
+};
+
+export const acceptNewRequest = (payload) => {
+  const url = `${API_ENDPOINT}/books/new_request/approve`;
+  return request(url, getAPICallObject('POST', payload));
+};

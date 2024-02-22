@@ -1,1 +1,1 @@
-export { default } from './ProfilePageNewRequestTable';
+export { default } from './AdminPageNewRequestTable';

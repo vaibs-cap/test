@@ -3,9 +3,10 @@ import * as types from './constants';
 import bookData from '../../pages/ProfilePage/bookData';
 
 export const initialState = fromJS({
-  userNewRequestedBooks: bookData[0].new_books_request_queue,
+  userNewRequestedBooks: [],
   loading: false,
   error: null,
+  totalCount:0,
 });
 
 export const profilePageNewRequestReducer = (state = initialState, action) => {
@@ -13,9 +14,11 @@ export const profilePageNewRequestReducer = (state = initialState, action) => {
     case types.FETCH_USER_NEW_REQUESTED_BOOKS:
       return state.set('loading', true);
     case types.FETCH_USER_NEW_REQUESTED_BOOKS_SUCCESS:
+      console.log("*****reducer",action.payload.count);
       return state
         .set('loading', false)
-        .set('userNewRequestedBooks', action.payload);
+        .set('userNewRequestedBooks', fromJS(action.payload.result))
+        .set('totalCount', action.payload.count);
     case types.FETCH_USER_NEW_REQUESTED_BOOKS_FAILURE:
       return state.set('loading', false).set('error', action.payload);
 

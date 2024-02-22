@@ -26,17 +26,16 @@ import moment from 'moment';
 import injectSaga from '@capillarytech/cap-coupons/utils/injectSaga';
 
 const AdminPageNewRequestTable = ({ className, bookRequestsData, actions }) => {
-  useEffect(async () => {
-    actions.fetchUserNewRequestedBooks();
-  }, []);
+  
 
+  const [page, setPage] = useState(1);
+  // console.log(bookRequestsData.getBookRequests)
   const [isAcceptModalOpen, setIsAcceptModalOpen] = useState(false);
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
   const dataSource = bookRequestsData.getBookRequests;
   const [newReq, setNewReq] = useState({});
   const [reason, setReason] = useState({});
   const [loading, setLoading] = useState(false);
-
   const [nameError, setNameError] = useState(null);
   const [authorError, setAuthorError] = useState(null);
   const [dateError, setDateError] = useState(null);
@@ -68,10 +67,10 @@ const AdminPageNewRequestTable = ({ className, bookRequestsData, actions }) => {
   }
 
   const showAcceptModal = id => {
-    const tempRow = dataSource.find(obj => obj?.request_id === id);
+    const tempRow = dataSource.find(obj => obj?._id === id);
     setNewReq(prevFormData => ({
       ...prevFormData,
-      request_id: id,
+      _id: id,
       book_name: tempRow.book_name,
       book_author: tempRow.book_author,
       book_genre: '',
@@ -79,11 +78,12 @@ const AdminPageNewRequestTable = ({ className, bookRequestsData, actions }) => {
     }));
     setIsAcceptModalOpen(true);
   };
-
+  
   const showCancelModal = id => {
     setReason(prevFormData => ({
       ...prevFormData,
-      request_id: id,
+      _id: id,
+      reason:"",
     }));
     setIsCancelModalOpen(true);
   };
@@ -93,9 +93,11 @@ const AdminPageNewRequestTable = ({ className, bookRequestsData, actions }) => {
     if (!checkvalidation()) {
       setLoading(false);
     } else {
+      // console.log(newReq);
+      actions.acceptNewBookRequest(newReq);
       setIsAcceptModalOpen(false);
       setLoading(false);
-      actions.acceptNewBookRequest(newReq);
+      
     }
   };
 
@@ -118,6 +120,7 @@ const AdminPageNewRequestTable = ({ className, bookRequestsData, actions }) => {
   };
 
   const handleCancelModalAdd = () => {
+    // console.log(reason)
     setIsCancelModalOpen(false);
     actions.cancelUserNewRequestedBooks(reason);
   };
@@ -153,38 +156,63 @@ const AdminPageNewRequestTable = ({ className, bookRequestsData, actions }) => {
       width: '15%',
     },
     {
-      render: (text, record) => (
-        <CapButton
-          type="secondary"
-          size="small"
-          variant="contained"
-          onClick={() => showAcceptModal(text.request_id)}
-        >
-          Approve
-        </CapButton>
-      ),
+      render: (text, record) => {
+        console.log(text)
+        return (text.state=="Pending") ?
+        (
+          <CapButton
+            type="secondary"
+            size="small"
+            variant="contained"
+            onClick={() => showAcceptModal(text._id)}
+          >
+            Approve
+          </CapButton>
+        ):
+        (<></>)
+      }
+      ,
       width: '7%',
     },
     {
-      render: (text, record) => (
-        <CapButton
-          className="request-cancel-btn"
-          type="secondary"
-          size="small"
-          variant="contained"
-          onClick={() => showCancelModal(text.request_id)}
-        >
-          Reject
-        </CapButton>
-      ),
+      render: (text, record) =>{
+        return (text.state=="Pending")?(
+          <CapButton
+            className="request-cancel-btn"
+            type="secondary"
+            size="small"
+            variant="contained"
+            pagination={{
+              current: page,
+              pageSize: 9,
+              total: bookRequestsData.getTotalCount,
+            }}
+            onClick={() => showCancelModal(text._id)}
+          >
+            Reject
+          </CapButton>
+        ):
+        (<></>)
+      } ,
       width: '7%',
     },
   ];
 
-  // const [form]=CapForm.useForm();
+  useEffect(() => {
+    actions.fetchUserNewRequestedBooks(page);
+  }, [page]);
+  // console.log(bookRequestsData)
   return (
     <CapRow className={className}>
-      <CapTable className="m-30" dataSource={dataSource} columns={columns} />
+      <CapTable className="m-30" dataSource={dataSource} columns={columns} 
+      pagination={{
+              current: page,
+              pageSize: 9,
+              total: bookRequestsData.getCount,
+            }}
+            onChange={pagination => {
+              setPage(pagination.current);
+            }} />
       <CapRow className="modal">
         <CapModal
           title="Accept New Request"
@@ -223,7 +251,7 @@ const AdminPageNewRequestTable = ({ className, bookRequestsData, actions }) => {
             onChange={handleChange}
           />
           <CapDatePicker
-            value={moment()}
+            defaultValue={moment()}
             name="anticipated date"
             label="Anticipated Date"
             onChange={handleDate}
@@ -243,6 +271,7 @@ const AdminPageNewRequestTable = ({ className, bookRequestsData, actions }) => {
           <CapInput
             name="reason"
             label="Reason"
+            value={reason.reason}
             onChange={handleCancelChange}
             isRequired={true}
           />
