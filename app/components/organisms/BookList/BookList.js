@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CapTable from '@capillarytech/cap-ui-library/CapTable/CapTable';
 import CapHeader from '@capillarytech/cap-ui-library/CapHeader';
 import CapButton from '@capillarytech/cap-ui-library/CapButton';
+import CapHeading from '@capillarytech/cap-ui-library/CapHeading';
 import withStyles from 'utils/withStyles';
 import CapRow from '@capillarytech/cap-ui-library/CapRow';
 import { connect } from 'react-redux';
@@ -27,25 +28,31 @@ const BookList = ({
   onChange,
   actions,
 }) => {
-  const [issuedBooksArray, setIssuedBooksArray] = useState([]);
-  function issueOnClick(data) {
+  const [issuedBooksArray, setIssuedBooksArray] = useState(() => {
+    const storedBooks = localStorage.getItem('issuedBooksArray');
+    return storedBooks ? JSON.parse(storedBooks) : [];
+  });
+
+  useEffect(
+    () => {
+      localStorage.setItem(
+        'issuedBooksArray',
+        JSON.stringify(issuedBooksArray),
+      );
+    },
+    [issuedBooksArray],
+  );
+  function issueOnClick(data, userId = '132') {
     setIssuedBooksArray(prevArray => [...prevArray, data.book_id]);
     console.log('This is issued array', issued_books_array);
     const requestPayload = {
-      book_id: data.book_id,
+      book_id: data._id,
+      user_id: userId,
     };
     actions.issueBook(requestPayload);
   }
 
-  function cancelOnClick(bookId) {
-    setIssuedBooksArray(prevArray => prevArray.filter(id => id !== bookId));
-    const requestPayload = {
-      book_id: bookId,
-    };
-    actions.cancelIssueBook(requestPayload);
-  }
-
-  function reserveOnClick(bookId, userId = '123') {
+  function reserveOnClick(bookId, userId = '132') {
     const requestPayload = {
       book_id: bookId,
       user_id: userId,
@@ -55,35 +62,39 @@ const BookList = ({
 
   const columns = [
     {
-      title: <CapHeader size="small" title="Book Name" />,
+      title: <CapHeading type="h4">Book Name</CapHeading>,
       dataIndex: 'book_name',
       key: 'book_name',
       width: '15%',
     },
 
     {
-      title: <CapHeader size="small" title="Book Author" />,
+      title: <CapHeading type="h4">Book Author</CapHeading>,
       dataIndex: 'book_author',
       key: 'book_author',
       width: '15%',
     },
 
     {
-      title: <CapHeader size="small" title="Book Genre" />,
+      title: <CapHeading type="h4">Book Genre</CapHeading>,
       dataIndex: 'book_genre',
       key: 'book_genre',
       width: '15%',
     },
 
     {
-      title: <CapHeader size="small" title="Available Count" />,
-      dataIndex: 'current_count',
-      key: 'current_count',
+      title: <CapHeading type="h4">Available Book/Total Book</CapHeading>,
+      dataIndex: 'count_ratio',
+      key: 'count_ratio',
       width: '15%',
+      render: (text, record) => {
+        const countRatio = record.current_count + '/' + record.total_count;
+        return <span>{countRatio}</span>;
+      },
     },
 
     {
-      title: <CapHeader size="small" title="Button" />,
+      title: <CapHeading type="h4">Button</CapHeading>,
       dataIndex: 'button',
       key: 'button',
       width: '10%',

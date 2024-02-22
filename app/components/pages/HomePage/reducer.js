@@ -21,7 +21,7 @@ const bookListReducer = (state = initialState, action) => {
     case types.ISSUE_BOOK:
       return state.update('allBookList', allBookList =>
         allBookList.map(book => {
-          if (book.book_id === action.payload.book_id) {
+          if (book._id === action.payload.book_id) {
             return {
               ...book,
               current_count: book.current_count - 1,
@@ -30,8 +30,10 @@ const bookListReducer = (state = initialState, action) => {
           return book;
         }),
       );
+
     case types.ISSUE_BOOK_SUCCESS:
       return state;
+
     case types.ISSUE_BOOK_FAILURE:
       return state.set('error', action.error);
     case types.RESERVE_BOOK:

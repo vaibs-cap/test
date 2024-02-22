@@ -243,7 +243,17 @@ export const getBookList = (query = {}) => {
 };
 
 export const requestBook = (query = {}) => {
-  let url = `${MOCK_API_ENDPOINT}/books/reserve?user_id=${query.user_id}&book_id=${query.book_id}`;
-  
+  let url = `${MOCK_API_ENDPOINT}/books/reserve?user_id=${
+    query.user_id
+  }&book_id=${query.book_id}`;
+
+  return request(url, getAPICallObject('PUT'));
+};
+
+export const issueBook = (query = {}) => {
+  let url = `${MOCK_API_ENDPOINT}/books/issue?user_id=${
+    query.user_id
+  }&book_id=${query.book_id}`;
+
   return request(url, getAPICallObject('PUT'));
 };
