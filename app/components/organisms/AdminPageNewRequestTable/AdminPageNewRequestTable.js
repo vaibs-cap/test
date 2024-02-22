@@ -39,6 +39,7 @@ const AdminPageNewRequestTable = ({ className, bookRequestsData, actions }) => {
   const [nameError, setNameError] = useState(null);
   const [authorError, setAuthorError] = useState(null);
   const [dateError, setDateError] = useState(null);
+  const [toggle, setToggle] = useState(0);
   const handleCancelChange = event => {
     const { name, value } = event.target;
     setReason(prev => ({ ...prev, [name]: value }));
@@ -95,6 +96,7 @@ const AdminPageNewRequestTable = ({ className, bookRequestsData, actions }) => {
     } else {
       // console.log(newReq);
       actions.acceptNewBookRequest(newReq);
+      setToggle((prev)=>(1-prev));
       setIsAcceptModalOpen(false);
       setLoading(false);
       
@@ -123,6 +125,7 @@ const AdminPageNewRequestTable = ({ className, bookRequestsData, actions }) => {
     // console.log(reason)
     setIsCancelModalOpen(false);
     actions.cancelUserNewRequestedBooks(reason);
+    setToggle((prev)=>(1-prev));
   };
 
   const handleCancelModalCancel = () => {
@@ -157,7 +160,7 @@ const AdminPageNewRequestTable = ({ className, bookRequestsData, actions }) => {
     },
     {
       render: (text, record) => {
-        console.log(text)
+        // console.log(text)
         return (text.state=="Pending") ?
         (
           <CapButton
@@ -200,7 +203,7 @@ const AdminPageNewRequestTable = ({ className, bookRequestsData, actions }) => {
 
   useEffect(() => {
     actions.fetchUserNewRequestedBooks(page);
-  }, [page]);
+  }, [page,toggle]);
   // console.log(bookRequestsData)
   return (
     <CapRow className={className}>
@@ -212,7 +215,8 @@ const AdminPageNewRequestTable = ({ className, bookRequestsData, actions }) => {
             }}
             onChange={pagination => {
               setPage(pagination.current);
-            }} />
+            }} 
+      />
       <CapRow className="modal">
         <CapModal
           title="Accept New Request"
