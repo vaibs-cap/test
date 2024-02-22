@@ -1,0 +1,137 @@
+import React, { useEffect, useState } from 'react';
+import {
+  CapButton,
+  CapHeading,
+  CapRow,
+  CapTable,
+} from '@capillarytech/cap-ui-library';
+
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import injectSaga from 'utils/injectSaga';
+import injectReducer from 'utils/injectReducer';
+import { bindActionCreators } from 'redux';
+import { createStructuredSelector } from 'reselect';
+import { columns } from './constants';
+import saga from './saga';
+import styles from './styles';
+import withStyles from '../../../utils/withStyles';
+import bookData from '../../pages/ProfilePage/bookData';
+import * as actions from './actions';
+import { profilePageBorrowedReducer } from './reducer';
+import { makeSelectUserBorrowedBooksData } from './selectors';
+
+const ProfilePageBorrowTable = ({ className, bookBorrowedData, actions }) => {
+  const [toggle, setToggle] = useState(0);
+  useEffect(
+    () => {
+      actions.fetchUserBorrowedBooks({ userId: 'uaGK2b7z84vUQXlH' });
+    },
+    [toggle],
+  );
+
+  const borrowedBooks = bookBorrowedData.getBooksBorrowed;
+  const dataSource = [];
+  borrowedBooks.forEach(book => {
+    dataSource.push({
+      _id: book?._id,
+      book_id: book?.book_id,
+      book_name: book?.book_name,
+      book_author: book?.book_author,
+      book_genre: book?.book_genre,
+      request_date: book?.borrowers.find(
+        borrower => borrower.userId === 'uaGK2b7z84vUQXlH',
+      ).borrowedDate,
+      due_date: book?.borrowers.find(
+        borrower => borrower.userId === 'uaGK2b7z84vUQXlH',
+      ).borrowedDate,
+    });
+  });
+
+  const handleReturn = (userId, bookId) => {
+    setToggle(prev => 1 - prev);
+    actions.returnUserBorrowedBooks({ userId: userId, bookId: bookId });
+  };
+
+  const columns = [
+    {
+      title: <CapHeading type="h3">Book Title</CapHeading>,
+      dataIndex: 'book_name',
+      key: 'book_name',
+      width: '15%',
+    },
+    {
+      title: <CapHeading type="h3">Book Author</CapHeading>,
+      dataIndex: 'book_author',
+      key: 'book_author',
+      width: '15%',
+    },
+
+    {
+      title: <CapHeading type="h3">Book Genre</CapHeading>,
+      dataIndex: 'book_genre',
+      key: 'book_genre',
+      width: '15%',
+    },
+
+    {
+      title: <CapHeading type="h3">Request Date</CapHeading>,
+      dataIndex: 'request_date',
+      key: 'request_date',
+      width: '15%',
+    },
+
+    {
+      title: <CapHeading type="h3">Due Date</CapHeading>,
+      dataIndex: 'due_date',
+      key: 'due_date',
+      width: '15%',
+    },
+    {
+      render: (text, record) => (
+        <CapButton
+          type="secondary"
+          size="small"
+          variant="contained"
+          onClick={() => handleReturn('uaGK2b7z84vUQXlH', record._id)}
+        >
+          Return Book
+        </CapButton>
+      ),
+    },
+  ];
+
+  return (
+    <CapRow className={className}>
+      {/* <CapButton onClick={handleDelete}>Click me</CapButton> */}
+      <CapTable className="m-30" columns={columns} dataSource={dataSource} />
+    </CapRow>
+  );
+};
+
+const mapStateToProps = state =>
+  createStructuredSelector({
+    bookBorrowedData: makeSelectUserBorrowedBooksData(state),
+  });
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(actions, dispatch),
+});
+
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
+
+const withSaga = injectSaga({ key: 'userReturnBook', saga });
+const withReducer = injectReducer({
+  key: 'profilePageBorrowedReducer',
+  reducer: profilePageBorrowedReducer,
+});
+
+export default compose(
+  withSaga,
+  withReducer,
+  withConnect,
+)(withRouter(withStyles(ProfilePageBorrowTable, styles)));

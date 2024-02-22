@@ -22,6 +22,8 @@ import config from '../../../config/app';
 
 import RenderRoute from '../../atoms/RenderRoute';
 import { PRODUCTION } from '../Cap/constants';
+import ProfilePage from '../ProfilePage';
+import AdminProfilePage from '../AdminProfilePage';
 import HomePage from '../HomePage/HomePage';
 import NewBookRequest from '../NewBookRequest';
 import LibSignup from '../Lib-Signup/LibSignup';
@@ -32,7 +34,7 @@ const loginUrl =
     ? config.production.login_url
     : config.development.login_url;
 
-const Protected = userIsAuthenticated(Product);
+const Protected = userIsAuthenticated(Cap);
 
 export const App = () => (
   <>
@@ -50,6 +52,18 @@ export const App = () => (
           key={publicPath}
         />
         <RenderRoute exact path="/book-list" component={HomePage} />
+        <RenderRoute
+          exact
+          path={`${publicPath}/profile-page`}
+          component={ProfilePage}
+          key={`${publicPath}/profile-page`}
+        />
+        <RenderRoute
+          exact
+          path={`${publicPath}/admin-profile-page`}
+          component={AdminProfilePage}
+          key={`${publicPath}/admin-profile-page`}
+        />
         <RenderRoute component={NotFoundPage} />
       </Switch>
     </ConnectedRouter>

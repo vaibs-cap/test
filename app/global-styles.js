@@ -41,7 +41,9 @@ const GlobalStyle = createGlobalStyle`
     }
   }
   
-  
+  .ant-modal.cap-modal-v2 {
+    max-width: 700px;
+  }
   ul, ol {
     list-style: none;
     padding: 0;
@@ -89,6 +91,7 @@ const GlobalStyle = createGlobalStyle`
       &:focus, &:hover{
         border-color: ${FONT_COLOR_01}!important;
   }
+}
 `;
 
 export default GlobalStyle;
