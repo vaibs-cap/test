@@ -15,13 +15,13 @@ import messages from './messages';
 
 function getPlaceHolderValue(selectedFilterBy) {
   switch (selectedFilterBy) {
-    case 'NO_FILTER':
-      return 'Select filter by field';
     case 'BY_GENRE':
       return 'Search by book genre...';
     case 'BY_AUTHOR':
       return 'Search by author name...';
     case 'BY_NAME':
+      return 'Search by book name...';
+    default:
       return 'Search by book name...';
   }
 }
@@ -53,7 +53,7 @@ const Filter = ({
       <CapSelect
         className="search-field"
         selectPlaceholder="Filter by:"
-        value={selectedFilterBy ? selectedFilterBy : ''}
+        value={selectedFilterBy ? selectedFilterBy : 'By Name'}
         onChange={val => handleFilterByChange(val)}
         options={[...FILTER_BY_OPTIONS]}
       />

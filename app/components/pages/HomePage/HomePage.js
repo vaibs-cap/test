@@ -24,7 +24,7 @@ const HomePage = ({
 }) => {
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const [enteredFilterValue, setEnteredFilterValue] = useState('');
-  const [filterBy, selectedFilterBy] = useState(null);
+  const [filterBy, selectedFilterBy] = useState('BY_NAME');
 
   useEffect(
     () => {

@@ -33,17 +33,25 @@ const BookList = ({
     const storedBooks = localStorage.getItem('issuedBooksArray');
     return storedBooks ? JSON.parse(storedBooks) : [];
   });
+  const [reservedBooksArray, setReservedBooksArray] = useState(() => {
+    const storedBooks = localStorage.getItem('reservedBooksArray');
+    return storedBooks ? JSON.parse(storedBooks) : [];
+  });
 
   useEffect(
     () => {
       localStorage.setItem(
         'issuedBooksArray',
         JSON.stringify(issuedBooksArray),
-      );
+      ),
+        localStorage.setItem(
+          'reservedBooksArray',
+          JSON.stringify(reservedBooksArray),
+        );
     },
-    [issuedBooksArray],
+    [issuedBooksArray, reservedBooksArray],
   );
-  function issueOnClick(data, userId = '132') {
+  function issueOnClick(data, userId = '135') {
     setIssuedBooksArray(prevArray => [...prevArray, data.book_id]);
     console.log('This is issued array', issued_books_array);
     const requestPayload = {
@@ -53,15 +61,8 @@ const BookList = ({
     actions.issueBook(requestPayload);
   }
 
-  function cancelOnClick(bookId) {
-    setIssuedBooksArray(prevArray => prevArray.filter(id => id !== bookId));
-    const requestPayload = {
-      book_id: bookId,
-    };
-    actions.cancelIssueBook(requestPayload);
-  }
-
   function reserveOnClick(bookId, userId = config.development.mock_user_id) {
+    setReservedBooksArray(prevArray => [...prevArray, bookId]);
     const requestPayload = {
       book_id: bookId,
       user_id: userId,
@@ -138,7 +139,10 @@ const BookList = ({
           //     Cancel
           //   </CapButton>
           // );
-        } else {
+        } else if (
+          !reservedBooksArray.includes(record._id) &&
+          record.current_count === 0
+        ) {
           return (
             <CapButton
               className="request-btn"
