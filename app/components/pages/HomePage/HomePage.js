@@ -69,6 +69,7 @@ const HomePage = ({
   }
 
   function onFilterValueChange(value) {
+    setCurrentPageNumber(1);
     setEnteredFilterValue(value);
   }
 

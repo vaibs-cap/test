@@ -18,6 +18,7 @@ import {
   makeTotalBooksSelctor,
   makeLoadingState,
 } from '../../pages/HomePage/selector';
+import config from '../../../config/app';
 
 let issued_books_array = [];
 const BookList = ({
@@ -52,7 +53,15 @@ const BookList = ({
     actions.issueBook(requestPayload);
   }
 
-  function reserveOnClick(bookId, userId = '132') {
+  function cancelOnClick(bookId) {
+    setIssuedBooksArray(prevArray => prevArray.filter(id => id !== bookId));
+    const requestPayload = {
+      book_id: bookId,
+    };
+    actions.cancelIssueBook(requestPayload);
+  }
+
+  function reserveOnClick(bookId, userId = config.development.mock_user_id) {
     const requestPayload = {
       book_id: bookId,
       user_id: userId,
@@ -88,7 +97,7 @@ const BookList = ({
       key: 'count_ratio',
       width: '15%',
       render: (text, record) => {
-        const countRatio = record.current_count + '/' + record.total_count;
+        const countRatio = `${record.current_count}/${record.total_count}`;
         return <span>{countRatio}</span>;
       },
     },

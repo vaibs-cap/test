@@ -9,12 +9,16 @@ import {
   reserveBookSuccess,
   reserveBookFailure,
 } from './actions';
+import {
+  showSuccessNotifiction,
+  showErrorNotifiction,
+} from '../../../services/notification';
 import { getBookList, issueBook, requestBook } from '../../../services/api';
 
 export function* getBookListSaga(action) {
   try {
-    const bookList = yield call(getBookList, action.payload);
     yield put(setLoadingState(true));
+    const bookList = yield call(getBookList, action.payload);
     yield put(fetchBookListSuccess(bookList));
     yield put(setLoadingState(false));
   } catch (e) {
@@ -26,11 +30,12 @@ export function* getBookListSaga(action) {
 export function* issueBookSaga(action) {
   try {
     yield put(setLoadingState(true));
-    yield call(issueBook, action.payload);
-    yield put(issueBookSuccess(action.payload)); //write api calls
-
+    const updatedBook = yield call(issueBook, action.payload);
+    yield put(issueBookSuccess(updatedBook)); //write api calls
+    showSuccessNotifiction('Book is issued successfully!');
     yield put(setLoadingState(false));
   } catch (e) {
+    showErrorNotifiction('Some error occured');
     yield put(setLoadingState(false));
     yield put(issueBookFailure(e));
   }
@@ -38,11 +43,13 @@ export function* issueBookSaga(action) {
 
 export function* reserveBookSaga(action) {
   try {
-    yield call(requestBook, action.payload);
+    const updatedBook = yield call(requestBook, action.payload);
     yield put(setLoadingState(true));
-    yield put(reserveBookSuccess(action.payload));
+    yield put(reserveBookSuccess(updatedBook));
+    showSuccessNotifiction('Book is reserved successfully!');
     yield put(setLoadingState(false));
   } catch (e) {
+    showErrorNotifiction('Some error occured');
     yield put(setLoadingState(false));
     yield put(reserveBookFailure(e));
   }

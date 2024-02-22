@@ -32,14 +32,32 @@ const bookListReducer = (state = initialState, action) => {
       );
 
     case types.ISSUE_BOOK_SUCCESS:
-      return state;
+      return state.update('allBookList', allBookList =>
+        allBookList.map(book => {
+          if (book.book_id === action.result.updatedBook.book_id) {
+            return {
+              ...action.result.updatedBook,
+            };
+          }
+          return book;
+        }),
+      );
 
     case types.ISSUE_BOOK_FAILURE:
       return state.set('error', action.error);
     case types.RESERVE_BOOK:
       return state;
     case types.RESERVE_BOOK_SUCCESS:
-      return state;
+      return state.update('allBookList', allBookList =>
+        allBookList.map(book => {
+          if (book.book_id === action.result.updatedBook.book_id) {
+            return {
+              ...action.result.updatedBook,
+            };
+          }
+          return book;
+        }),
+      );
     case types.RESERVE_BOOK_FAILURE:
       return state.set('error', action.error);
     case types.CANCEL_ISSUE_BOOK:
