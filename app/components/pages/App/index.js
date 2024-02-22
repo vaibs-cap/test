@@ -34,7 +34,7 @@ const loginUrl =
     ? config.production.login_url
     : config.development.login_url;
 
-const Protected = userIsAuthenticated(Cap);
+const Protected = userIsAuthenticated(Product);
 
 export const App = () => (
   <>
@@ -54,15 +54,15 @@ export const App = () => (
         <RenderRoute exact path="/book-list" component={HomePage} />
         <RenderRoute
           exact
-          path={`${publicPath}/profile-page`}
+          path={`/profile-page`}
           component={ProfilePage}
-          key={`${publicPath}/profile-page`}
+          key={`/profile-page`}
         />
         <RenderRoute
           exact
-          path={`${publicPath}/admin-profile-page`}
+          path={`/admin-profile-page`}
           component={AdminProfilePage}
-          key={`${publicPath}/admin-profile-page`}
+          key={`/admin-profile-page`}
         />
         <RenderRoute component={NotFoundPage} />
       </Switch>

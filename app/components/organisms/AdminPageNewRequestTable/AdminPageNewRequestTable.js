@@ -155,10 +155,8 @@ const AdminPageNewRequestTable = ({ className, bookRequestsData, actions }) => {
       width: '15%',
     },
     {
-      render: (text, record) => 
-        // console.log(text)
-         (text.state=="Pending") ?
-        (
+      render: (text, record) => {
+        return text.state == 'Pending' ? (
           <CapButton
             type="secondary"
             size="small"
@@ -167,9 +165,9 @@ const AdminPageNewRequestTable = ({ className, bookRequestsData, actions }) => {
           >
             Approve
           </CapButton>
-        ):
-        (<></>)
-      
+        ) : (
+          <></>
+        );
       },
       width: '7%',
     },
@@ -208,8 +206,10 @@ const AdminPageNewRequestTable = ({ className, bookRequestsData, actions }) => {
   return (
     <CapRow className={className}>
       <CapTable
-className="m-30" dataSource={dataSource} columns={columns} 
-      pagination={{
+        className="m-30"
+        dataSource={dataSource}
+        columns={columns}
+        pagination={{
           current: page,
           pageSize: 9,
           total: bookRequestsData.getCount,
