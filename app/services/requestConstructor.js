@@ -38,6 +38,7 @@ export function getAPICallObject(
   if (process.env.NODE_ENV !== 'production' && token !== undefined) {
     headers.Authorization = `Bearer ${token}`;
   }
+  headers.authentication = localStorage.getItem('token');
   if (get(apiConfigs, 'headers')) {
     const configHeaders = apiConfigs.headers;
     headers = { ...headers, ...configHeaders };

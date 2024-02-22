@@ -226,3 +226,14 @@ export const upsertExpiryStrategy = (programId, payload) => {
   const url = `${API_ENDPOINT}/strategy/points-expiry/${programId}`;
   return request(url, getAPICallObject('POST', payload));
 };
+
+export const getBookRequests = query => {
+  const url = `${API_ENDPOINT}/books/requests?searchText=${query.searchText ??
+    ''}&filter=${query.selectedFilter}&page=${query.page}`;
+  return request(url, getAPICallObject('GET'));
+};
+
+export const addNewBookRequest = data => {
+  const url = `${API_ENDPOINT}/books/requests/new-request`;
+  return request(url, getAPICallObject('POST', data));
+};

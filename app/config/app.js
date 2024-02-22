@@ -10,8 +10,9 @@ const config = {
     logout_url: '/auth/logout',
   },
   development: {
-    api_endpoint: 'https://crm-nightly-new.cc.capillarytech.com/loyalty/api/v1',
+    // api_endpoint: 'https://crm-nightly-new.cc.capillarytech.com/loyalty/api/v1',
     // api_endpoint: 'http://localhost:2050/loyalty/api/v1',
+    api_endpoint: 'http://localhost:3000',
     auth_endpoint: 'https://crm-nightly-new.cc.capillarytech.com/arya/api/v1',
     bi_api_endpoint:
       'https://crm-nightly-new.cc.capillarytech.com/arya/api/v1/bi',

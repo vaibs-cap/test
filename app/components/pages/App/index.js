@@ -11,9 +11,6 @@ import { Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router/immutable';
 import history from 'utils/history';
 import { userIsAuthenticated } from '../../../utils/authWrapper';
-
-import Cap from '../Cap';
-import Login from '../Login';
 // import Login from '../components/templates/Login';
 import Product from '../../../src/Product';
 import ProductAdd from '../../../src/ProductAdd';
@@ -25,6 +22,9 @@ import config from '../../../config/app';
 
 import RenderRoute from '../../atoms/RenderRoute';
 import { PRODUCTION } from '../Cap/constants';
+import NewBookRequest from '../NewBookRequest';
+import LibSignup from '../Lib-Signup/LibSignup';
+import LibSignin from '../Lib-Signin/LibSignin';
 
 const loginUrl =
   process.env.NODE_ENV === PRODUCTION
@@ -37,8 +37,17 @@ export const App = () => (
   <>
     <ConnectedRouter history={history}>
       <Switch>
-        <RenderRoute exact path={loginUrl} component={Login} />
-        <RenderRoute exact path={publicPath} component={Protected} key={publicPath} />
+        <RenderRoute exact path="/" component={NewBookRequest} />
+        <RenderRoute exact path={'/libSignup'} component={LibSignup} />
+        <RenderRoute exact path={'/libSignin'} component={LibSignin} />
+
+        {/* <RenderRoute exact path={loginUrl} component={Login} /> */}
+        <RenderRoute
+          exact
+          path={publicPath}
+          component={Protected}
+          key={publicPath}
+        />
         <RenderRoute component={NotFoundPage} />
       </Switch>
     </ConnectedRouter>
