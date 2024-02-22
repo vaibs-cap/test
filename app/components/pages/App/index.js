@@ -22,6 +22,7 @@ import config from '../../../config/app';
 
 import RenderRoute from '../../atoms/RenderRoute';
 import { PRODUCTION } from '../Cap/constants';
+import HomePage from '../HomePage/HomePage';
 import NewBookRequest from '../NewBookRequest';
 import LibSignup from '../Lib-Signup/LibSignup';
 import LibSignin from '../Lib-Signin/LibSignin';
@@ -38,8 +39,8 @@ export const App = () => (
     <ConnectedRouter history={history}>
       <Switch>
         <RenderRoute exact path="/" component={NewBookRequest} />
-        <RenderRoute exact path={'/libSignup'} component={LibSignup} />
-        <RenderRoute exact path={'/libSignin'} component={LibSignin} />
+        <RenderRoute exact path="/libSignup" component={LibSignup} />
+        <RenderRoute exact path="/libSignin" component={LibSignin} />
 
         {/* <RenderRoute exact path={loginUrl} component={Login} /> */}
         <RenderRoute
@@ -48,6 +49,7 @@ export const App = () => (
           component={Protected}
           key={publicPath}
         />
+        <RenderRoute exact path="/book-list" component={HomePage} />
         <RenderRoute component={NotFoundPage} />
       </Switch>
     </ConnectedRouter>

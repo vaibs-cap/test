@@ -4,13 +4,14 @@ import CapNotification from '@capillarytech/cap-ui-library/CapNotification';
 import { removeAuthenticationDetais } from '../utils/authWrapper';
 import config from '../config/app';
 import * as requestConstructor from './requestConstructor';
-const isNil = require('lodash/isNil');
+// const isNil = require('lodash/isNil');
 
 const { getAPICallObject, getBiHeaders } = requestConstructor;
 
 let API_ENDPOINT = config.development.api_endpoint;
 let API_AUTH_ENDPOINT = config.development.auth_endpoint;
 let BI_API_ENDPOINT = config.development.bi_api_endpoint;
+const MOCK_API_ENDPOINT = config.development.mock_endpoint;
 const isProd = process.env.NODE_ENV === 'production';
 
 if (isProd) {
@@ -225,6 +226,36 @@ export const upsertReturnStrategy = (programId, payload) => {
 export const upsertExpiryStrategy = (programId, payload) => {
   const url = `${API_ENDPOINT}/strategy/points-expiry/${programId}`;
   return request(url, getAPICallObject('POST', payload));
+};
+
+export const getBookList = (query = {}) => {
+  //Todo: It's mock endpoint right now, needs to change when server is ready.
+  let url = `${MOCK_API_ENDPOINT}/books?`;
+  url += `page=${query && query.page ? query.page : 1}`;
+
+  if (query && query.genre) url += `&genre=${query.genre}`;
+
+  if (query && query.authorName) url += `&authorName=${query.authorName}`;
+
+  if (query && query.bookName) url += `&bookName=${query.bookName}`;
+
+  return request(url, getAPICallObject('GET'));
+};
+
+export const requestBook = (query = {}) => {
+  let url = `${MOCK_API_ENDPOINT}/books/reserve?user_id=${
+    query.user_id
+  }&book_id=${query.book_id}`;
+
+  return request(url, getAPICallObject('PUT'));
+};
+
+export const issueBook = (query = {}) => {
+  let url = `${MOCK_API_ENDPOINT}/books/issue?user_id=${
+    query.user_id
+  }&book_id=${query.book_id}`;
+
+  return request(url, getAPICallObject('PUT'));
 };
 
 export const getBookRequests = query => {
