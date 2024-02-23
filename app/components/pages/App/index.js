@@ -40,7 +40,11 @@ export const App = () => (
   <>
     <ConnectedRouter history={history}>
       <Switch>
-        <RenderRoute exact path="/" component={NewBookRequest} />
+        <RenderRoute
+          exact
+          path="/new-book-request"
+          component={NewBookRequest}
+        />
         <RenderRoute exact path="/libSignup" component={LibSignup} />
         <RenderRoute exact path="/libSignin" component={LibSignin} />
 
@@ -54,15 +58,15 @@ export const App = () => (
         <RenderRoute exact path="/book-list" component={HomePage} />
         <RenderRoute
           exact
-          path={`/profile-page`}
+          path="/profile-page"
           component={ProfilePage}
-          key={`/profile-page`}
+          key="/profile-page"
         />
         <RenderRoute
           exact
-          path={`/admin-profile-page`}
+          path="/admin-profile-page"
           component={AdminProfilePage}
-          key={`/admin-profile-page`}
+          key="/admin-profile-page"
         />
         <RenderRoute component={NotFoundPage} />
       </Switch>

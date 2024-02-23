@@ -2,10 +2,9 @@ import { all, call, put, takeLatest } from 'redux-saga/effects';
 import * as Api from '../../../services/api';
 import * as types from './constants';
 
-const token = localStorage.getItem('token');
 export function* getBookRequests(action) {
   try {
-    const res = yield call(Api.getBookRequests, action.payload, token);
+    const res = yield call(Api.getBookRequests, action.payload);
     if (res?.success) {
       yield put({
         type: types.FETCH_ALL_BOOK_REQUESTS_SUCCESS,
@@ -29,7 +28,7 @@ export function* watchForGetBookRequests() {
 
 export function* addNewBookRequest(action) {
   try {
-    const res = yield call(Api.addNewBookRequest, action.payload, token);
+    const res = yield call(Api.addNewBookRequest, action.payload);
     if (res?.success) {
       yield put({
         type: types.ADD_NEW_BOOK_REQUEST_SUCCESS,

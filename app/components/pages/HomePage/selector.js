@@ -17,5 +17,14 @@ const makeLoadingState = () =>
   createSelector(selectBookList, (substate = fromJS({})) =>
     substate.get('isLoading'),
   );
+const makeErrorState = () =>
+  createSelector(selectBookList, (substate = fromJS({})) =>
+    substate.get('error'),
+  );
 
-export { makeAllBookListSelector, makeTotalBooksSelctor, makeLoadingState };
+export {
+  makeAllBookListSelector,
+  makeTotalBooksSelctor,
+  makeLoadingState,
+  makeErrorState,
+};
