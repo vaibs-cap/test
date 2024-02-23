@@ -16,7 +16,7 @@ export const profilePageBorrowedReducer = (state = initialState, action) => {
         .set('loading', false)
         .set('userBorrowedBooks', fromJS(action.payload));
     case types.FETCH_USER_BORROWED_BOOKS_FAILURE:
-      return state.set('loading', false).set('error', fromJS(action.payload));
+      return state.set('loading', false).set('error', action.payload);
 
     case types.RETURN_USER_BORROWED_BOOKS:
       return state.set('loading', true);

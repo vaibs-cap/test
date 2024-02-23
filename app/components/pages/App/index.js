@@ -28,6 +28,7 @@ import HomePage from '../HomePage/HomePage';
 import NewBookRequest from '../NewBookRequest';
 import LibSignup from '../Lib-Signup/LibSignup';
 import LibSignin from '../Lib-Signin/LibSignin';
+import AccessForbidden from '../AccessForbidden/AccessForbidden';
 
 const loginUrl =
   process.env.NODE_ENV === PRODUCTION
@@ -55,7 +56,7 @@ export const App = () => (
           component={Protected}
           key={publicPath}
         />
-        <RenderRoute exact path="/book-list" component={HomePage} />
+        <RenderRoute exact path="/" component={HomePage} />
         <RenderRoute
           exact
           path="/profile-page"
@@ -64,9 +65,14 @@ export const App = () => (
         />
         <RenderRoute
           exact
-          path="/admin-profile-page"
+          path="/admin"
           component={AdminProfilePage}
           key="/admin-profile-page"
+        />
+        <RenderRoute
+          exact
+          path="/AccessForbidden"
+          component={AccessForbidden}
         />
         <RenderRoute component={NotFoundPage} />
       </Switch>

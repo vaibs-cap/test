@@ -11,10 +11,14 @@ const ProfilePageHeader = ({ className }) => (
       </CapRow>
       <CapRow className="main">
         <CapRow>
-          <CapHeading type="h3">Name: Lorem Ipsum </CapHeading>
+          <CapHeading type="h3">
+            Name: {localStorage.getItem('userName')}
+          </CapHeading>
         </CapRow>
         <CapRow>
-          <CapHeading type="h3">Email: user@test.com</CapHeading>
+          <CapHeading type="h3">
+            Email: {localStorage.getItem('userEmail')}
+          </CapHeading>
         </CapRow>
       </CapRow>
     </CapRow>

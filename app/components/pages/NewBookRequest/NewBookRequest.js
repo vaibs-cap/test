@@ -172,7 +172,7 @@ const NewBookRequest = ({ className, bookRequestsData, actions }) => {
     const book = {
       book_name: bookName,
       book_author: authorName,
-      email: 'mohit@gmail.com',
+      email: `${localStorage.getItem('userEmail')}`,
     };
 
     actions.addNewBookRequestRequest(book);

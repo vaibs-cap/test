@@ -27,13 +27,12 @@ export function* watchForGetBookRequests() {
 
 export function* cancelBookRequests(action) {
   try {
-    console.log(action.payload);
     const res = yield call(
       Api.cancelUserRequests,
       action.payload.userId,
       action.payload.bookId,
     );
-    console.log(res);
+
     if (res?.status == 200) {
       yield put(cancelUserRequestedBooksSuccess());
     } else {

@@ -6,6 +6,7 @@ import {
   CapButton,
   CapInput,
   CapDatePicker,
+  CapNotification,
 } from '@capillarytech/cap-ui-library';
 import React from 'react';
 import { useState, useEffect } from 'react';
@@ -24,10 +25,11 @@ import * as actions from './actions';
 import { profilePageNewRequestReducer } from './reducer';
 import { makeSelectUserNewBookRequestsData } from './selectors';
 import injectSaga from '@capillarytech/cap-coupons/utils/injectSaga';
+import { useHistory } from 'react-router';
 
 const AdminPageNewRequestTable = ({ className, bookRequestsData, actions }) => {
   const [page, setPage] = useState(1);
-  // console.log(bookRequestsData.getBookRequests)
+  const history = useHistory();
   const [isAcceptModalOpen, setIsAcceptModalOpen] = useState(false);
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
   const dataSource = bookRequestsData.getBookRequests;
@@ -98,6 +100,17 @@ const AdminPageNewRequestTable = ({ className, bookRequestsData, actions }) => {
       setLoading(false);
     }
   };
+  const userType = localStorage.getItem('userType');
+  if (userType === 'user') {
+    history.push('/AccessForbidden');
+  }
+  if (bookRequestsData.getError) {
+    const bookRequestError = bookRequestsData.getError.message;
+    if (bookRequestError.status === 404) {
+      CapNotification.warning(bookRequestError);
+      history.push('/libSignin');
+    }
+  }
 
   const checkvalidation = () => {
     if (newReq.book_name == '') {

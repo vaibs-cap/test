@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {
   CapButton,
   CapHeading,
+  CapNotification,
   CapRow,
   CapTable,
 } from '@capillarytech/cap-ui-library';
@@ -21,15 +22,27 @@ import bookData from '../../pages/ProfilePage/bookData';
 import * as actions from './actions';
 import { profilePageBorrowedReducer } from './reducer';
 import { makeSelectUserBorrowedBooksData } from './selectors';
+import { useHistory } from 'react-router';
 
 const ProfilePageBorrowTable = ({ className, bookBorrowedData, actions }) => {
+  const history = useHistory();
   const [toggle, setToggle] = useState(0);
+  const user = localStorage.getItem('userId');
   useEffect(
     () => {
-      actions.fetchUserBorrowedBooks({ userId: 'uaGK2b7z84vUQXlH' });
+      actions.fetchUserBorrowedBooks({
+        userId: user,
+      });
     },
     [toggle],
   );
+  if (bookBorrowedData.getError) {
+    const errorbookBorrowData = bookBorrowedData.getError.message;
+    if (errorbookBorrowData.status === 404) {
+      CapNotification.warning(errorbookBorrowData);
+      history.push('/libSignin');
+    }
+  }
 
   const borrowedBooks = bookBorrowedData.getBooksBorrowed;
   const dataSource = [];
@@ -40,12 +53,10 @@ const ProfilePageBorrowTable = ({ className, bookBorrowedData, actions }) => {
       book_name: book?.book_name,
       book_author: book?.book_author,
       book_genre: book?.book_genre,
-      request_date: book?.borrowers.find(
-        borrower => borrower.userId === 'uaGK2b7z84vUQXlH',
-      ).borrowedDate,
-      due_date: book?.borrowers.find(
-        borrower => borrower.userId === 'uaGK2b7z84vUQXlH',
-      ).borrowedDate,
+      request_date: book?.borrowers.find(borrower => borrower.userId === user)
+        .borrowedDate,
+      due_date: book?.borrowers.find(borrower => borrower.userId === user)
+        .borrowedDate,
     });
   });
 

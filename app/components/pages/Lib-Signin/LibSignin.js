@@ -9,8 +9,13 @@ const LibSignin = props => {
   const showSpin = process.env.NODE_ENV === PRODUCTION;
 
   const onSuccess = resData => {
-    if (resData.data.status === 'SUCCESS') {
-      history.push('/book-list');
+    const usertype = localStorage.getItem('userType');
+    if (usertype === 'user') {
+      if (resData.data.status === 'SUCCESS') {
+        history.push('/');
+      }
+    } else {
+      history.push('/admin');
     }
   };
   const onFailure = resData => {
