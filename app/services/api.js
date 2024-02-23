@@ -259,12 +259,47 @@ export const issueBook = (query = {}) => {
 };
 
 export const getBookRequests = query => {
-  const url = `${API_ENDPOINT}/books/requests?searchText=${query.searchText ??
+  const url = `${MOCK_API_ENDPOINT}/books/requests?searchText=${query.searchText ??
     ''}&filter=${query.selectedFilter}&page=${query.page}`;
   return request(url, getAPICallObject('GET'));
 };
 
 export const addNewBookRequest = data => {
-  const url = `${API_ENDPOINT}/books/requests/new-request`;
+  const url = `${MOCK_API_ENDPOINT}/books/requests/new-request`;
   return request(url, getAPICallObject('POST', data));
+};
+
+export const getUserRequestedBooks = userId => {
+  const url = `${MOCK_API_ENDPOINT}/books/request/${userId}`;
+  return request(url, getAPICallObject('GET'));
+};
+
+export const cancelUserRequests = (userId, bookId) => {
+  const url = `${MOCK_API_ENDPOINT}/books/cancel_request/${userId}/${bookId}`;
+  return request(url, getAPICallObject('GET'));
+};
+
+export const getUserBorrowedBooks = userId => {
+  const url = `${MOCK_API_ENDPOINT}/books/borrow/${userId}`;
+  return request(url, getAPICallObject('GET'));
+};
+
+export const returnBook = (userId, bookId) => {
+  const url = `${MOCK_API_ENDPOINT}/books/return/${userId}/${bookId}`;
+  return request(url, getAPICallObject('GET'));
+};
+
+export const getUserNewRequestedBooks = page => {
+  const url = `${MOCK_API_ENDPOINT}/books/requests?page=${page}`;
+  return request(url, getAPICallObject('GET'));
+};
+
+export const cancelNewRequest = payload => {
+  const url = `${MOCK_API_ENDPOINT}/books/new_request/cancel`;
+  return request(url, getAPICallObject('POST', payload));
+};
+
+export const acceptNewRequest = payload => {
+  const url = `${MOCK_API_ENDPOINT}/books/new_request/approve`;
+  return request(url, getAPICallObject('POST', payload));
 };
