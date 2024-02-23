@@ -120,9 +120,9 @@ function Signup(props) {
             <CapButton className="cap-login-button" onClick={handleSignIn}>
               Sign up
             </CapButton>
-          </div>
-          <div className="cap-login-centeringDiv">
-            <Link to="/libSignin">Already User Signin !</Link>
+            <div style={{ marginTop: '20px' }}>
+              <Link to="/libSignin">Already User Signin !</Link>
+            </div>
           </div>
         </CapCard>
       </section>

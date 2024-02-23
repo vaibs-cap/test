@@ -103,7 +103,7 @@ const ProfilePageRequestTable = ({ bookRequestsData, className, actions }) => {
           size="small"
           variant="contained"
           className="request-cancel-btn"
-          onClick={() => handleCancel('uaGK2b7z84vUQXlH', record._id)}
+          onClick={() => handleCancel(user, record._id)}
         >
           Cancel
         </CapButton>

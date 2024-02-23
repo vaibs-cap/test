@@ -61,7 +61,7 @@ const BookList = ({
     actions.issueBook(requestPayload);
   }
 
-  function reserveOnClick(bookId, userId = config.development.mock_user_id) {
+  function reserveOnClick(bookId, userId = localStorage.getItem('userId')) {
     setReservedBooksArray(prevArray => [...prevArray, bookId]);
     const requestPayload = {
       book_id: bookId,
