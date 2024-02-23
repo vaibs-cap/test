@@ -1,11 +1,21 @@
 import React from 'react';
-import { CapButton, CapRow, CapTopBar } from '@capillarytech/cap-ui-library';
+import {
+  CapButton,
+  CapColumn,
+  CapRow,
+  CapTopBar,
+} from '@capillarytech/cap-ui-library';
 import { useHistory } from 'react-router';
 import styles from './styles';
 import withStyles from '../../../utils/withStyles';
 
 const Navbar = ({ className }) => {
   const history = useHistory();
+
+  const handleSignout = () => {
+    localStorage.clear();
+    history.push('/libSignin');
+  };
 
   const menuItems = {
     items: [
@@ -36,17 +46,23 @@ const Navbar = ({ className }) => {
     menuItems.items.push({
       label: 'Admin Page',
       link: '/admin',
-      key: 'admin',
+      key: 'administrator',
     });
   }
-  const handleSignout = () => {
-    localStorage.clear();
-    history.push('/libSignin');
-  };
+
+  menuItems.items.push({
+    label: (
+      <CapButton type="secondary" onClick={handleSignout}>
+        Sign-out
+      </CapButton>
+    ),
+    link: '/libSignin',
+    key: 'admin',
+  });
+
   return (
     <CapRow className={className}>
       <CapTopBar menuProps={menuItems} />
-      <CapButton onClick={handleSignout}>Sign-out</CapButton>
     </CapRow>
   );
 };
