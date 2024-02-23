@@ -105,9 +105,10 @@ const Signin = props => {
             <CapButton className="cap-login-button" onClick={handleSignIn}>
               {signInLable}
             </CapButton>
-          </div>
-          <div className="cap-login-centeringDiv">
-            <Link to="/libSignup">Already User Signup !</Link>
+            <div style={{ marginTop: '20px' }}>
+              First time visting Cap Library ?
+              <Link to="/libSignup">Sign-up!</Link>
+            </div>
           </div>
         </CapCard>
       </section>
