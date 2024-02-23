@@ -23,6 +23,8 @@ import { createStructuredSelector } from 'reselect';
 import { set } from 'lodash';
 import { Cap } from '@capillarytech/creatives-library';
 import { action } from '@storybook/addon-actions';
+import { useHistory } from 'react-router';
+import moment from 'moment';
 import withStyles from '../../../utils/withStyles';
 import saga from './saga';
 import styles from './style';
@@ -30,7 +32,7 @@ import messages from './messages';
 import * as actions from './actions';
 import newBookRequestsReducer from './reducer';
 import { makeSelectNewBookRequestsData } from './selectors';
-import { useHistory } from 'react-router';
+import Navbar from '../../organisms/Navbar/Navbar';
 const columnsForRequestTable = [
   {
     title: <CapHeader size="label1" title="User Email" />,
@@ -142,7 +144,7 @@ const NewBookRequest = ({ className, bookRequestsData, actions }) => {
           ),
           date: (
             <CapRow type="flex" align="middle">
-              {date}
+              {moment(date).format('DD MMM YYYY')}
             </CapRow>
           ),
         };
@@ -214,76 +216,79 @@ const NewBookRequest = ({ className, bookRequestsData, actions }) => {
   //console logs
 
   return (
-    <CapRow className={className}>
-      <CapRow className="requests-container">
-        <CapRow className="top-section" type="flex">
-          <CapHeading type="h1" className="heading-text">
-            <FormattedMessage {...messages.headingText} />
-          </CapHeading>
-          <CapButton onClick={showModal}>
-            <FormattedMessage {...messages.buttonText} />
-          </CapButton>
-        </CapRow>
+    <>
+      <CapRow className={className}>
+        <Navbar />
+        <CapRow className="requests-container">
+          <CapRow className="top-section" type="flex">
+            <CapHeading type="h1" className="heading-text">
+              <FormattedMessage {...messages.headingText} />
+            </CapHeading>
+            <CapButton onClick={showModal}>
+              <FormattedMessage {...messages.buttonText} />
+            </CapButton>
+          </CapRow>
 
-        <CapModal
-          title="Enter Book Details"
-          visible={open}
-          onOk={handleOk}
-          confirmLoading={confirmLoading}
-          onCancel={handleCancel}
-          okText="Submit"
-          closeText="Cancel"
-          width={700}
-          getContainer={() => document.querySelector('.requests-container')}
-        >
-          <CapInput
-            className="input-field"
-            label="Book Name:"
-            placeholder="Enter Book Name"
-            onChange={e => setBookName(e.target.value)}
-            value={bookName}
-          />
-          <CapInput
-            className="input-field"
-            label="Author Name:"
-            placeholder="Enter Author Name"
-            onChange={e => setAuthorName(e.target.value)}
-            value={authorName}
-          />
-        </CapModal>
+          <CapModal
+            title="Enter Book Details"
+            visible={open}
+            onOk={handleOk}
+            confirmLoading={confirmLoading}
+            onCancel={handleCancel}
+            okText="Submit"
+            closeText="Cancel"
+            width={700}
+            getContainer={() => document.querySelector('.requests-container')}
+          >
+            <CapInput
+              className="input-field"
+              label="Book Name:"
+              placeholder="Enter Book Name"
+              onChange={e => setBookName(e.target.value)}
+              value={bookName}
+            />
+            <CapInput
+              className="input-field"
+              label="Author Name:"
+              placeholder="Enter Author Name"
+              onChange={e => setAuthorName(e.target.value)}
+              value={authorName}
+            />
+          </CapModal>
 
-        <CapRow className="search-section" type="flex">
-          <CapInput
-            className="search-field"
-            placeholder="Search"
-            onChange={handleSearchChange}
-            value={searchText}
-          />
-          <CapSelect
-            options={optionsForSearchFilter}
-            width="100px"
-            value={selectedFilter}
-            defaultValue="By Book Name"
-            onChange={handleFilterChange}
-          />
-        </CapRow>
-        <CapRow className="table">
-          <CapTable
-            dataSource={getCustomFieldsRow()}
-            columns={columnsForRequestTable}
-            pagination={{
-              current: page,
-              pageSize: 9,
-              total: bookRequestsData.getTotalCount,
-            }}
-            onChange={pagination => {
-              setPage(pagination.current);
-              setQuery({ ...query, page: pagination.current });
-            }}
-          />
+          <CapRow className="search-section" type="flex">
+            <CapInput
+              className="search-field"
+              placeholder="Search"
+              onChange={handleSearchChange}
+              value={searchText}
+            />
+            <CapSelect
+              options={optionsForSearchFilter}
+              width="100px"
+              value={selectedFilter}
+              defaultValue="By Book Name"
+              onChange={handleFilterChange}
+            />
+          </CapRow>
+          <CapRow className="table">
+            <CapTable
+              dataSource={getCustomFieldsRow()}
+              columns={columnsForRequestTable}
+              pagination={{
+                current: page,
+                pageSize: 9,
+                total: bookRequestsData.getTotalCount,
+              }}
+              onChange={pagination => {
+                setPage(pagination.current);
+                setQuery({ ...query, page: pagination.current });
+              }}
+            />
+          </CapRow>
         </CapRow>
       </CapRow>
-    </CapRow>
+    </>
   );
 };
 

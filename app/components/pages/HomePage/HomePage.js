@@ -14,6 +14,7 @@ import {
 } from './selector';
 import withStyles from '../../../utils/withStyles';
 import styles from './styles';
+import Navbar from '../../organisms/Navbar/Navbar';
 
 const RECORDS_PER_PAGE = 10;
 
@@ -25,7 +26,6 @@ const HomePage = ({
   actions,
   error,
 }) => {
-  console.log('*****', allBooks);
   const history = useHistory();
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const [enteredFilterValue, setEnteredFilterValue] = useState('');
@@ -86,27 +86,30 @@ const HomePage = ({
   }
 
   return (
-    <CapRow className={className}>
-      <CapRow className="requests-container">
-        <Filter
-          selectedFilterBy={filterBy}
-          handleFilterByChange={setFilterBy}
-          filterValue={enteredFilterValue}
-          handleFilterValueChange={onFilterValueChange}
-        />
-        <BookList
-          pagination={{
-            current: currentPageNumber,
-            pageSize: 10,
-            total: totalBooks,
-          }}
-          loading={isLoading}
-          onChange={onchange}
-          dataSource={allBooks}
-          totalBooks={totalBooks}
-        />
+    <>
+      <Navbar />
+      <CapRow className={className}>
+        <CapRow className="requests-container">
+          <Filter
+            selectedFilterBy={filterBy}
+            handleFilterByChange={setFilterBy}
+            filterValue={enteredFilterValue}
+            handleFilterValueChange={onFilterValueChange}
+          />
+          <BookList
+            pagination={{
+              current: currentPageNumber,
+              pageSize: 10,
+              total: totalBooks,
+            }}
+            loading={isLoading}
+            onChange={onchange}
+            dataSource={allBooks}
+            totalBooks={totalBooks}
+          />
+        </CapRow>
       </CapRow>
-    </CapRow>
+    </>
   );
 };
 

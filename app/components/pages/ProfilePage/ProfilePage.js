@@ -8,6 +8,7 @@ import ProfilePageBorrowTable from '../../organisms/ProfilePageBorrowTable/Profi
 import ProfilePageNewRequestTable from '../../organisms/AdminPageNewRequestTable/AdminPageNewRequestTable';
 import ProfilePageHeader from '../../organisms/ProfilePageHeader/ProfilePageHeader';
 import styles from './styles';
+import Navbar from '../../organisms/Navbar/Navbar';
 
 const ProfilePage = ({ className, intl: { formatMessage } }) => {
   const isAdmin = false;
@@ -32,12 +33,15 @@ const ProfilePage = ({ className, intl: { formatMessage } }) => {
     : {};
 
   return (
-    <CapRow className={className}>
-      <ProfilePageHeader />
-      <CapRow className="p-20">
-        <CapTab mode="horizontal" panes={panes} />
+    <>
+      <Navbar />
+      <CapRow className={className}>
+        <ProfilePageHeader />
+        <CapRow className="p-20">
+          <CapTab mode="horizontal" panes={panes} />
+        </CapRow>
       </CapRow>
-    </CapRow>
+    </>
   );
 };
 
