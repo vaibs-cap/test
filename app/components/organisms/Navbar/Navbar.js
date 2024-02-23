@@ -11,7 +11,7 @@ const Navbar = ({ className }) => {
     items: [
       {
         label: 'Capillary Library',
-        link: '/book-list',
+        link: '/',
         key: 'home-page',
       },
       {
