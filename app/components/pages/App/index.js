@@ -58,15 +58,15 @@ export const App = () => (
         <RenderRoute exact path="/book-list" component={HomePage} />
         <RenderRoute
           exact
-          path={`/profile-page`}
+          path="/profile-page"
           component={ProfilePage}
-          key={`/profile-page`}
+          key="/profile-page"
         />
         <RenderRoute
           exact
-          path={`/admin-profile-page`}
+          path="/admin-profile-page"
           component={AdminProfilePage}
-          key={`/admin-profile-page`}
+          key="/admin-profile-page"
         />
         <RenderRoute component={NotFoundPage} />
       </Switch>

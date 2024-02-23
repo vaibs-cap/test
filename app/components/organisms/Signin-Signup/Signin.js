@@ -10,13 +10,13 @@ import PropTypes from 'prop-types';
 import { bindActionCreators, compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import injectReducer from '../../../utils/injectReducer';
 import injectSaga from '../../../utils/injectSaga';
 import * as actions from './action';
 import reducer from './reducer';
 import saga from './saga';
 import { makeSelectUserData } from './Selectors';
-import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 const Signin = props => {
   const {

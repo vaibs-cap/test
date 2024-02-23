@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { CapNotification, CapRow } from '@capillarytech/cap-ui-library';
+import { useHistory } from 'react-router';
 import BookList from '../../organisms/BookList/BookList';
 import Filter from '../../organisms/Filter/Filter';
 import { fetchBookList } from './actions';
@@ -13,7 +14,6 @@ import {
 } from './selector';
 import withStyles from '../../../utils/withStyles';
 import styles from './styles';
-import { useHistory } from 'react-router';
 
 const RECORDS_PER_PAGE = 10;
 
