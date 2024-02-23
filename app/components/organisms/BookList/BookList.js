@@ -51,9 +51,9 @@ const BookList = ({
     },
     [issuedBooksArray, reservedBooksArray],
   );
-  function issueOnClick(data, userId = '135') {
+  function issueOnClick(data, userId = localStorage.getItem('userId')) {
     setIssuedBooksArray(prevArray => [...prevArray, data.book_id]);
-    console.log('This is issued array', issued_books_array);
+
     const requestPayload = {
       book_id: data._id,
       user_id: userId,

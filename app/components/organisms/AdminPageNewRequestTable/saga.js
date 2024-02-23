@@ -13,7 +13,6 @@ import {
 export function* getBookRequests(action) {
   try {
     const res = yield call(Api.getUserNewRequestedBooks, action.payload);
-    console.log(res);
     if (res?.success) {
       yield put(
         fetchUserNewRequestedBooksSuccess({
@@ -22,7 +21,7 @@ export function* getBookRequests(action) {
         }),
       );
     } else {
-      yield put(fetchUserNewRequestedBooksFailure(res.error));
+      yield put(fetchUserNewRequestedBooksFailure(res));
     }
   } catch (error) {
     yield put(fetchUserNewRequestedBooksFailure(error));
@@ -35,7 +34,6 @@ export function* watchForGetBookRequests() {
 
 export function* cancelBookRequests(action) {
   try {
-    console.log('********cancel saga', action.payload);
     const res = yield call(Api.cancelNewRequest, action.payload);
 
     if (res?.status == 200) {

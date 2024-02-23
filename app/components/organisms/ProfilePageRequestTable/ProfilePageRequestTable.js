@@ -4,6 +4,7 @@ import {
   CapRow,
   CapHeading,
   CapButton,
+  CapNotification,
 } from '@capillarytech/cap-ui-library';
 import { connect } from 'react-redux';
 import injectReducer from '@capillarytech/cap-coupons/utils/injectReducer';
@@ -22,13 +23,21 @@ import saga from './saga';
 
 const ProfilePageRequestTable = ({ bookRequestsData, className, actions }) => {
   const [toggle, setToggle] = useState(0);
+  const user = localStorage.getItem('userId');
 
   useEffect(
     () => {
-      actions.fetchUserRequestedBooks({ userId: 'uaGK2b7z84vUQXlH' });
+      actions.fetchUserRequestedBooks({ userId: user });
     },
     [toggle],
   );
+  if (bookRequestsData.getError) {
+    const errorbookBorrowData = bookBorrowedData.getError.message;
+    if (errorbookBorrowData.status === 404) {
+      CapNotification.warning(errorbookBorrowData);
+      history.push('/libSignin');
+    }
+  }
 
   const requestBooks = bookRequestsData.getBookRequests;
 
@@ -40,9 +49,8 @@ const ProfilePageRequestTable = ({ bookRequestsData, className, actions }) => {
       book_name: book?.book_name,
       book_author: book?.book_author,
       book_genre: book?.book_genre,
-      request_date: book?.requests.find(
-        requester => requester.userId === 'uaGK2b7z84vUQXlH',
-      ).requestDate,
+      request_date: book?.requests.find(requester => requester.userId === user)
+        .requestDate,
       waitlist_no: book?.current_count,
     });
   });
