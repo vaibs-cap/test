@@ -38,9 +38,6 @@ const Filter = ({
       <CapHeading type="h1" className="heading-text">
         <FormattedMessage {...messages.headingText} />
       </CapHeading>
-      <CapButton onClick={() => {}}>
-        <FormattedMessage {...messages.buttonText} />
-      </CapButton>
     </CapRow>
     <CapRow className="search-section" type="flex">
       <CapInput
