@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { CapRow } from '@capillarytech/cap-ui-library';
+import { CapNotification, CapRow } from '@capillarytech/cap-ui-library';
 import BookList from '../../organisms/BookList/BookList';
 import Filter from '../../organisms/Filter/Filter';
 import { fetchBookList } from './actions';
@@ -9,9 +9,11 @@ import {
   makeAllBookListSelector,
   makeTotalBooksSelctor,
   makeLoadingState,
+  makeErrorState,
 } from './selector';
 import withStyles from '../../../utils/withStyles';
 import styles from './styles';
+import { useHistory } from 'react-router';
 
 const RECORDS_PER_PAGE = 10;
 
@@ -21,7 +23,10 @@ const HomePage = ({
   totalBooks = 0,
   isLoading,
   actions,
+  error,
 }) => {
+  console.log('*****', allBooks);
+  const history = useHistory();
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const [enteredFilterValue, setEnteredFilterValue] = useState('');
   const [filterBy, selectedFilterBy] = useState('BY_NAME');
@@ -63,7 +68,14 @@ const HomePage = ({
 
     actions.fetchBookList(requestPayload);
   }
-
+  if (error) {
+    if (error.message.status === 404) {
+      CapNotification.warning(error.message);
+      history.push('/libSignin');
+    } else {
+      CapNotification.error(error);
+    }
+  }
   function setFilterBy(value) {
     selectedFilterBy(value);
   }
@@ -102,6 +114,7 @@ const mapStateToProps = createStructuredSelector({
   allBooks: makeAllBookListSelector(),
   totalBooks: makeTotalBooksSelctor(),
   isLoading: makeLoadingState(),
+  error: makeErrorState(),
 });
 
 const mapDispatchToProps = dispatch => ({

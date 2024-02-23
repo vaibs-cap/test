@@ -107,7 +107,7 @@ const Signin = props => {
             </CapButton>
           </div>
           <div className="cap-login-centeringDiv">
-            <Link to="/libSignup">Already User Signin !</Link>
+            <Link to="/libSignup">Already User Signup !</Link>
           </div>
         </CapCard>
       </section>

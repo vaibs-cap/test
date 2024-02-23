@@ -18,9 +18,15 @@ import { getBookList, issueBook, requestBook } from '../../../services/api';
 export function* getBookListSaga(action) {
   try {
     yield put(setLoadingState(true));
-    const bookList = yield call(getBookList, action.payload);
-    yield put(fetchBookListSuccess(bookList));
-    yield put(setLoadingState(false));
+    const res = yield call(getBookList, action.payload);
+
+    if (!res.result) {
+      yield put(setLoadingState(false));
+      yield put(fetchBookListFailed(res));
+    } else {
+      yield put(fetchBookListSuccess(res));
+      yield put(setLoadingState(false));
+    }
   } catch (e) {
     yield put(setLoadingState(false));
     yield put(fetchBookListFailed(e));

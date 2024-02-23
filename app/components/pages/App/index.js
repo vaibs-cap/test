@@ -40,7 +40,11 @@ export const App = () => (
   <>
     <ConnectedRouter history={history}>
       <Switch>
-        <RenderRoute exact path="/" component={NewBookRequest} />
+        <RenderRoute
+          exact
+          path="/new-book-request"
+          component={NewBookRequest}
+        />
         <RenderRoute exact path="/libSignup" component={LibSignup} />
         <RenderRoute exact path="/libSignin" component={LibSignin} />
 

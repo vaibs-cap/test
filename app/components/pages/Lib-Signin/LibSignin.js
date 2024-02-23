@@ -10,7 +10,7 @@ const LibSignin = props => {
 
   const onSuccess = resData => {
     if (resData.data.status === 'SUCCESS') {
-      history.push('/');
+      history.push('/book-list');
     }
   };
   const onFailure = resData => {
