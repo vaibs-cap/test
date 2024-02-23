@@ -6,6 +6,7 @@ import {
   CapButton,
   CapNotification,
 } from '@capillarytech/cap-ui-library';
+import moment from 'moment';
 import { connect } from 'react-redux';
 import injectReducer from '@capillarytech/cap-coupons/utils/injectReducer';
 import { compose, bindActionCreators } from 'redux';
@@ -49,8 +50,8 @@ const ProfilePageRequestTable = ({ bookRequestsData, className, actions }) => {
       book_name: book?.book_name,
       book_author: book?.book_author,
       book_genre: book?.book_genre,
-      request_date: book?.requests.find(requester => requester.userId === user)
-        .requestDate,
+      request_date: moment(book?.requests.find(requester => requester.userId === user)
+        .requestDate).format('YYYY-MM-DD'),
       waitlist_no: book?.current_count,
     });
   });

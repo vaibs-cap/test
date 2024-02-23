@@ -51,11 +51,11 @@ const BookList = ({
     },
     [issuedBooksArray, reservedBooksArray],
   );
-  function issueOnClick(data, userId = localStorage.getItem('userId')) {
-    setIssuedBooksArray(prevArray => [...prevArray, data.book_id]);
+  function issueOnClick(bookId, userId = localStorage.getItem('userId')) {
+    setIssuedBooksArray(prevArray => [...prevArray, bookId]);
 
     const requestPayload = {
-      book_id: data._id,
+      book_id: bookId,
       user_id: userId,
     };
     actions.issueBook(requestPayload);
@@ -112,21 +112,23 @@ const BookList = ({
       render: (text, record) => {
         if (
           record.current_count > 0 &&
-          !issuedBooksArray.includes(record.book_id)
+          !issuedBooksArray.includes(record._id) &&
+          !reservedBooksArray.includes(record._id)
         ) {
           return (
             <CapButton
               size="small"
               color="primary"
               variant="contained"
-              onClick={() => issueOnClick(record)}
+              onClick={() => issueOnClick(record._id)}
             >
               Get Book
             </CapButton>
           );
         } else if (
           record.current_count > 0 &&
-          issuedBooksArray.includes(record.book_id)
+          (issuedBooksArray.includes(record._id) ||
+            reservedBooksArray.includes(record._id))
         ) {
           // return (
           //   <CapButton
@@ -141,6 +143,7 @@ const BookList = ({
           // );
         } else if (
           !reservedBooksArray.includes(record._id) &&
+          !issuedBooksArray.includes(record._id) &&
           record.current_count === 0
         ) {
           return (
