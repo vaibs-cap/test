@@ -6,7 +6,7 @@ import {
   CapRow,
   CapTable,
 } from '@capillarytech/cap-ui-library';
-
+import moment from 'moment';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -53,10 +53,10 @@ const ProfilePageBorrowTable = ({ className, bookBorrowedData, actions }) => {
       book_name: book?.book_name,
       book_author: book?.book_author,
       book_genre: book?.book_genre,
-      request_date: book?.borrowers.find(borrower => borrower.userId === user)
-        .borrowedDate,
-      due_date: book?.borrowers.find(borrower => borrower.userId === user)
-        .borrowedDate,
+      request_date: moment(book?.borrowers.find(borrower => borrower.userId === user)
+        .borrowedDate).format('YYYY-MM-DD'),
+      due_date: moment(book?.borrowers.find(borrower => borrower.userId === user)
+        .borrowedDate).add('days',7).format('YYYY-MM-DD'),
     });
   });
 
@@ -105,7 +105,7 @@ const ProfilePageBorrowTable = ({ className, bookBorrowedData, actions }) => {
           type="secondary"
           size="small"
           variant="contained"
-          onClick={() => handleReturn('uaGK2b7z84vUQXlH', record._id)}
+          onClick={() => handleReturn(user, record._id)}
         >
           Return Book
         </CapButton>
