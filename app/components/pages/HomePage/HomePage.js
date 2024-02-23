@@ -25,7 +25,6 @@ const HomePage = ({
   actions,
   error,
 }) => {
-  console.log('*****', allBooks);
   const history = useHistory();
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const [enteredFilterValue, setEnteredFilterValue] = useState('');

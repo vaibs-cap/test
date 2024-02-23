@@ -10,7 +10,6 @@ import ProfilePageHeader from '../../organisms/ProfilePageHeader/ProfilePageHead
 import styles from './styles';
 
 const ProfilePage = ({ className, intl: { formatMessage } }) => {
-  const isAdmin = false;
   const panes = [
     {
       key: 'borrow',
@@ -18,18 +17,11 @@ const ProfilePage = ({ className, intl: { formatMessage } }) => {
       content: <ProfilePageBorrowTable />,
     },
     {
-      key: 'request',
-      tab: 'Requested Books',
+      key: 'waiting',
+      tab: 'Waiting for books',
       content: <ProfilePageRequestTable />,
     },
   ];
-  isAdmin
-    ? panes.push({
-        key: 'new_request',
-        tab: 'New Requested Books',
-        content: <ProfilePageNewRequestTable />,
-      })
-    : {};
 
   return (
     <CapRow className={className}>

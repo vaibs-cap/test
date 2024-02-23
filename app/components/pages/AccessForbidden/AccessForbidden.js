@@ -5,6 +5,7 @@ import CapHeading from '@capillarytech/cap-ui-library/CapHeading';
 import withStyles from 'utils/withStyles';
 import messages from './messages';
 import styles from './style';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 const AccessForbidden = ({ className }) => (
   <CapRow className={className}>
@@ -14,6 +15,9 @@ const AccessForbidden = ({ className }) => (
     <CapHeading type="h3">
       <FormattedMessage {...messages.forbiddenDesc} />
     </CapHeading>
+    <div className="cap-login-centeringDiv">
+      <Link to="/">Back to Home!</Link>
+    </div>
   </CapRow>
 );
 

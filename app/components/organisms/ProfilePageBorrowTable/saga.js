@@ -14,7 +14,7 @@ export function* getBookRequests(action) {
     if (res?.status == 200) {
       yield put(fetchUserBorrowedBooksSuccess(res.data));
     } else {
-      yield put(fetchUserBorrowedBooksFailure(res.error));
+      yield put(fetchUserBorrowedBooksFailure(res));
     }
   } catch (error) {
     yield put(fetchUserBorrowedBooksFailure(error));
@@ -27,13 +27,11 @@ export function* watchForGetBookRequests() {
 
 export function* returnBookRequests(action) {
   try {
-    console.log(action.payload);
     const res = yield call(
       Api.returnBook,
       action.payload.userId,
       action.payload.bookId,
     );
-    console.log(res);
     if (res?.status == 200) {
       yield put(returnUserBorrowedBooksSuccess());
     } else {
