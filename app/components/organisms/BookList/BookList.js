@@ -20,7 +20,6 @@ import {
 } from '../../pages/HomePage/selector';
 import config from '../../../config/app';
 
-let issued_books_array = [];
 const BookList = ({
   className,
   dataSource,
@@ -29,30 +28,9 @@ const BookList = ({
   onChange,
   actions,
 }) => {
-  const [issuedBooksArray, setIssuedBooksArray] = useState(() => {
-    const storedBooks = localStorage.getItem('issuedBooksArray');
-    return storedBooks ? JSON.parse(storedBooks) : [];
-  });
-  const [reservedBooksArray, setReservedBooksArray] = useState(() => {
-    const storedBooks = localStorage.getItem('reservedBooksArray');
-    return storedBooks ? JSON.parse(storedBooks) : [];
-  });
+  const user = localStorage.getItem("userId");
 
-  useEffect(
-    () => {
-      localStorage.setItem(
-        'issuedBooksArray',
-        JSON.stringify(issuedBooksArray),
-      ),
-        localStorage.setItem(
-          'reservedBooksArray',
-          JSON.stringify(reservedBooksArray),
-        );
-    },
-    [issuedBooksArray, reservedBooksArray],
-  );
-  function issueOnClick(bookId, userId = localStorage.getItem('userId')) {
-    setIssuedBooksArray(prevArray => [...prevArray, bookId]);
+  function issueOnClick(bookId, userId = user) {
 
     const requestPayload = {
       book_id: bookId,
@@ -61,8 +39,7 @@ const BookList = ({
     actions.issueBook(requestPayload);
   }
 
-  function reserveOnClick(bookId, userId = localStorage.getItem('userId')) {
-    setReservedBooksArray(prevArray => [...prevArray, bookId]);
+  function reserveOnClick(bookId, userId = user) {
     const requestPayload = {
       book_id: bookId,
       user_id: userId,
@@ -112,8 +89,7 @@ const BookList = ({
       render: (text, record) => {
         if (
           record.current_count > 0 &&
-          !issuedBooksArray.includes(record._id) &&
-          !reservedBooksArray.includes(record._id)
+          !record?.borrowers?.find(obj => obj.userId === user) 
         ) {
           return (
             <CapButton
@@ -126,24 +102,14 @@ const BookList = ({
             </CapButton>
           );
         } else if (
-          record.current_count > 0 &&
-          (issuedBooksArray.includes(record._id) ||
-            reservedBooksArray.includes(record._id))
+          (record?.borrowers?.find(obj => obj.userId === user) ||
+          record?.requests?.find(obj => obj.userId === user))
         ) {
-          // return (
-          //   <CapButton
-          //     size="small"
-          //     color="primary"
-          //     variant="contained"
-          //     className="cancel-btn"
-          //     onClick={() => cancelOnClick(record.book_id)}
-          //   >
-          //     Cancel
-          //   </CapButton>
-          // );
+          return (
+            <></>
+          );
         } else if (
-          !reservedBooksArray.includes(record._id) &&
-          !issuedBooksArray.includes(record._id) &&
+          !record?.requests?.find(obj => obj.userId === user) &&
           record.current_count === 0
         ) {
           return (

@@ -27,12 +27,15 @@ import { makeSelectUserNewBookRequestsData } from './selectors';
 import injectSaga from '@capillarytech/cap-coupons/utils/injectSaga';
 import { useHistory } from 'react-router';
 
-const AdminPageNewRequestTable = ({ className, bookRequestsData, actions }) => {
+export const AdminPageNewRequestTable = ({ className, bookRequestsData, actions }) => {
   const [page, setPage] = useState(1);
   const history = useHistory();
   const [isAcceptModalOpen, setIsAcceptModalOpen] = useState(false);
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
   const dataSource = bookRequestsData.getBookRequests;
+  dataSource.forEach(obj => {
+    obj.date= moment(obj.date).format('YYYY-MM-DD');
+  });
   const [newReq, setNewReq] = useState({});
   const [reason, setReason] = useState({});
   const [loading, setLoading] = useState(false);
