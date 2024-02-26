@@ -117,7 +117,7 @@ const NewBookRequest = ({ className, bookRequestsData, actions }) => {
           book_author,
           book_name,
           state,
-          cancel_reason,
+          reason,
           date,
         } = customFieldData;
         return {
@@ -137,7 +137,7 @@ const NewBookRequest = ({ className, bookRequestsData, actions }) => {
             </CapRow>
           ),
           state: (
-            <CapTooltip title={state === 'Rejected' ? cancel_reason : ''}>
+            <CapTooltip title={state === 'Rejected' ? reason : ''}>
               <CapRow type="flex" align="middle" />
               {state}
             </CapTooltip>

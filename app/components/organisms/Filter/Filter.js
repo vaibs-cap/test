@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import withStyles from 'utils/withStyles';
 import { FormattedMessage } from 'react-intl';
 import {
   CapButton,
@@ -9,11 +8,12 @@ import {
   CapRow,
   CapSelect,
 } from '@capillarytech/cap-ui-library';
+import withStyles from '../../../utils/withStyles';
 import style from './styles';
 import { FILTER_BY_OPTIONS } from './constants';
 import messages from './messages';
 
-function getPlaceHolderValue(selectedFilterBy) {
+export function getPlaceHolderValue(selectedFilterBy) {
   switch (selectedFilterBy) {
     case 'BY_GENRE':
       return 'Search by book genre...';
@@ -49,7 +49,6 @@ const Filter = ({
       />
       <CapSelect
         className="search-field"
-        selectPlaceholder="Filter by:"
         value={selectedFilterBy ? selectedFilterBy : 'By Name'}
         onChange={val => handleFilterByChange(val)}
         options={[...FILTER_BY_OPTIONS]}
