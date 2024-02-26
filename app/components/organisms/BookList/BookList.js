@@ -32,7 +32,7 @@ const BookList = ({
 
   function issueOnClick(bookId, userId = user) {
     const requestPayload = {
-      book_id: data._id,
+      book_id: bookId,
       user_id: userId,
     };
     actions.issueBook(requestPayload);
@@ -95,7 +95,7 @@ const BookList = ({
               size="small"
               color="primary"
               variant="contained"
-              onClick={() => issueOnClick(record)}
+              onClick={() => issueOnClick(record._id)}
             >
               Get Book
             </CapButton>
