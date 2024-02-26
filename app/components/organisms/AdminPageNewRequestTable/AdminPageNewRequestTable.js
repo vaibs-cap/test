@@ -18,23 +18,27 @@ import injectReducer from '@capillarytech/cap-coupons/utils/injectReducer';
 import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import moment from 'moment';
+import injectSaga from '@capillarytech/cap-coupons/utils/injectSaga';
+import { useHistory } from 'react-router';
 import saga from './saga';
 import styles from './styles';
 import withStyles from '../../../utils/withStyles';
 import * as actions from './actions';
 import { profilePageNewRequestReducer } from './reducer';
 import { makeSelectUserNewBookRequestsData } from './selectors';
-import injectSaga from '@capillarytech/cap-coupons/utils/injectSaga';
-import { useHistory } from 'react-router';
 
-export const AdminPageNewRequestTable = ({ className, bookRequestsData, actions }) => {
+export const AdminPageNewRequestTable = ({
+  className,
+  bookRequestsData,
+  actions,
+}) => {
   const [page, setPage] = useState(1);
   const history = useHistory();
   const [isAcceptModalOpen, setIsAcceptModalOpen] = useState(false);
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
   const dataSource = bookRequestsData.getBookRequests;
   dataSource.forEach(obj => {
-    obj.date= moment(obj.date).format('YYYY-MM-DD');
+    obj.date = moment(obj.date).format('YYYY-MM-DD');
   });
   const [newReq, setNewReq] = useState({});
   const [reason, setReason] = useState({});
@@ -171,8 +175,8 @@ export const AdminPageNewRequestTable = ({ className, bookRequestsData, actions 
       width: '15%',
     },
     {
-      render: (text, record) => {
-        return text.state == 'Pending' ? (
+      render: (text, record) =>
+        text.state == 'Pending' ? (
           <CapButton
             type="secondary"
             size="small"
@@ -183,13 +187,12 @@ export const AdminPageNewRequestTable = ({ className, bookRequestsData, actions 
           </CapButton>
         ) : (
           <></>
-        );
-      },
+        ),
       width: '7%',
     },
     {
-      render: (text, record) => {
-        return text.state == 'Pending' ? (
+      render: (text, record) =>
+        text.state == 'Pending' ? (
           <CapButton
             className="request-cancel-btn"
             type="secondary"
@@ -206,8 +209,7 @@ export const AdminPageNewRequestTable = ({ className, bookRequestsData, actions 
           </CapButton>
         ) : (
           <></>
-        );
-      },
+        ),
       width: '7%',
     },
   ];
