@@ -21,7 +21,7 @@ import {
 import config from '../../../config/app';
 
 let issued_books_array = [];
-const BookList = ({
+export const BookList = ({
   className,
   dataSource,
   loading,
@@ -51,17 +51,17 @@ const BookList = ({
     },
     [issuedBooksArray, reservedBooksArray],
   );
-  function issueOnClick(bookId, userId = localStorage.getItem('userId')) {
-    setIssuedBooksArray(prevArray => [...prevArray, bookId]);
-
+  function issueOnClick(data, userId = '135') {
+    setIssuedBooksArray(prevArray => [...prevArray, data.book_id]);
+    console.log('This is issued array', issued_books_array);
     const requestPayload = {
-      book_id: bookId,
+      book_id: data._id,
       user_id: userId,
     };
     actions.issueBook(requestPayload);
   }
-
-  function reserveOnClick(bookId, userId = localStorage.getItem('userId')) {
+  console.log('DSDSDSDS', dataSource);
+  function reserveOnClick(bookId, userId = config.development.mock_user_id) {
     setReservedBooksArray(prevArray => [...prevArray, bookId]);
     const requestPayload = {
       book_id: bookId,
@@ -112,23 +112,21 @@ const BookList = ({
       render: (text, record) => {
         if (
           record.current_count > 0 &&
-          !issuedBooksArray.includes(record._id) &&
-          !reservedBooksArray.includes(record._id)
+          !issuedBooksArray.includes(record.book_id)
         ) {
           return (
             <CapButton
               size="small"
               color="primary"
               variant="contained"
-              onClick={() => issueOnClick(record._id)}
+              onClick={() => issueOnClick(record)}
             >
               Get Book
             </CapButton>
           );
         } else if (
           record.current_count > 0 &&
-          (issuedBooksArray.includes(record._id) ||
-            reservedBooksArray.includes(record._id))
+          issuedBooksArray.includes(record.book_id)
         ) {
           // return (
           //   <CapButton
@@ -143,7 +141,6 @@ const BookList = ({
           // );
         } else if (
           !reservedBooksArray.includes(record._id) &&
-          !issuedBooksArray.includes(record._id) &&
           record.current_count === 0
         ) {
           return (
@@ -165,6 +162,7 @@ const BookList = ({
   return (
     <CapRow className="table">
       <CapTable
+        data-testid="main-table"
         loading={loading}
         onChange={data => onChange(data)}
         pagination={pagination}

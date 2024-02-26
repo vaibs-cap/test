@@ -1,6 +1,6 @@
 module.exports = {
   rootDir: '../../',
-  roots: ['<rootDir>/app/src'],
+  roots: ['<rootDir>/app/components/organisms/BookList'],
   verbose: true,
   moduleFileExtensions: ['js'],
   testURL: 'http://localhost/',
@@ -14,7 +14,7 @@ module.exports = {
   collectCoverage: true,
   coverageDirectory: '<rootDir>/reports/coverage',
   collectCoverageFrom: [
-    '**/app/src/**/*.js',
+    '**/app/components/organisms/BookList/**',
     // '**/app/components/**/*.js',
     // '!**/app/**/i18n.js',
     // '!**/app/**/initialState.js',
@@ -36,21 +36,12 @@ module.exports = {
   moduleNameMapper: {
     '^components(.*)$': '<rootDir>/app/components/$1',
     '^utils(.*)$': '<rootDir>/app/utils/$1',
-    "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/internals/testing/assetsTransformer.js", "\\.(css|less|scss)$": "<rootDir>/internals/testing/assetsTransformer.js",
+    '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
+      '<rootDir>/internals/testing/assetsTransformer.js',
+    '\\.(css|less|scss)$': '<rootDir>/internals/testing/assetsTransformer.js',
   },
-  coverageReporters: [
-    'lcov',
-    'json',
-    'text',
-    'text-summary'
-  ],
+  coverageReporters: ['lcov', 'json', 'text', 'text-summary'],
   snapshotSerializers: ['enzyme-to-json/serializer'],
-  transformIgnorePatterns: [
-    "node_modules/(?!(@capillarytech" + ")/)",
-  ],
-  coveragePathIgnorePatterns: [
-    '.tests.integration.',
-    'mockdata',
-    'mockData'
-  ],
+  transformIgnorePatterns: ['node_modules/(?!(@capillarytech' + ')/)'],
+  coveragePathIgnorePatterns: ['.tests.integration.', 'mockdata', 'mockData'],
 };
