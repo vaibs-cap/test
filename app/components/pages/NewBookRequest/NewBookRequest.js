@@ -99,13 +99,10 @@ const NewBookRequest = ({ className, bookRequestsData, actions }) => {
   });
 
   //
-
+  console.log('bookRequestsData', bookRequestsData);
   if (bookRequestsData.getError !== null) {
-    console.log(bookRequestsData.getError.status);
-    if (bookRequestsData.getError.status === 404) {
-      CapNotification.warning({ message: bookRequestsData.getError.message });
-      history.push('/libSignin');
-    }
+    CapNotification.warning({ message: bookRequestsData.getError });
+
     actions.removeError();
   }
 
