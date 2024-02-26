@@ -20,8 +20,7 @@ import {
 } from '../../pages/HomePage/selector';
 import config from '../../../config/app';
 
-let issued_books_array = [];
-export const BookList = ({
+const BookList = ({
   className,
   dataSource,
   loading,
@@ -29,40 +28,17 @@ export const BookList = ({
   onChange,
   actions,
 }) => {
-  const [issuedBooksArray, setIssuedBooksArray] = useState(() => {
-    const storedBooks = localStorage.getItem('issuedBooksArray');
-    return storedBooks ? JSON.parse(storedBooks) : [];
-  });
-  const [reservedBooksArray, setReservedBooksArray] = useState(() => {
-    const storedBooks = localStorage.getItem('reservedBooksArray');
-    return storedBooks ? JSON.parse(storedBooks) : [];
-  });
+  const user = localStorage.getItem('userId');
 
-  useEffect(
-    () => {
-      localStorage.setItem(
-        'issuedBooksArray',
-        JSON.stringify(issuedBooksArray),
-      ),
-        localStorage.setItem(
-          'reservedBooksArray',
-          JSON.stringify(reservedBooksArray),
-        );
-    },
-    [issuedBooksArray, reservedBooksArray],
-  );
-  function issueOnClick(data, userId = '135') {
-    setIssuedBooksArray(prevArray => [...prevArray, data.book_id]);
-    console.log('This is issued array', issued_books_array);
+  function issueOnClick(bookId, userId = user) {
     const requestPayload = {
       book_id: data._id,
       user_id: userId,
     };
     actions.issueBook(requestPayload);
   }
-  console.log('DSDSDSDS', dataSource);
-  function reserveOnClick(bookId, userId = config.development.mock_user_id) {
-    setReservedBooksArray(prevArray => [...prevArray, bookId]);
+
+  function reserveOnClick(bookId, userId = user) {
     const requestPayload = {
       book_id: bookId,
       user_id: userId,
@@ -112,7 +88,7 @@ export const BookList = ({
       render: (text, record) => {
         if (
           record.current_count > 0 &&
-          !issuedBooksArray.includes(record.book_id)
+          !record?.borrowers?.find(obj => obj.userId === user)
         ) {
           return (
             <CapButton
@@ -125,22 +101,12 @@ export const BookList = ({
             </CapButton>
           );
         } else if (
-          record.current_count > 0 &&
-          issuedBooksArray.includes(record.book_id)
+          record?.borrowers?.find(obj => obj.userId === user) ||
+          record?.requests?.find(obj => obj.userId === user)
         ) {
-          // return (
-          //   <CapButton
-          //     size="small"
-          //     color="primary"
-          //     variant="contained"
-          //     className="cancel-btn"
-          //     onClick={() => cancelOnClick(record.book_id)}
-          //   >
-          //     Cancel
-          //   </CapButton>
-          // );
+          return <></>;
         } else if (
-          !reservedBooksArray.includes(record._id) &&
+          !record?.requests?.find(obj => obj.userId === user) &&
           record.current_count === 0
         ) {
           return (
