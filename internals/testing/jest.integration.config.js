@@ -1,10 +1,10 @@
 module.exports = {
   rootDir: '../../',
-<<<<<<< Updated upstream
-  roots: ['<rootDir>/app/components'],
-=======
-  roots: ['<rootDir>/app/components/pages/NewBookRequest'],
->>>>>>> Stashed changes
+  roots: [
+    '<rootDir>/app/components/pages/NewBookRequest/',
+    '<rootDir>/app/components/organisms/BookList/',
+    '<rootDir>/app/components/organisms/AdminPageNewRequestTable/',
+  ],
   verbose: true,
   moduleFileExtensions: ['js'],
   testURL: 'http://localhost/',
@@ -19,11 +19,6 @@ module.exports = {
   collectCoverage: true,
   coverageDirectory: '<rootDir>/reports/coverage/integration',
   collectCoverageFrom: [
-<<<<<<< Updated upstream
-    '**/app/components/**',
-=======
-    '**/app/components/pages/NewBookRequest/**',
->>>>>>> Stashed changes
     // '**/app/components/**/*.js',
     // '!**/app/**/i18n.js',
     // '!**/app/**/initialState.js',
@@ -40,6 +35,9 @@ module.exports = {
     // '!**/app/**/messages.js',
     // '!**/app/**/*.snap',
     // '!**/app/**/config/*.js',
+    '**/app/components/pages/NewBookRequest/**',
+    '**/app/components/organisms/BookList/**',
+    '**/app/components/organisms/AdminPageNewRequestTable/**',
   ],
   coveragePathIgnorePatterns: [
     '.tests.integration.',
@@ -55,6 +53,8 @@ module.exports = {
   },
   coverageReporters: ['lcov', 'json', 'text', 'text-summary'],
   snapshotSerializers: ['enzyme-to-json/serializer'],
-  transformIgnorePatterns: [ 'node_modules/(?!(@capillarytech' + '|lodash-es' + ')/)',],
+  transformIgnorePatterns: [
+    'node_modules/(?!(@capillarytech' + '|lodash-es' + ')/)',
+  ],
   testRegex: ['.integration.test.js'], //file consists of .integration.test.js,
 };

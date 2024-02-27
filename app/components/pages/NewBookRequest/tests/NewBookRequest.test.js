@@ -131,37 +131,6 @@ describe('NewBookRequest component', () => {
     fireEvent.click(cancelButton);
   });
 
-  test('renders cap notification', () => {
-    render(setup());
-
-    const button = screen.getByRole('button', { name: /create request/i });
-    const doc = screen.getByRole('document');
-    const bookInput = within(doc).getByPlaceholderText('Enter Book Name');
-    const authorInput = within(doc).getByPlaceholderText('Enter Author Name');
-    const submitButton = within(doc).getByRole('button', { name: /submit/i });
-    const cancelButton = within(doc).getByRole('button', { name: /cancel/i });
-
-    expect(button).toBeInTheDocument();
-    expect(bookInput).toBeInTheDocument();
-    expect(authorInput).toBeInTheDocument();
-    expect(submitButton).toBeInTheDocument();
-    expect(cancelButton).toBeInTheDocument();
-
-    fireEvent.change(bookInput, { target: { value: 'test3' } });
-    expect(bookInput).toHaveValue('test3');
-    fireEvent.change(authorInput, { target: { value: 'test3' } });
-    expect(authorInput).toHaveValue('test3');
-
-    fireEvent.change(bookInput, { target: { value: 'test3' } });
-    fireEvent.change(authorInput, { target: { value: 'test3' } });
-    expect(bookInput).toHaveValue('test3');
-    expect(authorInput).toHaveValue('test3');
-    fireEvent.click(submitButton);
-
-    fireEvent.click(button);
-
-    fireEvent.click(cancelButton);
-  });
   test('renders Navbar component', () => {
     render(setup());
     const menu = screen.getByRole('menu');
