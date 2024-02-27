@@ -1,6 +1,6 @@
 module.exports = {
   rootDir: '../../',
-  roots: ['<rootDir>/app/components/organisms/BookList'],
+  roots: ['<rootDir>/app/components'],
   verbose: true,
   moduleFileExtensions: ['js'],
   testURL: 'http://localhost/',
@@ -14,7 +14,7 @@ module.exports = {
   collectCoverage: true,
   coverageDirectory: '<rootDir>/reports/coverage',
   collectCoverageFrom: [
-    '**/app/components/organisms/BookList/**',
+    '**/app/components/**',
     // '**/app/components/**/*.js',
     // '!**/app/**/i18n.js',
     // '!**/app/**/initialState.js',
@@ -42,6 +42,6 @@ module.exports = {
   },
   coverageReporters: ['lcov', 'json', 'text', 'text-summary'],
   snapshotSerializers: ['enzyme-to-json/serializer'],
-  transformIgnorePatterns: ['node_modules/(?!(@capillarytech' + ')/)'],
+  transformIgnorePatterns: ['node_modules/(?!(@capillarytech' +  '|lodash-es' + ')/)',],
   coveragePathIgnorePatterns: ['.tests.integration.', 'mockdata', 'mockData'],
 };

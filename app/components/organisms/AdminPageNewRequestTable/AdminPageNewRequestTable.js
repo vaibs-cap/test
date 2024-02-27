@@ -14,11 +14,11 @@ import { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import injectReducer from '@capillarytech/cap-coupons/utils/injectReducer';
+import injectReducer from 'utils/injectReducer';
 import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import moment from 'moment';
-import injectSaga from '@capillarytech/cap-coupons/utils/injectSaga';
+import injectSaga from 'utils/injectSaga';
 import { useHistory } from 'react-router';
 import saga from './saga';
 import styles from './styles';
@@ -36,16 +36,13 @@ export const AdminPageNewRequestTable = ({
   const history = useHistory();
   const [isAcceptModalOpen, setIsAcceptModalOpen] = useState(false);
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
+  // console.log(bookRequestsData);
   const dataSource = bookRequestsData.getBookRequests;
   dataSource.forEach(obj => {
     obj.date = moment(obj.date).format('YYYY-MM-DD');
   });
   const [newReq, setNewReq] = useState({});
   const [reason, setReason] = useState({});
-  const [loading, setLoading] = useState(false);
-  const [nameError, setNameError] = useState(null);
-  const [authorError, setAuthorError] = useState(null);
-  const [dateError, setDateError] = useState(null);
   const [toggle, setToggle] = useState(0);
   const handleCancelChange = event => {
     const { name, value } = event.target;
@@ -53,12 +50,6 @@ export const AdminPageNewRequestTable = ({
   };
 
   const handleChange = event => {
-    setAuthorError(null);
-    setDateError(null);
-    setNameError(null);
-    if (!checkvalidation()) {
-      setLoading(false);
-    }
     const { name, value } = event.target;
     setNewReq(prevFormData => ({
       ...prevFormData,
@@ -96,52 +87,38 @@ export const AdminPageNewRequestTable = ({
   };
 
   const handleAcceptModalAdd = () => {
-    setLoading(true);
-    if (!checkvalidation()) {
-      setLoading(false);
-    } else {
-      // console.log(newReq);
+    setIsAcceptModalOpen(false);
+    if(newReq.book_genre=='')
+    {
+      CapNotification.warning({message: 'Please enter genre'});
+    }
+    else
+    {
       actions.acceptNewBookRequest(newReq);
       setToggle(prev => 1 - prev);
-      setIsAcceptModalOpen(false);
-      setLoading(false);
     }
   };
+
   const userType = localStorage.getItem('userType');
   if (userType === 'user') {
     history.push('/AccessForbidden');
   }
-  if (bookRequestsData.getError) {
-    const bookRequestError = bookRequestsData.getError.message;
-    if (bookRequestError.status === 404) {
-      CapNotification.warning(bookRequestError);
-      history.push('/libSignin');
-    }
-  }
 
-  const checkvalidation = () => {
-    if (newReq.book_name == '') {
-      setNameError('Please enter book title!');
-      return false;
-    } else if (newReq.book_author == '') {
-      setAuthorError('Please enter author name!');
-      return false;
-    } else if (newReq.anticipated_date == '') {
-      setDateError('Please select date!');
-      return false;
-    } else {
-      return true;
-    }
-  };
   const handleAcceptModalCancel = () => {
     setIsAcceptModalOpen(false);
   };
 
   const handleCancelModalAdd = () => {
-    // console.log(reason)
     setIsCancelModalOpen(false);
-    actions.cancelUserNewRequestedBooks(reason);
-    setToggle(prev => 1 - prev);
+    if(reason?.reason === '')
+    {
+      CapNotification.warning({message: 'Please enter a reason'});
+    }
+    else
+    {
+      actions.cancelUserNewRequestedBooks(reason);
+      setToggle(prev => 1 - prev);
+    }
   };
 
   const handleCancelModalCancel = () => {
@@ -254,7 +231,6 @@ export const AdminPageNewRequestTable = ({
               key="submit"
               htmlType="submit"
               type="primary"
-              loading={loading}
               onClick={handleAcceptModalAdd}
             >
               Approve
@@ -266,7 +242,6 @@ export const AdminPageNewRequestTable = ({
             name="book_name"
             label="Title"
             isRequired
-            errorMessage={nameError}
             onChange={handleChange}
           />
           <CapRow />
@@ -276,7 +251,6 @@ export const AdminPageNewRequestTable = ({
             label="Author"
             isRequired
             onChange={handleChange}
-            errorMessage={authorError}
           />
           <CapInput
             name="book_genre"
@@ -289,7 +263,6 @@ export const AdminPageNewRequestTable = ({
             name="anticipated date"
             label="Anticipated Date"
             onChange={handleDate}
-            errorMessage={dateError}
             isRequired
           />
         </CapModal>
