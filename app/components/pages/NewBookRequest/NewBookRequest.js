@@ -20,9 +20,7 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import { set } from 'lodash';
-import { Cap } from '@capillarytech/creatives-library';
-import { action } from '@storybook/addon-actions';
+
 import { useHistory } from 'react-router';
 import moment from 'moment';
 import withStyles from '../../../utils/withStyles';
@@ -33,56 +31,55 @@ import * as actions from './actions';
 import newBookRequestsReducer from './reducer';
 import { makeSelectNewBookRequestsData } from './selectors';
 import Navbar from '../../organisms/Navbar/Navbar';
-const columnsForRequestTable = [
-  {
-    title: <CapHeader size="label1" title="User Email" />,
-    dataIndex: 'email',
-    key: 'email',
-    width: '20%',
-  },
-  {
-    title: <CapHeader size="label1" title="Book Name" />,
-    dataIndex: 'book_name',
-    key: 'book_name',
-    width: '20%',
-  },
-  {
-    title: <CapHeader size="label1" title="Book Author" />,
-    dataIndex: 'book_author',
-    key: 'book_author',
-    width: '20%',
-  },
 
-  {
-    title: <CapHeader size="label1" title="Request-Date" />,
-    dataIndex: 'date',
-    key: 'date',
-    width: '20%',
-  },
-  {
-    title: <CapHeader size="label1" title="State" />,
-    dataIndex: 'state',
-    key: 'state',
-    width: '20%',
-  },
-];
+export const NewBookRequest = ({ className, bookRequestsData, actions }) => {
+  const optionsForSearchFilter = [
+    {
+      value: 'book_name',
+      label: 'By Book Name',
+    },
+    {
+      value: 'book_author',
+      label: 'By Book Author',
+    },
+    {
+      value: 'email',
+      label: 'By User Email',
+    },
+  ];
+  const columnsForRequestTable = [
+    {
+      title: <CapHeader size="label1" title="User Email" />,
+      dataIndex: 'email',
+      key: 'email',
+      width: '20%',
+    },
+    {
+      title: <CapHeader size="label1" title="Book Name" />,
+      dataIndex: 'book_name',
+      key: 'book_name',
+      width: '20%',
+    },
+    {
+      title: <CapHeader size="label1" title="Book Author" />,
+      dataIndex: 'book_author',
+      key: 'book_author',
+      width: '20%',
+    },
 
-const optionsForSearchFilter = [
-  {
-    value: 'book_name',
-    label: 'By Book Name',
-  },
-  {
-    value: 'book_author',
-    label: 'By Book Author',
-  },
-  {
-    value: 'email',
-    label: 'By User Email',
-  },
-];
-
-const NewBookRequest = ({ className, bookRequestsData, actions }) => {
+    {
+      title: <CapHeader size="label1" title="Request-Date" />,
+      dataIndex: 'date',
+      key: 'date',
+      width: '20%',
+    },
+    {
+      title: <CapHeader size="label1" title="State" />,
+      dataIndex: 'state',
+      key: 'state',
+      width: '20%',
+    },
+  ];
   const history = useHistory();
   const [bookName, setBookName] = useState('');
   const [authorName, setAuthorName] = useState('');

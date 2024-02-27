@@ -1,6 +1,10 @@
 module.exports = {
   rootDir: '../../',
+<<<<<<< Updated upstream
   roots: ['<rootDir>/app/components'],
+=======
+  roots: ['<rootDir>/app/components/pages/NewBookRequest'],
+>>>>>>> Stashed changes
   verbose: true,
   moduleFileExtensions: ['js'],
   testURL: 'http://localhost/',
@@ -15,7 +19,11 @@ module.exports = {
   collectCoverage: true,
   coverageDirectory: '<rootDir>/reports/coverage/integration',
   collectCoverageFrom: [
+<<<<<<< Updated upstream
     '**/app/components/**',
+=======
+    '**/app/components/pages/NewBookRequest/**',
+>>>>>>> Stashed changes
     // '**/app/components/**/*.js',
     // '!**/app/**/i18n.js',
     // '!**/app/**/initialState.js',

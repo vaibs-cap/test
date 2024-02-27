@@ -1,6 +1,10 @@
 module.exports = {
   rootDir: '../../',
+<<<<<<< Updated upstream
   roots: ['<rootDir>/app/components'],
+=======
+  roots: ['<rootDir>/app/components/pages/NewBookRequest'],
+>>>>>>> Stashed changes
   verbose: true,
   moduleFileExtensions: ['js'],
   testURL: 'http://localhost/',
@@ -14,7 +18,11 @@ module.exports = {
   collectCoverage: true,
   coverageDirectory: '<rootDir>/reports/coverage',
   collectCoverageFrom: [
+<<<<<<< Updated upstream
     '**/app/components/**',
+=======
+    '**/app/components/pages/NewBookRequest/**',
+>>>>>>> Stashed changes
     // '**/app/components/**/*.js',
     // '!**/app/**/i18n.js',
     // '!**/app/**/initialState.js',
@@ -42,6 +50,12 @@ module.exports = {
   },
   coverageReporters: ['lcov', 'json', 'text', 'text-summary'],
   snapshotSerializers: ['enzyme-to-json/serializer'],
+<<<<<<< Updated upstream
   transformIgnorePatterns: ['node_modules/(?!(@capillarytech' +  '|lodash-es' + ')/)',],
+=======
+  transformIgnorePatterns: [
+    'node_modules/(?!(@capillarytech' + '|lodash-es' + ')/)',
+  ],
+>>>>>>> Stashed changes
   coveragePathIgnorePatterns: ['.tests.integration.', 'mockdata', 'mockData'],
 };
