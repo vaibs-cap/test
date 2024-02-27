@@ -1,11 +1,12 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { fireEvent } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import configureStore from '../../../../configureStore';
 import initialState from '../../../../initialState';
 import { BookList } from '../BookList';
+import userEvent from '@testing-library/user-event';
 
 const setup = props => {
   let store = configureStore(initialState, history);
@@ -81,81 +82,117 @@ describe('BookList component', () => {
   });
 });
 
-describe('BookList Component', () => {
-  it('testing the get book button', () => {
-    const mockBooks = [
-      {
-        _id: '1',
-        book_name: 'Book 1',
-        book_author: 'Author 1',
-        book_genre: 'Genre 1',
-        current_count: 1,
-        total_count: 5,
-      },
-    ];
+test('testing local storage', () => {
+  const setLocalStorage = (user_id, id) => {
+    window.localStorage.setItem(user_id, id);
+  };
 
-    const mockActions = {
-      issueBook: jest.fn(),
-    };
+  const mockId = 'userId';
+  const mockJson = 'rkfbqk6lsMCBOVt5';
+  setLocalStorage(mockId, mockJson);
+  expect(localStorage.getItem(mockId)).toEqual(mockJson);
 
-    // const { getByText } = render(
-    //   <BookList dataSource={mockBooks} actions={mockActions} />,
-    // );
+  const mockBooks = [
+    {
+      _id: '1',
+      book_name: 'Book 1',
+      book_author: 'Author 1',
+      book_genre: 'Genre 1',
+      current_count: 0,
+      total_count: 5,
+    },
+  ];
 
-    const getBookButton = getByText('Get Book');
-    fireEvent.click(getBookButton);
+  const mockActions = {
+    reserveBook: jest.fn(),
+  };
 
-    expect(mockActions.issueBook).toHaveBeenCalledWith({
-      book_id: '1',
-      user_id: '135',
-    });
+  const { rerender } = render(
+    <BookList dataSource={mockBooks} actions={mockActions} />,
+  );
 
-    const updatedDataSource = [
-      {
-        _id: '1',
-        book_name: 'Book 1',
-        book_author: 'Author 1',
-        book_genre: 'Genre 1',
-        current_count: 0,
-        total_count: 5,
-      },
-    ];
+  const reserveBookButton = screen.getByTestId('request-btn');
+  expect(reserveBookButton).toBeInTheDocument();
+  userEvent.click(reserveBookButton);
 
-    expect(updatedDataSource).toEqual(
-      expect.arrayContaining(updatedDataSource),
-    );
+  expect(mockActions.reserveBook).toHaveBeenCalledWith({
+    book_id: '1',
+    user_id: 'rkfbqk6lsMCBOVt5',
   });
+
+  rerender(
+    <BookList
+      dataSource={[
+        {
+          ...mockBooks[0],
+          requests: [
+            {
+              userId: 'rkfbqk6lsMCBOVt5',
+            },
+          ],
+        },
+      ]}
+      actions={mockActions}
+    />,
+  );
+  expect(reserveBookButton).not.toBeInTheDocument();
+  expect(mockActions.reserveBook).toHaveBeenCalledTimes(1);
 });
 
-describe('BookList Component', () => {
-  it('testing the reserve book button', () => {
-    const mockBooks = [
-      {
-        _id: '1',
-        book_name: 'Book 1',
-        book_author: 'Author 1',
-        book_genre: 'Genre 1',
-        current_count: 0,
-        total_count: 5,
-      },
-    ];
+test('Testing the get book functionality', () => {
+  const setLocalStorage = (user_id, id) => {
+    window.localStorage.setItem(user_id, id);
+  };
 
-    const mockActions = {
-      reserveBook: jest.fn(),
-    };
+  const mockId = 'userId';
+  const mockJson = 'rkfbqk6lsMCBOVt5';
+  setLocalStorage(mockId, mockJson);
+  expect(localStorage.getItem(mockId)).toEqual(mockJson);
+  const mockBooks = [
+    {
+      _id: '1',
+      book_name: 'Book 1',
+      book_author: 'Author 1',
+      book_genre: 'Genre 1',
+      current_count: 3,
+      total_count: 5,
+    },
+  ];
 
-    const { getByText } = render(
-      <BookList dataSource={mockBooks} actions={mockActions} />,
-    );
+  const mockActions = {
+    issueBook: jest.fn(),
+  };
 
-    const reserveBookButton = getByText('Reserve');
-    fireEvent.click(reserveBookButton);
+  const { rerender } = render(
+    <BookList dataSource={mockBooks} actions={mockActions} />,
+  );
 
-    expect(mockActions.reserveBook).toHaveBeenCalledWith({
-      book_id: '1',
-      user_id: '123',
-    });
+  const getBookButton = screen.getByRole('button', { name: /get book/i });
+  fireEvent.click(getBookButton);
 
-    expect(reserveBookButton).not.toBeInTheDocument();
+  expect(mockActions.issueBook).toHaveBeenCalledWith({
+    book_id: '1',
+    user_id: 'rkfbqk6lsMCBOVt5',
   });
+
+  rerender(
+    <BookList
+      dataSource={[
+        {
+          ...(mockBooks[0].current_count = 2),
+          borrowers: [
+            {
+              userId: 'rkfbqk6lsMCBOVt5',
+            },
+          ],
+        },
+      ]}
+      actions={mockActions}
+    />,
+  );
+  expect(getBookButton).not.toBeInTheDocument();
+  expect(mockActions.issueBook).toHaveBeenCalledTimes(1);
+  expect(mockBooks[0].current_count).toEqual(2);
 });
+
+test('checking onchange', () => {});

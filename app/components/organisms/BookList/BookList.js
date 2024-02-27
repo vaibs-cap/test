@@ -20,7 +20,7 @@ import {
 } from '../../pages/HomePage/selector';
 import config from '../../../config/app';
 
-const BookList = ({
+export const BookList = ({
   className,
   dataSource,
   loading,
@@ -31,6 +31,7 @@ const BookList = ({
   const user = localStorage.getItem('userId');
 
   function issueOnClick(bookId, userId = user) {
+    console.log('*****this is pagaination', pagination);
     const requestPayload = {
       book_id: bookId,
       user_id: userId,
@@ -112,6 +113,7 @@ const BookList = ({
           return (
             <CapButton
               className="request-btn"
+              data-testid="request-btn"
               size="small"
               color="primary"
               variant="contained"
@@ -148,7 +150,6 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = dispatch => ({
   actions: {
     issueBook: payload => dispatch(issueBook(payload)),
-    cancelIssueBook: payload => dispatch(cancelIssueBook(payload)),
     reserveBook: payload => dispatch(reserveBook(payload)),
   },
 });
