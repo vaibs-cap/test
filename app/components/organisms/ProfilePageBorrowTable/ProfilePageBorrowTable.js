@@ -7,18 +7,16 @@ import {
   CapTable,
 } from '@capillarytech/cap-ui-library';
 import moment from 'moment';
-import { withRouter } from 'react-router-dom';
+//import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import { columns } from './constants';
 import saga from './saga';
 import styles from './styles';
 import withStyles from '../../../utils/withStyles';
-import bookData from '../../pages/ProfilePage/bookData';
 import * as actions from './actions';
 import { profilePageBorrowedReducer } from './reducer';
 import { makeSelectUserBorrowedBooksData } from './selectors';
@@ -115,7 +113,6 @@ const ProfilePageBorrowTable = ({ className, bookBorrowedData, actions }) => {
 
   return (
     <CapRow className={className}>
-      {/* <CapButton onClick={handleDelete}>Click me</CapButton> */}
       <CapTable className="m-30" columns={columns} dataSource={dataSource} />
     </CapRow>
   );
@@ -145,4 +142,4 @@ export default compose(
   withSaga,
   withReducer,
   withConnect,
-)(withRouter(withStyles(ProfilePageBorrowTable, styles)));
+)(withStyles(ProfilePageBorrowTable, styles));
