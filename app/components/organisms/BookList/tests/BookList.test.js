@@ -3,10 +3,10 @@ import { render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { fireEvent } from '@testing-library/react';
 import { Provider } from 'react-redux';
+import userEvent from '@testing-library/user-event';
 import configureStore from '../../../../configureStore';
 import initialState from '../../../../initialState';
 import { BookList } from '../BookList';
-import userEvent from '@testing-library/user-event';
 
 const setup = props => {
   let store = configureStore(initialState, history);
