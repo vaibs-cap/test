@@ -52,14 +52,9 @@ const ProfilePageBorrowTable = ({ className, bookBorrowedData, actions }) => {
       book_name: book?.book_name,
       book_author: book?.book_author,
       book_genre: book?.book_genre,
-      request_date: moment(
-        book?.borrowers.find(borrower => borrower.userId === user).borrowedDate,
-      ).format('YYYY-MM-DD'),
-      due_date: moment(
-        book?.borrowers.find(borrower => borrower.userId === user).borrowedDate,
-      )
-        .add('days', 7)
-        .format('YYYY-MM-DD'),
+      request_date: moment(book?.borrowers.find(borrower => borrower.userId === user)?.borrowedDate).format('YYYY-MM-DD'),
+      due_date: moment(book?.borrowers.find(borrower => borrower.userId === user)
+        ?.borrowedDate).add('days',7).format('YYYY-MM-DD'),
     });
   });
 

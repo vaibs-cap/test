@@ -57,22 +57,15 @@ export const AdminPageNewRequestTable = ({
     }));
   };
 
-  function handleDate(date, dateString) {
-    setNewReq(prevFormData => ({
-      ...prevFormData,
-      anticipated_date: dateString,
-    }));
-  }
-
   const showAcceptModal = id => {
     const tempRow = dataSource.find(obj => obj?._id === id);
     setNewReq(prevFormData => ({
       ...prevFormData,
-      _id: id,
-      book_name: tempRow.book_name,
-      book_author: tempRow.book_author,
+      _id:id,
+      book_name: tempRow?.book_name,
+      book_author: tempRow?.book_author,
       book_genre: '',
-      anticipated_date: moment(),
+      total_count: null,
     }));
     setIsAcceptModalOpen(true);
   };
@@ -88,12 +81,13 @@ export const AdminPageNewRequestTable = ({
 
   const handleAcceptModalAdd = () => {
     setIsAcceptModalOpen(false);
-    if(newReq.book_genre=='')
+    if(newReq.title=='' || newReq.author=='' || newReq.genre=='' || newReq.total_count==null || typeof(newReq.total_count)!=='number') 
     {
-      CapNotification.warning({message: 'Please enter genre'});
+      CapNotification.warning({message: 'Please enter valid details'});
     }
     else
     {
+      newReq.current_count=newReq.total_count;
       actions.acceptNewBookRequest(newReq);
       setToggle(prev => 1 - prev);
     }
@@ -200,6 +194,15 @@ export const AdminPageNewRequestTable = ({
   // console.log(bookRequestsData)
   return (
     <CapRow className={className}>
+      <CapButton
+            className="m-30"
+            type="primary"
+            size="small"
+            variant="contained"
+            onClick={() => showAcceptModal()}
+          >
+            Add a book
+      </CapButton>
       <CapTable
         className="m-30"
         dataSource={dataSource}
@@ -255,15 +258,16 @@ export const AdminPageNewRequestTable = ({
           <CapInput
             name="book_genre"
             label="Genre"
+            isRequired
             value={newReq.book_genre}
             onChange={handleChange}
           />
-          <CapDatePicker
-            defaultValue={moment()}
-            name="anticipated date"
-            label="Anticipated Date"
-            onChange={handleDate}
+          <CapInput
+            name="total_count"
+            label="Count"
             isRequired
+            value={newReq.total_count}
+            onChange={handleChange}
           />
         </CapModal>
         <CapModal
