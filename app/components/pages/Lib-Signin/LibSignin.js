@@ -1,7 +1,6 @@
 import React from 'react';
 import { publicPath } from '../../../config/path';
 import Signin from '../../organisms/Signin-Signup/Signin';
-import { PRODUCTION } from '../Cap/constants';
 const { CapSpin, CapNotification } = require('@capillarytech/cap-ui-library');
 
 const LibSignin = props => {

@@ -61,7 +61,7 @@ export const AdminPageNewRequestTable = ({
     const tempRow = dataSource.find(obj => obj?._id === id);
     setNewReq(prevFormData => ({
       ...prevFormData,
-      _id:id,
+      _id: id,
       book_name: tempRow?.book_name,
       book_author: tempRow?.book_author,
       book_genre: '',
@@ -81,13 +81,15 @@ export const AdminPageNewRequestTable = ({
 
   const handleAcceptModalAdd = () => {
     setIsAcceptModalOpen(false);
-    if(newReq.title=='' || newReq.author=='' || newReq.genre=='' || newReq.total_count==null || typeof(newReq.total_count)!=='number') 
-    {
-      CapNotification.warning({message: 'Please enter valid details'});
-    }
-    else
-    {
-      newReq.current_count=newReq.total_count;
+    if (
+      newReq.book_name === '' ||
+      newReq.book_author === '' ||
+      newReq.book_genre === '' ||
+      newReq.total_count === null
+    ) {
+      CapNotification.warning({ message: 'Please enter valid details' });
+    } else {
+      newReq.current_count = newReq.total_count;
       actions.acceptNewBookRequest(newReq);
       setToggle(prev => 1 - prev);
     }
@@ -104,12 +106,9 @@ export const AdminPageNewRequestTable = ({
 
   const handleCancelModalAdd = () => {
     setIsCancelModalOpen(false);
-    if(reason?.reason === '')
-    {
-      CapNotification.warning({message: 'Please enter a reason'});
-    }
-    else
-    {
+    if (reason?.reason === '') {
+      CapNotification.warning({ message: 'Please enter a reason' });
+    } else {
       actions.cancelUserNewRequestedBooks(reason);
       setToggle(prev => 1 - prev);
     }
@@ -195,13 +194,13 @@ export const AdminPageNewRequestTable = ({
   return (
     <CapRow className={className}>
       <CapButton
-            className="m-30"
-            type="primary"
-            size="small"
-            variant="contained"
-            onClick={() => showAcceptModal()}
-          >
-            Add a book
+        className="m-30"
+        type="primary"
+        size="small"
+        variant="contained"
+        onClick={() => showAcceptModal()}
+      >
+        Add a book
       </CapButton>
       <CapTable
         className="m-30"
