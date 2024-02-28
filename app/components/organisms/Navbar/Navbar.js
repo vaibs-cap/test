@@ -8,13 +8,13 @@ import {
 import { useHistory } from 'react-router';
 import styles from './styles';
 import withStyles from '../../../utils/withStyles';
-
+import { publicPath } from '../../../config/path';
 const Navbar = ({ className }) => {
   const history = useHistory();
 
   const handleSignout = () => {
     localStorage.clear();
-    history.push('/libSignin');
+    history.push(`${publicPath}/libSignin`);
   };
 
   const menuItems = {

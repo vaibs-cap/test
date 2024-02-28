@@ -21,6 +21,7 @@ import * as actions from './actions';
 import { profilePageBorrowedReducer } from './reducer';
 import { makeSelectUserBorrowedBooksData } from './selectors';
 import { useHistory } from 'react-router';
+import { publicPath } from '../../../config/path';
 
 const ProfilePageBorrowTable = ({ className, bookBorrowedData, actions }) => {
   const history = useHistory();
@@ -38,7 +39,7 @@ const ProfilePageBorrowTable = ({ className, bookBorrowedData, actions }) => {
     const errorbookBorrowData = bookBorrowedData.getError.message;
     if (errorbookBorrowData.status === 404) {
       CapNotification.warning(errorbookBorrowData);
-      history.push('/libSignin');
+      history.push(`${publicPath}/libSignin`);
     }
   }
 
@@ -51,10 +52,14 @@ const ProfilePageBorrowTable = ({ className, bookBorrowedData, actions }) => {
       book_name: book?.book_name,
       book_author: book?.book_author,
       book_genre: book?.book_genre,
-      request_date: moment(book?.borrowers.find(borrower => borrower.userId === user)
-        .borrowedDate).format('YYYY-MM-DD'),
-      due_date: moment(book?.borrowers.find(borrower => borrower.userId === user)
-        .borrowedDate).add('days',7).format('YYYY-MM-DD'),
+      request_date: moment(
+        book?.borrowers.find(borrower => borrower.userId === user).borrowedDate,
+      ).format('YYYY-MM-DD'),
+      due_date: moment(
+        book?.borrowers.find(borrower => borrower.userId === user).borrowedDate,
+      )
+        .add('days', 7)
+        .format('YYYY-MM-DD'),
     });
   });
 

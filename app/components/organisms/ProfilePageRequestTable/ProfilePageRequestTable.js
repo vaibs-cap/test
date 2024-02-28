@@ -21,6 +21,7 @@ import { profilePageRequestReducer } from './reducer';
 import { makeSelectUserBookRequestsData } from './selectors';
 import * as actions from './actions';
 import saga from './saga';
+import { publicPath } from '../../../config/path';
 
 const ProfilePageRequestTable = ({ bookRequestsData, className, actions }) => {
   const [toggle, setToggle] = useState(0);
@@ -36,7 +37,7 @@ const ProfilePageRequestTable = ({ bookRequestsData, className, actions }) => {
     const errorbookBorrowData = bookBorrowedData.getError.message;
     if (errorbookBorrowData.status === 404) {
       CapNotification.warning(errorbookBorrowData);
-      history.push('/libSignin');
+      history.push(`${publicPath}/libSignin`);
     }
   }
 
@@ -50,8 +51,9 @@ const ProfilePageRequestTable = ({ bookRequestsData, className, actions }) => {
       book_name: book?.book_name,
       book_author: book?.book_author,
       book_genre: book?.book_genre,
-      request_date: moment(book?.requests.find(requester => requester.userId === user)
-        .requestDate).format('YYYY-MM-DD'),
+      request_date: moment(
+        book?.requests.find(requester => requester.userId === user).requestDate,
+      ).format('YYYY-MM-DD'),
       waitlist_no: book?.current_count,
     });
   });

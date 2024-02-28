@@ -15,6 +15,7 @@ import {
 import withStyles from '../../../utils/withStyles';
 import styles from './styles';
 import Navbar from '../../organisms/Navbar/Navbar';
+import { publicPath } from '../../../config/path';
 
 const RECORDS_PER_PAGE = 10;
 
@@ -71,7 +72,7 @@ const HomePage = ({
   if (error) {
     if (error.message.status === 404) {
       CapNotification.warning(error.message);
-      history.push('/libSignin');
+      history.push(`${publicPath}/libSignin`);
     } else {
       CapNotification.error(error);
     }
