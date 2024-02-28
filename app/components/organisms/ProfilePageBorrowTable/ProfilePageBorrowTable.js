@@ -14,13 +14,13 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
+import { useHistory } from 'react-router';
 import saga from './saga';
 import styles from './styles';
 import withStyles from '../../../utils/withStyles';
 import * as actions from './actions';
 import { profilePageBorrowedReducer } from './reducer';
 import { makeSelectUserBorrowedBooksData } from './selectors';
-import { useHistory } from 'react-router';
 import { publicPath } from '../../../config/path';
 
 const ProfilePageBorrowTable = ({ className, bookBorrowedData, actions }) => {
