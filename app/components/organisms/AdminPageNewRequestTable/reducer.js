@@ -14,7 +14,7 @@ export const profilePageNewRequestReducer = (state = initialState, action) => {
     case types.FETCH_USER_NEW_REQUESTED_BOOKS:
       return state.set('loading', true);
     case types.FETCH_USER_NEW_REQUESTED_BOOKS_SUCCESS:
-      console.log('*****reducer', action.payload.count);
+      // console.log('*****reducer', action.payload.count);
       return state
         .set('loading', false)
         .set('userNewRequestedBooks', fromJS(action.payload.result))

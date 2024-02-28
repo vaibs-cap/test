@@ -300,6 +300,10 @@ export const cancelNewRequest = payload => {
 };
 
 export const acceptNewRequest = payload => {
-  const url = `${MOCK_API_ENDPOINT}/books/new_request/approve`;
+  const url = `${MOCK_API_ENDPOINT}/books/add_book`;
   return request(url, getAPICallObject('POST', payload));
 };
+
+
+
+
