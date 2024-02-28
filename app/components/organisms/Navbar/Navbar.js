@@ -14,7 +14,7 @@ const Navbar = ({ className }) => {
 
   const handleSignout = () => {
     localStorage.clear();
-    history.push(`${publicPath}/libSignin`);
+    history.push(`/libSignin`);
   };
 
   const menuItems = {

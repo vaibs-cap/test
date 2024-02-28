@@ -12,7 +12,7 @@ const LibSignup = props => {
   const showSpin = process.env.NODE_ENV === PRODUCTION;
   const onSuccess = response => {
     if (response.data.success === true) {
-      history.push(`${publicPath}/libSignin`);
+      history.push(`/libSignin`);
     }
   };
   const onFailure = err => {
