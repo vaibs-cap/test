@@ -1,4 +1,4 @@
 module.exports = {
-  publicPath: '/library',
-  prefixPath: '/library/',
+  publicPath: '/library_management_app/ui',
+  prefixPath: '/library_management_app/ui/',
 };

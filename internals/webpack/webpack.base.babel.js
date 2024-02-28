@@ -13,8 +13,8 @@ const pathConfig = require('../../app/config/path');
 const antThemeVars = require('../../ant-theme-vars');
 
 // @todo modify these when bootstrapping a new Application and remove this comment
-const bugsnagAppVersion = `YOUR_APP_HERE__${new Date().getTime()}`;
-const bugsnagApiKey = 'YOUR_KEY_HERE';
+const bugsnagApiKey = 'e4e14820a689507c77b5c5e2b10236fa';
+const bugsnagAppVersion = `library_management_app__${new Date().getTime()}`;
 
 //rollback to this if any style breaks
 // const extractSass = new ExtractTextPlugin({
