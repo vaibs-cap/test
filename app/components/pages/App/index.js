@@ -35,7 +35,7 @@ const loginUrl =
     ? config.production.login_url
     : config.development.login_url;
 
-const Protected = userIsAuthenticated(Product);
+const Protected = userIsAuthenticated(HomePage);
 
 export const App = () => (
   <>
@@ -50,13 +50,8 @@ export const App = () => (
         <RenderRoute exact path="/libSignin" component={LibSignin} />
 
         {/* <RenderRoute exact path={loginUrl} component={Login} /> */}
-        <RenderRoute
-          exact
-          path={publicPath}
-          component={Protected}
-          key={publicPath}
-        />
-        <RenderRoute exact path="/" component={HomePage} />
+        <RenderRoute exact path="/" component={HomePage} key={publicPath} />
+        {/* <RenderRoute exact path="/" component={HomePage} /> */}
         <RenderRoute
           exact
           path="/profile-page"

@@ -13,11 +13,12 @@ const ngrok =
     : false;
 const { resolve } = require('path');
 const app = express();
+const { publicPath } = require('../app/config/path');
 
 // In production we need to pass these values in instead of relying on webpack
 setup(app, {
   outputPath: resolve(process.cwd(), 'dist'),
-  publicPath: '/',
+  publicPath,
 });
 
 // get the intended host and port number, use localhost and port 8000 if not provided
