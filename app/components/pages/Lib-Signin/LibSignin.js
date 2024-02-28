@@ -6,7 +6,7 @@ const { CapSpin, CapNotification } = require('@capillarytech/cap-ui-library');
 
 const LibSignin = props => {
   const { history } = props;
-  const showSpin = process.env.NODE_ENV === PRODUCTION;
+  const showSpin = false; //process.env.NODE_ENV === PRODUCTION;
 
   const onSuccess = resData => {
     const usertype = localStorage.getItem('userType');

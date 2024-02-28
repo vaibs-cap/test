@@ -72,7 +72,7 @@ const HomePage = ({
   if (error) {
     if (error.message.status === 404) {
       CapNotification.warning(error.message);
-      history.push(`${publicPath}/libSignin`);
+      history.push(`/libSignin`);
     } else {
       CapNotification.error(error);
     }

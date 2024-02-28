@@ -39,7 +39,7 @@ const ProfilePageBorrowTable = ({ className, bookBorrowedData, actions }) => {
     const errorbookBorrowData = bookBorrowedData.getError.message;
     if (errorbookBorrowData.status === 404) {
       CapNotification.warning(errorbookBorrowData);
-      history.push(`${publicPath}/libSignin`);
+      history.push(`/libSignin`);
     }
   }
 

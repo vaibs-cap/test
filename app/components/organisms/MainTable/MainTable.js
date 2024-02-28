@@ -233,7 +233,7 @@ export const MainTable = ({
     onRow: record => ({
       onClick: () =>
         history.push(
-          `${publicPath}${PROGRAM_PERFIX_PATH}${record.id}/${MODE_VIEW}`,
+          `${PROGRAM_PERFIX_PATH}${record.id}/${MODE_VIEW}`,
         ),
     }),
     rowClassName: 'pointer-cursor view-message',
