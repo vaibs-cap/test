@@ -13,7 +13,7 @@ const {
   libSigninFailure,
 } = require('./action');
 
-const SERVER_URL = 'http://localhost:3000';
+const SERVER_URL = 'https://cap-api-load-tester.onrender.com';
 
 function* signupSaga(action) {
   try {

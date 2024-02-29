@@ -19,14 +19,13 @@ import { mockInitialState } from '../commonMocks/initialState';
 import App from '../../../components/pages/App';
 import configureStore from '../../../configureStore';
 import { publicPath } from '../../../config/path';
-import {
-  successData,
-} from './mocks/apiResponse';
+import { successData } from './mocks/apiResponse';
 import { checkAvailable, typeText } from '../Product/mocks/helper';
 
 export const server = setupServer(
-  rest.post(`http://localhost:3000/products/add`, (req, res, ctx) =>
-    res(ctx.status(200), ctx.json(successData)),
+  rest.post(
+    `https://cap-api-load-tester.onrender.com/products/add`,
+    (req, res, ctx) => res(ctx.status(200), ctx.json(successData)),
   ),
 );
 

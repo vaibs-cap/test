@@ -9,7 +9,7 @@ import Signup from '../../organisms/Signin-Signup/Signup';
 const LibSignup = props => {
   const { history } = props;
   // const { libSingupSuccess, libSignupFailure } = actions;
-  const showSpin = process.env.NODE_ENV === PRODUCTION;
+  const showSpin = false; //process.env.NODE_ENV === PRODUCTION;
   const onSuccess = response => {
     if (response.data.success === true) {
       history.push(`/libSignin`);

@@ -1,14 +1,19 @@
 import { takeLatest, call, put, all } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 import * as types from './constants';
-import { getProductFailure, getProductSuccess ,getCategorySuccess,getCategoryFailure} from './actions';
+import {
+  getProductFailure,
+  getProductSuccess,
+  getCategorySuccess,
+  getCategoryFailure,
+} from './actions';
 
 export function* watchForGetProducts() {
   yield takeLatest(types.GET_PRODUCT_REQUEST, getProductsSaga);
 }
 
 export const getProducts = async (query, category, skip) => {
-  var url = `http://localhost:3000/products${
+  var url = `https://cap-api-load-tester.onrender.com/products${
     category ? `/category/${category}` : ''
   }?limit=10&skip=${(skip - 1) * 10}`;
   console.log(url);
@@ -42,10 +47,10 @@ export function* watchForGetCategory() {
 }
 
 export const getCategory = async () => {
-  var url = 'http://localhost:3000/products/categories';
+  var url = 'https://cap-api-load-tester.onrender.com/products/categories';
   const res = await fetch(url);
   const data = await res.json();
-  console.log("CATfn")
+  console.log('CATfn');
   return data;
 };
 
@@ -53,8 +58,7 @@ export function* getCategorySaga() {
   console.log('CATworkerSaga');
   // yield delay(500);
   try {
-    const data = yield call(
-      getCategory);
+    const data = yield call(getCategory);
     yield put(getCategorySuccess(data));
   } catch (error) {
     yield put(getCategoryFailure(error));
@@ -62,5 +66,5 @@ export function* getCategorySaga() {
 }
 
 export default function*() {
-  yield all([watchForGetProducts(),watchForGetCategory()]);
+  yield all([watchForGetProducts(), watchForGetCategory()]);
 }
