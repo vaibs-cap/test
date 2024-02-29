@@ -26,14 +26,16 @@ import { publicPath } from '../../../config/path';
 import { categories, categoryData, tableData } from './mocks/apiResponse';
 
 export const server = setupServer(
-  rest.get(`http://localhost:3000/products`, (req, res, ctx) =>
-    res(ctx.status(200), ctx.json(tableData)),
-  ),
-  rest.get(`http://localhost:3000/products/categories`, (req, res, ctx) =>
-    res(ctx.status(200), ctx.json(categories)),
+  rest.get(
+    `https://cap-api-load-tester.onrender.com/products`,
+    (req, res, ctx) => res(ctx.status(200), ctx.json(tableData)),
   ),
   rest.get(
-    `http://localhost:3000/products/category/smartphones`,
+    `https://cap-api-load-tester.onrender.com/products/categories`,
+    (req, res, ctx) => res(ctx.status(200), ctx.json(categories)),
+  ),
+  rest.get(
+    `https://cap-api-load-tester.onrender.com/products/category/smartphones`,
     (req, res, ctx) => res(ctx.status(200), ctx.json(categoryData)),
   ),
 );
@@ -115,5 +117,4 @@ describe('Product Integration Tests', () => {
     const modalText = await screen.findByText('Impression of Acqua Di Gio');
     expect(modalText).toBeInTheDocument();
   });
-
 });
