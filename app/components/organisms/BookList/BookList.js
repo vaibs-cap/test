@@ -31,12 +31,12 @@ export const BookList = ({
   const user = localStorage.getItem('userId');
 
   function issueOnClick(bookId, userId = user) {
-    console.log('*****this is pagaination', pagination);
     const requestPayload = {
       book_id: bookId,
       user_id: userId,
     };
     actions.issueBook(requestPayload);
+    location.reload();
   }
 
   function reserveOnClick(bookId, userId = user) {
@@ -45,6 +45,7 @@ export const BookList = ({
       user_id: userId,
     };
     actions.reserveBook(requestPayload);
+    location.reload();
   }
 
   const columns = [
@@ -151,6 +152,7 @@ const mapDispatchToProps = dispatch => ({
   actions: {
     issueBook: payload => dispatch(issueBook(payload)),
     reserveBook: payload => dispatch(reserveBook(payload)),
+    fetchBookList: payload => dispatch(fetchBookList(payload)),
   },
 });
 
