@@ -29,6 +29,9 @@ import NewBookRequest from '../NewBookRequest';
 import LibSignup from '../Lib-Signup/LibSignup';
 import LibSignin from '../Lib-Signin/LibSignin';
 import AccessForbidden from '../AccessForbidden/AccessForbidden';
+import ExpensetrackerHome from '../ExpenseTrackerHome/ExpensetrackerHome';
+import AddExpense from '../../organisms/AddExpense';
+import ExpenseGraph from '../../organisms/ShowExpenseGraph/ExpenseGraph';
 
 const loginUrl =
   process.env.NODE_ENV === PRODUCTION
@@ -51,7 +54,10 @@ export const App = () => (
 
         {/* <RenderRoute exact path={loginUrl} component={Login} /> */}
         <RenderRoute exact path="/" component={HomePage} key={publicPath} />
+        <RenderRoute exact path="/home" component={ExpensetrackerHome} key={publicPath} />
         {/* <RenderRoute exact path="/" component={HomePage} /> */}
+        <RenderRoute exact path="/add-expense" component={AddExpense} />
+        <RenderRoute exact path="/show-graph" component={ExpenseGraph} />
         <RenderRoute
           exact
           path="/profile-page"

@@ -9,6 +9,7 @@ import history from 'utils/history';
 import languageProviderReducer from './components/pages/LanguageProvider/reducer';
 import capReducer from './components/pages/Cap/reducer';
 import bookListReducer from './components/pages/HomePage/reducer';
+import expenseReducer from './components/pages/ExpenseTrackerHome/reducer';
 
 /**
  * Merges the main reducer with the router state and dynamically injected reducers
@@ -18,6 +19,7 @@ export default function createReducer(injectedReducers = {}) {
     language: languageProviderReducer,
     loyaltyCap: capReducer,
     bookList: bookListReducer,
+    expenses: expenseReducer,
     ...injectedReducers,
   });
 

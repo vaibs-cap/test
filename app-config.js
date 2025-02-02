@@ -1,6 +1,6 @@
 module.exports = {
   appName: 'library_management_app',
-  prefix: '/library_management_app/ui',
+  prefix: '/',
   isHostedOnPlatform: true,
   appType: 'native',
   bugsnag: {

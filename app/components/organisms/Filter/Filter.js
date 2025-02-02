@@ -15,14 +15,14 @@ import messages from './messages';
 
 export function getPlaceHolderValue(selectedFilterBy) {
   switch (selectedFilterBy) {
-    case 'BY_GENRE':
-      return 'Search by book genre...';
-    case 'BY_AUTHOR':
-      return 'Search by author name...';
+    case 'BY_ID':
+      return 'Search by ID...';
     case 'BY_NAME':
-      return 'Search by book name...';
+      return 'Search by name...';
+    case 'BY_CATEGORY':
+      return 'Search by category...';
     default:
-      return 'Search by book name...';
+      return 'Search by name...';
   }
 }
 
