@@ -14,6 +14,8 @@ import {
     EDIT_EXPENSE_FAILURE,
     SET_LOADING,
     FILTERED_BY_MONTH,
+    SEARCH_BY_NAME,
+    SET_SEARCH_LIST
 } from "./constants";
 
 export const addExpenseRequest = (expense) => ({
@@ -83,4 +85,13 @@ export const sortByCategory = (category) => ({
 export const filterByMonth = (month) => ({
     type: FILTERED_BY_MONTH,
     payload: month,
+});
+export const searchByName = (val) => ({
+    type: SEARCH_BY_NAME,
+    payload: val,
+});
+
+export const setSearchList = (list) => ({
+    type: SET_SEARCH_LIST,
+    payload: list,
 });

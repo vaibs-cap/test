@@ -16,7 +16,7 @@ const ExpenseList = ({ className, expenses, loading, error, actions}) => {
     const [localExpenses, setLocalExpenses] = useState([]);
  
     useEffect(() => {
-        setLocalExpenses(expenses.toJS());
+        setLocalExpenses(expenses);
     },[expenses]);
     //console.log('expenses from Expense list:', expenses.toJS());
     const handleRemove = key => {

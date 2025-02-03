@@ -6,7 +6,7 @@ const selectExpenses = (state = fromJS({})) => state.get("expenses", initialStat
 
 const makeExpensesSelector = () =>
     createSelector(selectExpenses, (substate = fromJS({})) => 
-        substate.get("expenses"),
+        substate.get("expenses", fromJS([])).toJS(),
     );
 const makeLoadingSelector = () => 
     createSelector(selectExpenses, (substate = fromJS({})) =>

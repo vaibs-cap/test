@@ -17,27 +17,25 @@ import NavBar from "../NavBar1/NavBar"
 const AddExpense = ({className, expenses, loading, error, actions}) => {
     const [expenseData, setExpenseData] = useState({
         id: '',
-        description: "",
         amount: "",
         category: "",
         date: "",
+        description: "",
     });
-    useEffect(() => {
-        
-            setExpenseData({
-                id: '',
-                description: '',
-                amount: '',
-                category: '',
-                date: ''
-            });
-        
-    }, []);
-    console.log("expenses from AddExpense:", expenses.toJS());
+
+    //console.log("expenses from AddExpense:", expenses);
 
     // console.log("expensePayload:", expenses);
      //const navigate = useNavigate();
-
+    const setExpenseDataToNull = () => {
+        setExpenseData({
+            id: '',
+            amount: "",
+            category: "",
+            date: "",
+            description: "",
+        });
+    }
     const handleChange = (e) => {
         const { name, value } = e.target;
         //console.log("name:", name, "value:", value);
@@ -56,15 +54,16 @@ const AddExpense = ({className, expenses, loading, error, actions}) => {
             alert("Please fill all fields!");
             return;
         }
-        const expensesArray = expenses.toJS();
-        const maxId = expensesArray.reduce((max, expense) => Math.max(max, expense.id),0);
-        const newId = maxId + 1;
+        // const expensesArray = expenses.toJS();
+        // const maxId = expensesArray.reduce((max, expense) => Math.max(max, expense.id),0);
+        // const newId = maxId + 1;
+        
 
-        const newExpenseData = { ...expenseData, id: newId};
+        //const newExpenseData = { ...expenseData, id: newId+""};
         // Dispatch Redux action
-        actions.addExpenseRequest(newExpenseData);
-        console.log("newExpenseData:", newExpenseData);
-
+        actions.addExpenseRequest(expenseData);
+        //console.log("newExpenseData:", expenseData);
+        setExpenseDataToNull();
        
         // Redirect to home page after adding an expense
         //navigate("/home");
@@ -106,8 +105,8 @@ const AddExpense = ({className, expenses, loading, error, actions}) => {
 };
 
 
-const mapStateToProps = createStructuredSelector({
-    expenses: makeExpensesSelector(),
+const mapStateToProps = (state) =>  createStructuredSelector({
+    expenses: makeExpensesSelector(state),
     loading: makeLoadingSelector(),
     error: makeErrorSelector(),
 });

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect, useSelector } from 'react-redux';
 import { bindActionCreators, compose } from 'redux';
-import { CapRow } from '@capillarytech/cap-ui-library';
+import { CapHeading, CapRow } from '@capillarytech/cap-ui-library';
 import Filter from '../../organisms/Filter/Filter';
 import ExpenseList from '../../organisms/ExpenseList/ExpenseList';
 import injectSaga from '@capillarytech/cap-coupons/utils/injectSaga';
@@ -22,7 +22,7 @@ import {
 } from './selectors';
 
 const ExpensetrackerHome = ({className, expenses, loading, error, actions}) => {
-    console.log('expenses from home', expenses.toJS());
+    //console.log('expenses from home', expenses.toJS());
     //const [state, setState] = useState(expenses);
     const [enteredFilterValue, setEnteredFilterValue] = useState('');
     const [filterBy, selectedFilterBy] = useState('BY_NAME');
@@ -34,6 +34,10 @@ const ExpensetrackerHome = ({className, expenses, loading, error, actions}) => {
          actions.fetchExpenseRequest();
          //handleChange();
     }, []);
+    const totalExpenses = expenses.reduce((total, expense) => total + Number(expense.amount), 0);
+    console.log('totalExpenses:', totalExpenses);
+
+    const balance = 100000 - totalExpenses;
    
     function getFilterKey() {
       switch (filterBy) {
@@ -53,7 +57,7 @@ const ExpensetrackerHome = ({className, expenses, loading, error, actions}) => {
       selectedFilterBy(val);
     }
 
-    function onFilterValueChange(val) {
+    function onFilterValueChange(val) {         
       setEnteredFilterValue(val);
     }
 
@@ -61,6 +65,8 @@ const ExpensetrackerHome = ({className, expenses, loading, error, actions}) => {
         <>
         <CapRow>
             <NavBar />
+            <CapHeading type="h1">Total Expense: ${totalExpenses}</CapHeading>
+            <CapHeading type="h1">Balance: ${balance}</CapHeading>
             <CapRow>
                 <Filter
                   selectedFilterBy={filterBy}
@@ -68,7 +74,7 @@ const ExpensetrackerHome = ({className, expenses, loading, error, actions}) => {
                   filterValue={enteredFilterValue}
                   handleFilterValueChange={onFilterValueChange}
                  />
-                <ExpenseList className={className} expenses={expenses.toJS()}/>
+                <ExpenseList className={className} expenses={expenses}/>
             </CapRow> 
         </CapRow>
        

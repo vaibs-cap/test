@@ -22,32 +22,25 @@
       "description": "Gym membership for February"
     },
     {
-      "id": "6",
-      "description": "abcde",
-      "amount": "1200",
-      "category": "Food",
-      "date": "2025-01-26"
-    },
-    {
       "id": "8",
-      "description": "Dumbell",
-      "amount": "1200",
-      "category": "Gym",
-      "date": "2025-01-26"
+      "amount": "18",
+      "category": "Food",
+      "date": "2025-01-27",
+      "description": "curd"
     },
     {
       "id": "9",
-      "description": "Milk",
-      "amount": "2000",
+      "amount": "1000",
       "category": "Food",
-      "date": "2025-02-02"
+      "date": "2025-02-03",
+      "description": "Snacks"
     },
     {
-      "id": 10,
-      "description": "Milk",
-      "amount": "1200",
+      "id": "10",
+      "amount": "19",
       "category": "Food",
-      "date": "2025-01-28"
+      "date": "2025-01-27",
+      "description": "samosa"
     }
   ]
 }

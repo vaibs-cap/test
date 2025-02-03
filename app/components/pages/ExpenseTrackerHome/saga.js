@@ -18,12 +18,18 @@ function* fetchExpenseSaga() {
 
 function* addExpenseRequestSaga(action) {
     console.log("inside addExpenseRequestSaga");
+    const data = yield call(fetch, JsonUrl);
+    const dataJson =  yield data.json();
+    //const expensesArray = dataJson.toJS();
+    const maxId = dataJson.length > 0 ? Math.max(...dataJson.map(exp => parseInt(exp.id, 10))) : 0;    
+    const newId = (maxId + 1).toString();
+    const newExpense = { ...action.payload, id: newId};
     try {
         const response = yield call(() =>
             fetch(JsonUrl, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(action.payload),
+                body: JSON.stringify(newExpense),
             }).then(res => res.json())
         );
         yield put({ type: types.ADD_EXPENSE_SUCCESS, payload: response });
@@ -61,6 +67,17 @@ function* delExpenseRequest(action) {
     }
 }
 
+// function* searchByNameSaga(action) {
+//     try {
+//         let response = yield call(fetch, `https://localhost:8001/expenses?description=${action.payload}`);
+//         response = yield response.json();
+//         console.log('search saga response:', response);
+//         yield put({ type: types.SET_SEARCH_LIST, payload: response});
+//     } catch (error) {
+//         console.log('search saga error:', error);
+//     }
+// }
+
 export function* watchAddExpenseRequests() {
     yield takeLatest(types.ADD_EXPENSE_REQUEST, addExpenseRequestSaga);
 }
@@ -77,12 +94,17 @@ export function* watchEditExpenseRequests() {
     yield takeLatest(types.EDIT_EXPENSE_REQUEST, editExpenseRequest);
 }
 
+// export function* watchSearchByName() {
+//     yield takeLatest(types.SEARCH_BY_NAME, searchByNameSaga);
+// }
+
 export default function*() {
     yield all([
         watchAddExpenseRequests(),
         watchDeleteExpenseRequests(),
         watchFetchExpenseRequests(),
         watchEditExpenseRequests(),
+       // watchSearchByName(),
     ]);
 }
 

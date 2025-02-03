@@ -10,6 +10,7 @@ import {
 } from '@capillarytech/cap-ui-library';
 import withStyles from '../../../utils/withStyles';
 import style from './styles';
+import * as actions from '../../pages/ExpenseTrackerHome/actions';
 import { FILTER_BY_OPTIONS } from './constants';
 import messages from './messages';
 
@@ -32,6 +33,7 @@ const Filter = ({
   filterValue,
   handleFilterByChange,
   handleFilterValueChange,
+  actions,
 }) => (
   <>
     <CapRow className="top-section" type="flex">
@@ -44,7 +46,9 @@ const Filter = ({
         className="search-field"
         value={filterValue}
         disabled={selectedFilterBy === 'NO_FILTER'}
-        onChange={event => handleFilterValueChange(event.target.value)}
+        onChange={event => {handleFilterValueChange(event.target.value);
+          actions.searchByName(event.target.value);}
+        }
         placeholder={getPlaceHolderValue(selectedFilterBy)}
       />
       <CapSelect
@@ -63,6 +67,7 @@ Filter.propTypes = {
   filterValue: PropTypes.string,
   handleFilterByChange: PropTypes.func,
   handleFilterValueChange: PropTypes.func,
+  actions: PropTypes.object.isRequired,
 };
 
 export default withStyles(Filter, style);

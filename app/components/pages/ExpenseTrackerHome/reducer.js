@@ -5,6 +5,7 @@ export const initialState = fromJS({
     expenses: [],
     loading: false,
     error: null,
+    searchList: [],
     // filteredExpenses: [],
     // sortCategory: "",
     // filterByMonth: "",
@@ -18,7 +19,7 @@ export const expenseReducer = (state = initialState, action) => {
             return state.update('expenses', expenses => {
                 expenses.push(fromJS(action.payload))
                 .set('loading', false);
-                //console.log('expenses from Reducer:', expenses.toJS());
+                console.log('expenses from Reducer:', expenses.toJS());
     }); 
         case types.ADD_EXPENSE_FAILURE:
             return state.set('loading', false).set('error', action.payload);
@@ -48,8 +49,11 @@ export const expenseReducer = (state = initialState, action) => {
             .update('expenses', expenses => expenses.filter(expense => expense.get('id') !== action.payload),)
             .set('loading', false);
             
-        case types.DELETE_EXPENSE_FAILURE:
-            return state.set('loading', false).set('error', action.payload);
+        // case types.DELETE_EXPENSE_FAILURE:
+        //     return state.set('loading', false).set('error', action.payload);
+        
+        // case types.SET_SEARCH_LIST:
+        //     return state.set('searchList', fromJS(action.payload));
 
         // case types.SORT_EXPENSES_BY_CATEGORY:
         //     return state.set('sortCategory', action.payload).update('filteredExpenses', expenses => (
