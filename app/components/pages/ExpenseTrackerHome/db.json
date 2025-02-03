@@ -1,12 +1,11 @@
 {
   "expenses": [
-    
     {
       "id": "3",
       "amount": 5000,
-      "category": "Gym",
-      "date": "2024-02-01",
-      "description": "Gym membership for February"
+      "category": "Food",
+      "date": "2024-02-02",
+      "description": "Groceries rent for February"
     },
     {
       "id": "4",
@@ -17,10 +16,38 @@
     },
     {
       "id": "5",
-      "amount": 700,
-      "category": "Entertainment",
-      "date": "2024-01-20",
-      "description": "Movie night"
+      "amount": 2000,
+      "category": "Gym",
+      "date": "2024-02-02",
+      "description": "Gym membership for February"
+    },
+    {
+      "id": "6",
+      "description": "abcde",
+      "amount": "1200",
+      "category": "Food",
+      "date": "2025-01-26"
+    },
+    {
+      "id": "8",
+      "description": "Dumbell",
+      "amount": "1200",
+      "category": "Gym",
+      "date": "2025-01-26"
+    },
+    {
+      "id": "9",
+      "description": "Milk",
+      "amount": "2000",
+      "category": "Food",
+      "date": "2025-02-02"
+    },
+    {
+      "id": 10,
+      "description": "Milk",
+      "amount": "1200",
+      "category": "Food",
+      "date": "2025-01-28"
     }
   ]
 }

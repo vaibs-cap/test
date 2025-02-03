@@ -16,8 +16,8 @@ function* fetchExpenseSaga() {
     }
 }
 
-function* addExpenseRequest(action) {
-    console.log("inside addExpenseRequest");
+function* addExpenseRequestSaga(action) {
+    console.log("inside addExpenseRequestSaga");
     try {
         const response = yield call(() =>
             fetch(JsonUrl, {
@@ -51,8 +51,8 @@ function* delExpenseRequest(action) {
     try {
         yield call(() =>
             fetch(`${JsonUrl}/${action.payload}`, {
-                method: "DELETE",
-            })
+                method: 'DELETE',
+            }),
         );
         // Dispatch success with the deleted expense id
         yield put({ type: types.DELETE_EXPENSE_SUCCESS, payload: action.payload });
@@ -62,7 +62,7 @@ function* delExpenseRequest(action) {
 }
 
 export function* watchAddExpenseRequests() {
-    yield takeLatest(types.ADD_EXPENSE_REQUEST, addExpenseRequest);
+    yield takeLatest(types.ADD_EXPENSE_REQUEST, addExpenseRequestSaga);
 }
 
 export function* watchDeleteExpenseRequests() {

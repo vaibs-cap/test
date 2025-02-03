@@ -22,7 +22,8 @@ import {
 } from './selectors';
 
 const ExpensetrackerHome = ({className, expenses, loading, error, actions}) => {
-    console.log('expenses from home', expenses);
+    console.log('expenses from home', expenses.toJS());
+    //const [state, setState] = useState(expenses);
     const [enteredFilterValue, setEnteredFilterValue] = useState('');
     const [filterBy, selectedFilterBy] = useState('BY_NAME');
     //const state = useSelector(state => state);
@@ -31,7 +32,9 @@ const ExpensetrackerHome = ({className, expenses, loading, error, actions}) => {
     useEffect(() => {
         console.log('inside useEffect');
          actions.fetchExpenseRequest();
+         //handleChange();
     }, []);
+   
     function getFilterKey() {
       switch (filterBy) {
         case 'BY_ID':
@@ -65,7 +68,7 @@ const ExpensetrackerHome = ({className, expenses, loading, error, actions}) => {
                   filterValue={enteredFilterValue}
                   handleFilterValueChange={onFilterValueChange}
                  />
-                <ExpenseList className={className}/>
+                <ExpenseList className={className} expenses={expenses.toJS()}/>
             </CapRow> 
         </CapRow>
        

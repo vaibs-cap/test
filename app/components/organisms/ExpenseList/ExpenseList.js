@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { CapHeading, CapButton } from '@capillarytech/cap-ui-library';
+import { CapHeading, CapButton, CapTable } from '@capillarytech/cap-ui-library';
 import { Table } from 'antd';
 import { bindActionCreators } from 'redux';
 import * as actions from '../../pages/ExpenseTrackerHome/actions';
@@ -10,15 +10,21 @@ import injectReducer from '@capillarytech/cap-coupons/utils/injectReducer';
 import saga from '../../pages/ExpenseTrackerHome/saga';
 import { expenseReducer } from '../../pages/ExpenseTrackerHome/reducer';
 import { makeExpensesSelector, makeLoadingSelector, makeErrorSelector } from '../../pages/ExpenseTrackerHome/selectors';
+import { useEffect } from 'react';
 
 const ExpenseList = ({ className, expenses, loading, error, actions}) => {
-    
-    console.log('expenses from Expense list:', expenses);
-    const handleRemove = (key) => {
+    const [localExpenses, setLocalExpenses] = useState([]);
+ 
+    useEffect(() => {
+        setLocalExpenses(expenses.toJS());
+    },[expenses]);
+    //console.log('expenses from Expense list:', expenses.toJS());
+    const handleRemove = key => {
         console.log('key:', key);
         actions.deleteExpenseRequest(key);
+        setLocalExpenses(localExpenses.filter(expense => expense.id !== key));
     };
-
+    //const expensesData = expenses.toJS ? expenses.toJS() : expenses;
     const columns = [
         {
             title: <CapHeading type="h4">Expense Name</CapHeading>,
@@ -54,7 +60,7 @@ const ExpenseList = ({ className, expenses, loading, error, actions}) => {
         }
     ];
 
-    const data = expenses.map(expense => ({
+    const data = localExpenses.map(expense => ({
         key: expense.id,
         expenseName: expense.description,
         expenseAmount: expense.amount,
@@ -67,7 +73,7 @@ const ExpenseList = ({ className, expenses, loading, error, actions}) => {
     if (error) {
         return <CapHeading type="h3">Error fetching expenses</CapHeading>;
     }
-    return <Table columns={columns} dataSource={data} />;
+    return <Table className={className} columns={columns} dataSource={data} />;
 };
 
 // const mapStateToProps = state => ({
@@ -82,15 +88,15 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = dispatch => ({
     actions: bindActionCreators(actions, dispatch),
 });
-const withConnect = connect(
-    mapStateToProps,
-    mapDispatchToProps,
-  );
+// const withConnect = connect(
+//     mapStateToProps,
+//     mapDispatchToProps,
+//   );
   
-  const withSaga = injectSaga({ key: 'expenses', saga });
-  const withReducer = injectReducer({
-    key: 'expenses',
-    reducer: expenseReducer,
-  });
+//   const withSaga = injectSaga({ key: 'expenses', saga });
+//   const withReducer = injectReducer({
+//     key: 'expenses',
+//     reducer: expenseReducer,
+//   });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpenseList);

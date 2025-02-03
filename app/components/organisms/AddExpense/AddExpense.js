@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators, compose } from "redux";
 import { CapRow, CapForm, CapButton } from "@capillarytech/cap-ui-library";
@@ -11,51 +12,73 @@ import saga from "../../pages/ExpenseTrackerHome/saga";
 import expenseReducer from "../../pages/ExpenseTrackerHome/reducer";
 import { addExpenseRequest } from "../../pages/ExpenseTrackerHome/actions";
 import { makeErrorSelector, makeExpensesSelector, makeLoadingSelector } from "../../pages/ExpenseTrackerHome/selectors";
+import NavBar from "../NavBar1/NavBar"
 
-const AddExpense = ({ addExpenseRequest, expenses, loading, error }) => {
-    console.log("expenses from AddExpense:", expenses);
-
+const AddExpense = ({className, expenses, loading, error, actions}) => {
     const [expenseData, setExpenseData] = useState({
-        title: "",
+        id: '',
+        description: "",
         amount: "",
         category: "",
         date: "",
     });
+    useEffect(() => {
+        
+            setExpenseData({
+                id: '',
+                description: '',
+                amount: '',
+                category: '',
+                date: ''
+            });
+        
+    }, []);
+    console.log("expenses from AddExpense:", expenses.toJS());
 
-    console.log("expenseData:", expenseData);
-    const navigate = useNavigate();
+    // console.log("expensePayload:", expenses);
+     //const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
+        //console.log("name:", name, "value:", value);
         setExpenseData((prevState) => ({
             ...prevState,
             [name]: value,
         }));
+        //console.log("expenseData:", expenseData);
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
+        //console.log("handleSubmit:", e);
         // Ensure all fields are filled
-        if (!expenseData.title || !expenseData.amount || !expenseData.category || !expenseData.date) {
+        if (!expenseData.description || !expenseData.amount || !expenseData.category || !expenseData.date) {
             alert("Please fill all fields!");
             return;
         }
+        const expensesArray = expenses.toJS();
+        const maxId = expensesArray.reduce((max, expense) => Math.max(max, expense.id),0);
+        const newId = maxId + 1;
 
+        const newExpenseData = { ...expenseData, id: newId};
         // Dispatch Redux action
-        addExpenseRequest(expenseData);
+        actions.addExpenseRequest(newExpenseData);
+        console.log("newExpenseData:", newExpenseData);
 
+       
         // Redirect to home page after adding an expense
-        navigate("/home");
+        //navigate("/home");
     };
 
     return (
         <>
+        <NavBar/>
+         <CapRow>
             <h2>Add Expense</h2>
-            <CapForm onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
                 <div>
                     <label>Title:</label>
-                    <input type="text" name="title" value={expenseData.title} onChange={handleChange} required />
+                    <input type="text" name="description" value={expenseData.description} onChange={handleChange} required />
                 </div>
 
                 <div>
@@ -76,26 +99,30 @@ const AddExpense = ({ addExpenseRequest, expenses, loading, error }) => {
                 <CapButton type="primary" htmlType="submit">
                     Add Expense
                 </CapButton>
-            </CapForm>
+            </form>
+            </CapRow>
         </>
     );
 };
 
-const mapStateToProps = state => createStructuredSelector({
-    expenses: makeExpensesSelector(state),
-    loading: makeLoadingSelector(state),
-    error: makeErrorSelector(state),
+
+const mapStateToProps = createStructuredSelector({
+    expenses: makeExpensesSelector(),
+    loading: makeLoadingSelector(),
+    error: makeErrorSelector(),
 });
+
 
 const mapDispatchToProps = (dispatch) => ({
-    addExpenseRequest: (expense) => dispatch(addExpenseRequest(expense)),
+    actions: bindActionCreators(actions, dispatch),
 });
-
-const withReducer = injectReducer({
-    key: "expenses",
-    reducer: expenseReducer,
-});
-
 const withSaga = injectSaga({ key: "expenses", saga });
+ const withReducer = injectReducer({
+     key: "expenses",
+     reducer: expenseReducer,
+ });
+ const withConnect = connect(mapStateToProps, mapDispatchToProps,);
 
-export default compose(withReducer, withSaga, connect(mapStateToProps, mapDispatchToProps))(AddExpense);
+
+export default compose(withConnect, withSaga, withReducer)(AddExpense);
+//export default AddExpense;
