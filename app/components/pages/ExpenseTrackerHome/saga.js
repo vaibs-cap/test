@@ -1,40 +1,18 @@
 import { call, put, all, takeLatest } from 'redux-saga/effects';
 import * as types from './constants';
 
-const JsonUrl = "http://localhost:8001/expenses";
+const JsonUrl = "http://localhost:3000/expenses";
 
 function* fetchExpenseSaga() {
-    // console.log("inside worker saga");
+     //console.log("inside worker saga");
     try {
-        // console.log("inside FetchWorkerSaga");
+        //console.log("inside FetchWorkerSaga");
         const response = yield call(fetch, JsonUrl);
         const data = yield response.json();
-        // console.log("data", data);
+         //console.log("data", data);
         yield put({ type: types.FETCH_EXPENSE_SUCCESS, payload: data });
     } catch (error) {
         yield put({ type: types.FETCH_EXPENSE_FAILURE, payload: error.message });
-    }
-}
-
-function* addExpenseRequestSaga(action) {
-    console.log("inside addExpenseRequestSaga");
-    const data = yield call(fetch, JsonUrl);
-    const dataJson =  yield data.json();
-    //const expensesArray = dataJson.toJS();
-    const maxId = dataJson.length > 0 ? Math.max(...dataJson.map(exp => parseInt(exp.id, 10))) : 0;    
-    const newId = (maxId + 1).toString();
-    const newExpense = { ...action.payload, id: newId};
-    try {
-        const response = yield call(() =>
-            fetch(JsonUrl, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(newExpense),
-            }).then(res => res.json())
-        );
-        yield put({ type: types.ADD_EXPENSE_SUCCESS, payload: response });
-    } catch (error) {
-        yield put({ type: types.ADD_EXPENSE_FAILURE, payload: error });
     }
 }
 
@@ -55,6 +33,7 @@ function* editExpenseRequest(action) {
 
 function* delExpenseRequest(action) {
     try {
+        console.log("Inside del saga");
         yield call(() =>
             fetch(`${JsonUrl}/${action.payload}`, {
                 method: 'DELETE',
@@ -78,9 +57,6 @@ function* delExpenseRequest(action) {
 //     }
 // }
 
-export function* watchAddExpenseRequests() {
-    yield takeLatest(types.ADD_EXPENSE_REQUEST, addExpenseRequestSaga);
-}
 
 export function* watchDeleteExpenseRequests() {
     yield takeLatest(types.DELETE_EXPENSE_REQUEST, delExpenseRequest);

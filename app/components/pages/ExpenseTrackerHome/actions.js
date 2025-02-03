@@ -1,7 +1,4 @@
 import {
-    ADD_EXPENSE_REQUEST,
-    ADD_EXPENSE_SUCCESS,
-    ADD_EXPENSE_FAILURE,
     DELETE_EXPENSE_REQUEST,
     DELETE_EXPENSE_SUCCESS,
     DELETE_EXPENSE_FAILURE,
@@ -18,20 +15,7 @@ import {
     SET_SEARCH_LIST
 } from "./constants";
 
-export const addExpenseRequest = (expense) => ({
-    type: ADD_EXPENSE_REQUEST,
-    payload: expense,
-});
 
-export const addExpenseSuccess = (expense) => ({
-    type: ADD_EXPENSE_SUCCESS,
-    payload: expense,
-});
-
-export const addExpenseFailure = (error) => ({
-    type: ADD_EXPENSE_FAILURE,
-    payload: error,
-});
 
 export const deleteExpenseRequest = (id) => ({
     type: DELETE_EXPENSE_REQUEST,
@@ -48,9 +32,12 @@ export const deleteExpenseFailure = (error) => ({
     payload: error,
 });
 
-export const fetchExpenseRequest = () => ({
-    type: FETCH_EXPENSE_REQUEST,
-});
+export const fetchExpenseRequest = () => {
+    console.log("Inside fetch action");
+    return {
+        type: FETCH_EXPENSE_REQUEST,
+    };
+};
 
 export const fetchExpenseSuccess = (expenses) => ({
     type: FETCH_EXPENSE_SUCCESS,

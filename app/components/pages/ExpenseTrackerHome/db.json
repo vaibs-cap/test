@@ -37,10 +37,17 @@
     },
     {
       "id": "10",
-      "amount": "19",
+      "amount": "2500",
+      "category": "other",
+      "date": "2025-02-03",
+      "description": "New"
+    },
+    {
+      "id": "11",
+      "amount": "12",
       "category": "Food",
       "date": "2025-01-27",
-      "description": "samosa"
+      "description": "abcde"
     }
   ]
 }

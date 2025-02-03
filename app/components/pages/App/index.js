@@ -30,7 +30,7 @@ import LibSignup from '../Lib-Signup/LibSignup';
 import LibSignin from '../Lib-Signin/LibSignin';
 import AccessForbidden from '../AccessForbidden/AccessForbidden';
 import ExpensetrackerHome from '../ExpenseTrackerHome/ExpensetrackerHome';
-import AddExpense from '../../organisms/AddExpense';
+import AddExpense from '../AddExpense/AddExpense';
 import ExpenseGraph from '../../organisms/ShowExpenseGraph/ExpenseGraph';
 
 const loginUrl =

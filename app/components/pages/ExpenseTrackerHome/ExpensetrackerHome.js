@@ -21,18 +21,13 @@ import {
     makeLoadingSelector
 } from './selectors';
 
-const ExpensetrackerHome = ({className, expenses, loading, error, actions}) => {
-    //console.log('expenses from home', expenses.toJS());
-    //const [state, setState] = useState(expenses);
+const ExpensetrackerHome = ({className, expenses, loading, error, fetchExpenseRequest}) => {
     const [enteredFilterValue, setEnteredFilterValue] = useState('');
     const [filterBy, selectedFilterBy] = useState('BY_NAME');
-    //const state = useSelector(state => state);
-    //console.log('state', state);
     
     useEffect(() => {
         console.log('inside useEffect');
-         actions.fetchExpenseRequest();
-         //handleChange();
+        fetchExpenseRequest();
     }, []);
     const totalExpenses = expenses.reduce((total, expense) => total + Number(expense.amount), 0);
     console.log('totalExpenses:', totalExpenses);
@@ -91,9 +86,12 @@ const mapStateToProps = state =>
     error: makeErrorSelector(state),
 });
 
+// const mapDispatchToProps = dispatch => ({
+//   actions: bindActionCreators(actions, dispatch),
+// });
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(actions, dispatch),
-});
+  fetchExpenseRequest : () => dispatch(fetchExpenseRequest()),
+})
 
 const withConnect = connect(
   mapStateToProps,

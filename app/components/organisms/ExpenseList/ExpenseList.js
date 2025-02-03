@@ -9,22 +9,21 @@ import injectSaga from '@capillarytech/cap-coupons/utils/injectSaga';
 import injectReducer from '@capillarytech/cap-coupons/utils/injectReducer';
 import saga from '../../pages/ExpenseTrackerHome/saga';
 import { expenseReducer } from '../../pages/ExpenseTrackerHome/reducer';
+import { deleteExpenseRequest } from '../../pages/ExpenseTrackerHome/actions';
 import { makeExpensesSelector, makeLoadingSelector, makeErrorSelector } from '../../pages/ExpenseTrackerHome/selectors';
 import { useEffect } from 'react';
 
-const ExpenseList = ({ className, expenses, loading, error, actions}) => {
+const ExpenseList = ({ className, expenses, loading, error, deleteExpenseRequest}) => {
     const [localExpenses, setLocalExpenses] = useState([]);
  
     useEffect(() => {
         setLocalExpenses(expenses);
     },[expenses]);
-    //console.log('expenses from Expense list:', expenses.toJS());
     const handleRemove = key => {
         console.log('key:', key);
-        actions.deleteExpenseRequest(key);
+        deleteExpenseRequest(key);
         setLocalExpenses(localExpenses.filter(expense => expense.id !== key));
     };
-    //const expensesData = expenses.toJS ? expenses.toJS() : expenses;
     const columns = [
         {
             title: <CapHeading type="h4">Expense Name</CapHeading>,
@@ -67,6 +66,7 @@ const ExpenseList = ({ className, expenses, loading, error, actions}) => {
         expenseDate: expense.date,
         expenseCategory: expense.category,
     }));
+    console.log("loading: ", loading);
     if (loading) {
         return <CapHeading type="h3">Loading...</CapHeading>;
     }
@@ -76,27 +76,17 @@ const ExpenseList = ({ className, expenses, loading, error, actions}) => {
     return <Table className={className} columns={columns} dataSource={data} />;
 };
 
-// const mapStateToProps = state => ({
-//     expenses: state.expenseTracker.expenses,
-// });
 const mapStateToProps = createStructuredSelector({
     expenses : makeExpensesSelector(),
     loading: makeLoadingSelector(),
     error: makeErrorSelector(),
 });
 
+// const mapDispatchToProps = dispatch => ({
+//     actions: bindActionCreators(actions, dispatch),
+// });
 const mapDispatchToProps = dispatch => ({
-    actions: bindActionCreators(actions, dispatch),
-});
-// const withConnect = connect(
-//     mapStateToProps,
-//     mapDispatchToProps,
-//   );
-  
-//   const withSaga = injectSaga({ key: 'expenses', saga });
-//   const withReducer = injectReducer({
-//     key: 'expenses',
-//     reducer: expenseReducer,
-//   });
+    deleteExpenseRequest : (expense) => dispatch(deleteExpenseRequest(expense)),
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpenseList);
