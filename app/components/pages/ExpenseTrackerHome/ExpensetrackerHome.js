@@ -15,13 +15,14 @@ import { createStructuredSelector } from 'reselect';
 import withStyles from '../../../utils/withStyles';
 import * as actions from './actions';
 import { expenseReducer } from './reducer';
+import { searchByName } from './actions';
 import {
     makeExpensesSelector,
     makeErrorSelector,
     makeLoadingSelector
 } from './selectors';
 
-const ExpensetrackerHome = ({className, expenses, loading, error, fetchExpenseRequest}) => {
+const ExpensetrackerHome = ({className, expenses, loading, error, fetchExpenseRequest, searchByName}) => {
     const [enteredFilterValue, setEnteredFilterValue] = useState('');
     const [filterBy, selectedFilterBy] = useState('BY_NAME');
     
@@ -54,6 +55,8 @@ const ExpensetrackerHome = ({className, expenses, loading, error, fetchExpenseRe
 
     function onFilterValueChange(val) {         
       setEnteredFilterValue(val);
+      searchByName(val);
+      
     }
 
     return (
@@ -81,16 +84,27 @@ const ExpensetrackerHome = ({className, expenses, loading, error, fetchExpenseRe
 
 const mapStateToProps = state => 
     createStructuredSelector({
-    expenses: makeExpensesSelector(state),
-    loading: makeLoadingSelector(state),
+      expenses: makeExpensesSelector(state),
+      loading: makeLoadingSelector(state),
     error: makeErrorSelector(state),
 });
+// const mapStateToProps = (state) => {
+//   const searchList = state.expenseReducer?.searchList || []; // ✅ Prevent undefined error
+//   const expenses = searchList.length > 0 ? searchList : state.expenseReducer?.expenses || [];
+
+//   return {
+//       expenses,
+//       loading: state.expenseReducer?.loading || false,
+//       error: state.expenseReducer?.error || null,
+//   };
+// };
 
 // const mapDispatchToProps = dispatch => ({
 //   actions: bindActionCreators(actions, dispatch),
 // });
 const mapDispatchToProps = dispatch => ({
   fetchExpenseRequest : () => dispatch(fetchExpenseRequest()),
+  searchByName : (val) => dispatch(searchByName(val)),
 })
 
 const withConnect = connect(

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import { connect } from 'react-redux';
 import {
   CapButton,
   CapHeading,
@@ -13,6 +14,7 @@ import style from './styles';
 import * as actions from '../../pages/ExpenseTrackerHome/actions';
 import { FILTER_BY_OPTIONS } from './constants';
 import messages from './messages';
+import { bindActionCreators } from 'redux';
 
 export function getPlaceHolderValue(selectedFilterBy) {
   switch (selectedFilterBy) {
@@ -67,7 +69,11 @@ Filter.propTypes = {
   filterValue: PropTypes.string,
   handleFilterByChange: PropTypes.func,
   handleFilterValueChange: PropTypes.func,
-  actions: PropTypes.object.isRequired,
+  //actions: PropTypes.object.isRequired,
 };
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(actions, dispatch),
 
-export default withStyles(Filter, style);
+});
+
+export default connect(null, mapDispatchToProps)( withStyles(Filter, style));

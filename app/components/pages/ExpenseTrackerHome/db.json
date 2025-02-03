@@ -44,10 +44,10 @@
     },
     {
       "id": "11",
-      "amount": "12",
+      "amount": "1234",
       "category": "Food",
-      "date": "2025-01-27",
-      "description": "abcde"
+      "date": "2025-02-03",
+      "description": "curd"
     }
   ]
 }

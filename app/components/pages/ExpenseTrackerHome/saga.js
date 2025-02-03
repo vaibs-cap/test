@@ -45,17 +45,18 @@ function* delExpenseRequest(action) {
         yield put({ type: types.DELETE_EXPENSE_FAILURE, payload: error });
     }
 }
+function* searchByNameSaga(action) {
+    try {
+        const filterKey = 'description'; // Modify this dynamically based on filter
+        let response = yield call(fetch, `http://localhost:3000/expenses?${filterKey}_like=${action.payload}`);
+        response = yield response.json();
+        console.log('search saga response:', response);
+        yield put({ type: types.SET_SEARCH_LIST, payload: response });
+    } catch (error) {
+        console.log('search saga error:', error);
+    }
+}
 
-// function* searchByNameSaga(action) {
-//     try {
-//         let response = yield call(fetch, `https://localhost:8001/expenses?description=${action.payload}`);
-//         response = yield response.json();
-//         console.log('search saga response:', response);
-//         yield put({ type: types.SET_SEARCH_LIST, payload: response});
-//     } catch (error) {
-//         console.log('search saga error:', error);
-//     }
-// }
 
 
 export function* watchDeleteExpenseRequests() {
@@ -70,9 +71,9 @@ export function* watchEditExpenseRequests() {
     yield takeLatest(types.EDIT_EXPENSE_REQUEST, editExpenseRequest);
 }
 
-// export function* watchSearchByName() {
-//     yield takeLatest(types.SEARCH_BY_NAME, searchByNameSaga);
-// }
+export function* watchSearchByName() {
+    yield takeLatest(types.SEARCH_BY_NAME, searchByNameSaga);
+}
 
 export default function*() {
     yield all([

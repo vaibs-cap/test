@@ -16,7 +16,7 @@ export const expenseReducer = (state = initialState, action) => {
         case types.FETCH_EXPENSE_REQUEST:
             return state.set('loading', true).set('error', action.error);
         case types.FETCH_EXPENSE_SUCCESS:
-            return state.set('loading', false).set('expenses', fromJS(action.payload));
+            return state.set('loading', false).set('expenses', fromJS(action.payload)).set('searchList', []);
         case types.FETCH_EXPENSE_FAILURE:
             return state.set('loading', false).set('error', action.payload);
 
