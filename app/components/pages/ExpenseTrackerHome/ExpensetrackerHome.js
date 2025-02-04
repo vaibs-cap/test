@@ -21,6 +21,7 @@ import {
     makeErrorSelector,
     makeLoadingSelector
 } from './selectors';
+//import { disconnect } from 'ngrok';
 
 const ExpensetrackerHome = ({className, expenses, loading, error, fetchExpenseRequest, searchByName}) => {
     const [enteredFilterValue, setEnteredFilterValue] = useState('');
@@ -104,7 +105,7 @@ const mapStateToProps = state =>
 // });
 const mapDispatchToProps = dispatch => ({
   fetchExpenseRequest : () => dispatch(fetchExpenseRequest()),
-  searchByName : (val) => dispatch(searchByName(val)),
+  //searchByName : (val) => dispatch(searchByName(val)),
 })
 
 const withConnect = connect(
