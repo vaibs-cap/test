@@ -10,6 +10,7 @@ import languageProviderReducer from './components/pages/LanguageProvider/reducer
 import capReducer from './components/pages/Cap/reducer';
 import bookListReducer from './components/pages/HomePage/reducer';
 import expenseReducer from './components/pages/ExpenseTrackerHome/reducer';
+import { expenseGraphReducer } from './components/organisms/ShowExpenseGraph/reducer';
 //import expenseAddReducer from './components/pages/AddExpense/reducer';
 
 /**
@@ -21,6 +22,7 @@ export default function createReducer(injectedReducers = {}) {
     loyaltyCap: capReducer,
     bookList: bookListReducer,
     expenses: expenseReducer,
+    //expensesGraph : expenseGraphReducer,
     //expenses_add : expenseAddReducer,
     ...injectedReducers,
   });

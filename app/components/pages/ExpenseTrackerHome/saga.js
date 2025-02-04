@@ -4,12 +4,12 @@ import * as types from './constants';
 const JsonUrl = "http://localhost:3000/expenses";
 
 function* fetchExpenseSaga() {
-     //console.log("inside worker saga");
+    // console.log("inside worker saga");
     try {
-        //console.log("inside FetchWorkerSaga");
+        console.log("inside FetchWorkerSaga");
         const response = yield call(fetch, JsonUrl);
         const data = yield response.json();
-         //console.log("data", data);
+         console.log("data", data);
         yield put({ type: types.FETCH_EXPENSE_SUCCESS, payload: data });
     } catch (error) {
         yield put({ type: types.FETCH_EXPENSE_FAILURE, payload: error.message });

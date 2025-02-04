@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators, compose } from "redux";
-import { CapRow, CapForm, CapButton } from "@capillarytech/cap-ui-library";
+import { CapRow, CapForm, CapButton, CapInput, CapLabel } from "@capillarytech/cap-ui-library";
 import { useNavigate } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
 import * as actions from "./actions";
@@ -55,29 +55,29 @@ const AddExpense = ({className, expenses, loading, error, addExpenseRequest}) =>
         <>
         <NavBar/>
          <CapRow>
-            <h2>Add Expense</h2>
-            <form onSubmit={handleSubmit}>
+            <h2 style={{color:"blue", fontSize: "2.5rem", margin: "15px 25px 25px 25px" }}>Add Expense</h2>
+            <form onSubmit={handleSubmit} style={{display: "grid", alignItems: "center", borderRadius: "0.5px", borderColor: "black", margin: "100px 100px 100px 100px"}}>
                 <div>
-                    <label>Title:</label>
-                    <input type="text" name="description" value={expenseData.description} onChange={handleChange} required />
+                    <CapLabel type="label2" style={{fontSize: "2rem"}} >Title</CapLabel>
+                    <CapInput type="text" name="description" value={expenseData.description} onChange={handleChange} required style={{width: "250px"}} />
                 </div>
 
                 <div>
                     <label>Amount:</label>
-                    <input type="number" name="amount" value={expenseData.amount} onChange={handleChange} required />
+                    <CapInput type="number" name="amount" value={expenseData.amount} onChange={handleChange} required style={{width: "250px"}}/>
                 </div>
 
                 <div>
                     <label>Category:</label>
-                    <input type="text" name="category" value={expenseData.category} onChange={handleChange} required />
+                    <CapInput type="text" name="category" value={expenseData.category} onChange={handleChange} required style={{width: "250px"}}/>
                 </div>
 
                 <div>
                     <label>Date:</label>
-                    <input type="date" name="date" value={expenseData.date} onChange={handleChange} required />
+                    <CapInput type="date" name="date" value={expenseData.date} onChange={handleChange} required style={{width: "250px"}}/>
                 </div>
 
-                <CapButton type="primary" htmlType="submit">
+                <CapButton type="primary" htmlType="submit" style={{width: "250px"}}>
                     Add Expense
                 </CapButton>
             </form>

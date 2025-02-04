@@ -8,9 +8,13 @@ export default css`
   }
 
   .top-section {
+    margin-left: 20px;
     margin-bottom: 20px;
     align-items: center;
     justify-content: space-between;
+  }
+  .heading-text {
+    margin-left: 20px;
   }
 
   .input-field {

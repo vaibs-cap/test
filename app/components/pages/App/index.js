@@ -32,15 +32,18 @@ import AccessForbidden from '../AccessForbidden/AccessForbidden';
 import ExpensetrackerHome from '../ExpenseTrackerHome/ExpensetrackerHome';
 import AddExpense from '../AddExpense/AddExpense';
 import ExpenseGraph from '../../organisms/ShowExpenseGraph/ExpenseGraph';
+import EditExpense from '../../organisms/EditExpense';
+import { makeExpensesSelector } from '../ExpenseTrackerHome/selectors';
+import { connect} from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import Graph from '../../organisms/ShowExpenseGraph/Graph';
 
 const loginUrl =
   process.env.NODE_ENV === PRODUCTION
     ? config.production.login_url
     : config.development.login_url;
-
 const Protected = userIsAuthenticated(HomePage);
-
-export const App = () => (
+export const App = ({expenses}) => (
   <>
     <ConnectedRouter history={history}>
       <Switch>
@@ -57,7 +60,9 @@ export const App = () => (
         <RenderRoute exact path="/home" component={ExpensetrackerHome} key={publicPath} />
         {/* <RenderRoute exact path="/" component={HomePage} /> */}
         <RenderRoute exact path="/add-expense" component={AddExpense} />
-        <RenderRoute exact path="/show-graph" component={ExpenseGraph} />
+        <RenderRoute exact path="/show-graph" component={ExpenseGraph} expenses={expenses}  />
+        {/* <RenderRoute exact path="/show-graph" component={<ExpenseGraph expenses={expenses}/>} /> */}
+        <RenderRoute exact path="edit-expense" component={EditExpense} />
         <RenderRoute
           exact
           path="/profile-page"
@@ -81,5 +86,9 @@ export const App = () => (
     <GlobalStyle />
   </>
 );
+const mapStateToProps = createStructuredSelector({
+  expenses : makeExpensesSelector(),
+});
 
-export default App;
+export default connect(mapStateToProps)(App);
+//export default App;

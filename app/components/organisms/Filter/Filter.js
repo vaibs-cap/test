@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
+import { FILTER_BY_OPTIONS } from '../../organisms/Filter/constants';
 import {
   CapButton,
   CapHeading,
@@ -10,26 +11,26 @@ import {
   CapSelect,
 } from '@capillarytech/cap-ui-library';
 import withStyles from '../../../utils/withStyles';
-import style from './styles';
+import styles from './styles';
 import * as actions from '../../pages/ExpenseTrackerHome/actions';
-import { FILTER_BY_OPTIONS } from './constants';
+// import { FILTER_BY_OPTIONS } from './constants';
 import messages from './messages';
 import { bindActionCreators } from 'redux';
 import { searchByName } from '../../pages/ExpenseTrackerHome/actions';
+import { setSortBy } from '../../pages/ExpenseTrackerHome/actions';
 
-export function getPlaceHolderValue(selectedFilterBy) {
-  switch (selectedFilterBy) {
-    case 'BY_ID':
-      return 'Search by ID...';
-    case 'BY_NAME':
-      return 'Search by name...';
-    case 'BY_CATEGORY':
-      return 'Search by category...';
-    default:
-      return 'Search by name...';
-  }
-}
-
+// export function getPlaceHolderValue(selectedFilterBy) {
+//   switch (selectedFilterBy) {
+//     case 'BY_ID':
+//       return 'Search by ID...';
+//     case 'BY_NAME':
+//       return 'Search by name...';
+//     case 'BY_CATEGORY':
+//       return 'Search by category...';
+//     default:
+//       return 'Search by name...';
+//   }
+// }
 const Filter = ({
   className,
   selectedFilterBy,
@@ -37,6 +38,7 @@ const Filter = ({
   handleFilterByChange,
   handleFilterValueChange,
   searchByName,
+  sortBy
 }) => (
   <>
     <CapRow className="top-section" type="flex">
@@ -52,12 +54,12 @@ const Filter = ({
         onChange={event => {handleFilterValueChange(event.target.value);
         searchByName(event.target.value);}
         }
-        placeholder={getPlaceHolderValue(selectedFilterBy)}
+        //placeholder={getPlaceHolderValue(selectedFilterBy)}
       />
       <CapSelect
         className="search-field"
-        value={selectedFilterBy ? selectedFilterBy : 'By Name'}
-        onChange={val => handleFilterByChange(val)}
+        value={sortBy ? sortBy : "By description"}
+        //onChange={(e) => setSortBy(e.target.value)}
         options={[...FILTER_BY_OPTIONS]}
       />
     </CapRow>
@@ -70,14 +72,20 @@ Filter.propTypes = {
   filterValue: PropTypes.string,
   handleFilterByChange: PropTypes.func,
   handleFilterValueChange: PropTypes.func,
+  sortBy: PropTypes.func,
   //actions: PropTypes.object.isRequired,
 };
 // const mapDispatchToProps = dispatch => ({
 //   actions: bindActionCreators(actions, dispatch),
 
 // });
+const mapStateToProps = state => ({
+  sortBy: state.get("sortBy"),
+});
 const mapDispatchToProps = dispatch => ({
   searchByName : (val) => dispatch(searchByName(val)),
+  setSortBy : (sortBy) => dispatch(setSortBy(sortBy)),
 })
+//console.log("sortBy: ",sortBy);
 
-export default connect(null, mapDispatchToProps)( withStyles(Filter, style));
+export default connect(mapStateToProps, mapDispatchToProps)( withStyles(Filter, styles));

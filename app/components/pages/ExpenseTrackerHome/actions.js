@@ -12,7 +12,8 @@ import {
     SET_LOADING,
     FILTERED_BY_MONTH,
     SEARCH_BY_NAME,
-    SET_SEARCH_LIST
+    SET_SEARCH_LIST,
+    SET_SORT_BY,
 } from "./constants";
 
 
@@ -81,4 +82,9 @@ export const searchByName = (val) => ({
 export const setSearchList = (list) => ({
     type: SET_SEARCH_LIST,
     payload: list,
+});
+
+export const setSortBy = (sortBy) => ({
+    type: SET_SORT_BY,
+    payload: sortBy,
 });
