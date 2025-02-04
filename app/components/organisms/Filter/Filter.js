@@ -15,6 +15,7 @@ import * as actions from '../../pages/ExpenseTrackerHome/actions';
 import { FILTER_BY_OPTIONS } from './constants';
 import messages from './messages';
 import { bindActionCreators } from 'redux';
+import { searchByName } from '../../pages/ExpenseTrackerHome/actions';
 
 export function getPlaceHolderValue(selectedFilterBy) {
   switch (selectedFilterBy) {
@@ -35,7 +36,7 @@ const Filter = ({
   filterValue,
   handleFilterByChange,
   handleFilterValueChange,
-  actions,
+  searchByName,
 }) => (
   <>
     <CapRow className="top-section" type="flex">
@@ -49,7 +50,7 @@ const Filter = ({
         value={filterValue}
         disabled={selectedFilterBy === 'NO_FILTER'}
         onChange={event => {handleFilterValueChange(event.target.value);
-          actions.searchByName(event.target.value);}
+        searchByName(event.target.value);}
         }
         placeholder={getPlaceHolderValue(selectedFilterBy)}
       />
@@ -71,9 +72,12 @@ Filter.propTypes = {
   handleFilterValueChange: PropTypes.func,
   //actions: PropTypes.object.isRequired,
 };
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(actions, dispatch),
+// const mapDispatchToProps = dispatch => ({
+//   actions: bindActionCreators(actions, dispatch),
 
-});
+// });
+const mapDispatchToProps = dispatch => ({
+  searchByName : (val) => dispatch(searchByName(val)),
+})
 
 export default connect(null, mapDispatchToProps)( withStyles(Filter, style));

@@ -56,7 +56,7 @@ const ExpensetrackerHome = ({className, expenses, loading, error, fetchExpenseRe
 
     function onFilterValueChange(val) {         
       setEnteredFilterValue(val);
-      searchByName(val);
+      //searchByName(val);
       
     }
 
