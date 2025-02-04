@@ -24,7 +24,7 @@ export const expenseReducer = (state = initialState, action) => {
         case types.EDIT_EXPENSE_REQUEST:
             return  state.set('loading', true).set('error', action.error);
         case types.EDIT_EXPENSE_SUCCESS:
-            return state.update('expenses', expenses =>
+            return state.set('loading', false).update('expenses', 
                 expenses.map(expense =>
                     expense.id === action.payload.id ? action.payload : expense
                 )

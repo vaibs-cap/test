@@ -41,6 +41,7 @@ const Filter = ({
   sortBy
 }) => (
   <>
+  <CapRow className={className}>
     <CapRow className="top-section" type="flex">
       <CapHeading type="h1" className="heading-text">
         <FormattedMessage {...messages.headingText} />
@@ -48,20 +49,21 @@ const Filter = ({
     </CapRow>
     <CapRow className="search-section" type="flex">
       <CapInput
-        className="search-field"
+        className="search-field1"
         value={filterValue}
         disabled={selectedFilterBy === 'NO_FILTER'}
         onChange={event => {handleFilterValueChange(event.target.value);
         searchByName(event.target.value);}
         }
-        //placeholder={getPlaceHolderValue(selectedFilterBy)}
+        placeholder="Search by Expense Title..."
       />
       <CapSelect
-        className="search-field"
+        className="search-field2"
         value={sortBy ? sortBy : "By description"}
         //onChange={(e) => setSortBy(e.target.value)}
         options={[...FILTER_BY_OPTIONS]}
       />
+    </CapRow>
     </CapRow>
   </>
 );

@@ -86,6 +86,7 @@ export const App = ({expenses}) => (
     <GlobalStyle />
   </>
 );
+
 const mapStateToProps = createStructuredSelector({
   expenses : makeExpensesSelector(),
 });

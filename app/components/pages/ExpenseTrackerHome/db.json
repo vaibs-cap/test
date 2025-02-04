@@ -44,10 +44,17 @@
     },
     {
       "id": "13",
-      "amount": "200",
-      "category": "Food",
-      "date": "2025-01-28",
-      "description": "abcde"
+      "amount": "6000",
+      "category": "Gym",
+      "date": "2025-02-04",
+      "description": "Protein"
+    },
+    {
+      "id": "14",
+      "amount": "900",
+      "category": "Utilities",
+      "date": "2025-02-02",
+      "description": "Electric Kettle"
     }
   ]
 }

@@ -50,14 +50,14 @@ export const fetchExpenseFailure = (error) => ({
     payload: error,
 });
 
-export const editExpenseRequest = (id, updatedData) => ({
+export const editExpenseRequest = (expense) => ({
     type: EDIT_EXPENSE_REQUEST,
-    payload: { id, updatedData },
+    payload: expense,
 });
 
-export const editExpenseSuccess = (updatedData) => ({
+export const editExpenseSuccess = (expense) => ({
     type: EDIT_EXPENSE_SUCCESS,
-    payload: updatedData,
+    payload: expense,
 });
 
 export const editExpenseFailure = (error) => ({

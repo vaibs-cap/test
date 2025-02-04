@@ -12,6 +12,8 @@ import saga from "./saga";
 import { makeErrorSelector, makeExpensesSelector, makeLoadingSelector } from "./selectors";
 import NavBar from "../../organisms/NavBar1/NavBar"
 import { addExpenseRequest } from "./actions";
+import style from './style';
+import withStyles from "../../../utils/withStyles";
 
 const AddExpense = ({className, expenses, loading, error, addExpenseRequest}) => {
     const [expenseData, setExpenseData] = useState({
@@ -53,35 +55,37 @@ const AddExpense = ({className, expenses, loading, error, addExpenseRequest}) =>
 
     return (
         <>
+        <CapRow className={className}>
         <NavBar/>
          <CapRow>
-            <h2 style={{color:"blue", fontSize: "2.5rem", margin: "15px 25px 25px 25px" }}>Add Expense</h2>
+            <h2 className="add-expense-h2" style={{ fontSize: "2.5rem", margin: "15px 25px 15px 25px" }}>Add Expense</h2>
             <form onSubmit={handleSubmit} style={{display: "grid", alignItems: "center", borderRadius: "0.5px", borderColor: "black", margin: "100px 100px 100px 100px"}}>
                 <div>
-                    <CapLabel type="label2" style={{fontSize: "2rem"}} >Title</CapLabel>
-                    <CapInput type="text" name="description" value={expenseData.description} onChange={handleChange} required style={{width: "250px"}} />
+                    <CapLabel type="label2" style={{fontSize: "2rem", marginBottom: "15px"}} >Title</CapLabel>
+                    <CapInput type="text" name="description" value={expenseData.description} onChange={handleChange} required placeholder="Add Description" style={{width: "250px",  marginBottom: "15px"}} />
                 </div>
 
                 <div>
-                    <label>Amount:</label>
-                    <CapInput type="number" name="amount" value={expenseData.amount} onChange={handleChange} required style={{width: "250px"}}/>
+                    <CapLabel style={{fontSize: "2rem", marginBottom: "15px"}}>Amount:</CapLabel>
+                    <CapInput type="number" name="amount" value={expenseData.amount} onChange={handleChange} required placeholder="Add Price" style={{width: "250px", marginBottom: "15px"}}/>
                 </div>
 
                 <div>
-                    <label>Category:</label>
-                    <CapInput type="text" name="category" value={expenseData.category} onChange={handleChange} required style={{width: "250px"}}/>
+                    <label style={{fontSize: "2rem", marginBottom: "15px"}}>Category:</label>
+                    <CapInput type="text" name="category" value={expenseData.category} onChange={handleChange} required placeholder="Add Category" style={{width: "250px", marginBottom: "15px"}}/>
                 </div>
 
                 <div>
-                    <label>Date:</label>
-                    <CapInput type="date" name="date" value={expenseData.date} onChange={handleChange} required style={{width: "250px"}}/>
+                    <label style={{fontSize: "2rem", marginBottom: "15px"}}>Date:</label>
+                    <CapInput type="date" name="date" value={expenseData.date} onChange={handleChange} required placeholder="Add Date"style={{width: "250px", marginBottom: "15px"}}/>
                 </div>
 
-                <CapButton type="primary" htmlType="submit" style={{width: "250px"}}>
+                <CapButton type="primary" htmlType="submit" style={{width: "250px", marginBottom: "15px"}}>
                     Add Expense
                 </CapButton>
             </form>
             </CapRow>
+        </CapRow>
         </>
     );
 };
@@ -105,5 +109,5 @@ const withSaga = injectSaga({ key: "expenses_add", saga });
 const withConnect = connect(mapStateToProps, mapDispatchToProps,);
 
 
-export default compose(withConnect, withSaga)(AddExpense);
+export default compose(withConnect, withSaga)((withStyles(AddExpense, style)));
 //export default AddExpense;

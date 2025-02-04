@@ -16,18 +16,22 @@ function* fetchExpenseSaga() {
     }
 }
 
-function* editExpenseRequest(action) {
+function* editExpenseRequestSaga(action) {
     try {
-        const response = yield call(() =>
-            fetch(`${JsonUrl}/${action.payload.id}`, {
+        const response = yield call(
+            fetch(`http://localhost:3001/expenses/${action.payload.id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(action.payload.updatedData),
-            }).then(res => res.json())
-        );
+                body: JSON.stringify(action.payload),
+            }));
+            if(!response.ok){
+                throw new Error("Failed to amount expense");
+            }
+            const data = yield response.json();
+            yield put({ type: types.EDIT_EXPENSE_SUCCESS, payload: data});
         yield put({ type: types.EDIT_EXPENSE_SUCCESS, payload: response });
     } catch (error) {
-        yield put({ type: types.EDIT_EXPENSE_FAILURE, payload: error });
+        yield put({ type: types.EDIT_EXPENSE_FAILURE, payload: error.message });
     }
 }
 
@@ -68,7 +72,7 @@ export function* watchFetchExpenseRequests() {
 }
 
 export function* watchEditExpenseRequests() {
-    yield takeLatest(types.EDIT_EXPENSE_REQUEST, editExpenseRequest);
+    yield takeLatest(types.EDIT_EXPENSE_REQUEST, editExpenseRequestSaga);
 }
 
 export function* watchSearchByName() {

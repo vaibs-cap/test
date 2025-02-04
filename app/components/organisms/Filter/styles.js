@@ -15,7 +15,16 @@ export default css`
   }
   .heading-text {
     margin-left: 20px;
+    font-size: 2.5rem;
+    color: orange;
   }
+   .search-field1 {
+    margin-left: 15px;
+    width: 250px;
+   }
+   .search-field2 {
+    margin-left: 15px;
+   }
 
   .input-field {
     width: 100%;

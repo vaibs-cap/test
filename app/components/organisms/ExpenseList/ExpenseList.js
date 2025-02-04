@@ -1,14 +1,18 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { CapHeading, CapButton } from '@capillarytech/cap-ui-library';
+import { CapHeading, CapButton, CapModal, CapInput, CapRow } from '@capillarytech/cap-ui-library';
 import { Table } from 'antd';
-import { deleteExpenseRequest } from '../../pages/ExpenseTrackerHome/actions';
+import { deleteExpenseRequest, editExpenseRequest } from '../../pages/ExpenseTrackerHome/actions';
 import { createStructuredSelector } from 'reselect';
 import { makeExpensesSelector, makeLoadingSelector, makeErrorSelector } from '../../pages/ExpenseTrackerHome/selectors';
 import { render } from 'less';
+import { useState } from 'react';
+import ExpenseEditForm from '../ExpenseEditForm/ExpenseEditForm';
 
 const ExpenseList = ({ className, expenses, loading, error, deleteExpenseRequest }) => {
     console.log("Rendering ExpenseList: ", expenses);
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [selectedExpense, setSelectedExpense] = useState(null);
 
     useEffect(() => {
         console.log("Updated Expenses from Redux:", expenses);
@@ -18,9 +22,19 @@ const ExpenseList = ({ className, expenses, loading, error, deleteExpenseRequest
         console.log('Removing Expense with key:', key);
         deleteExpenseRequest(key);
     };
-    const EditExpense = () => {
-        console.log('Inside Edit Expense');
-    }
+    const handleEditClick = (expense) => {
+        console.log('Inside Edit Expense:', expense);
+        setSelectedExpense(expense);
+        setIsModalVisible(true);
+    };
+
+    const handleModalClose = () => {
+        setIsModalVisible(false);
+        setSelectedExpense(null);
+    };
+    // const EditExpense = () => {
+    //     console.log('Inside Edit Expense');
+    // }
     const columns = [
         {
             title: <CapHeading type="h4">Expense Name</CapHeading>,
@@ -47,10 +61,11 @@ const ExpenseList = ({ className, expenses, loading, error, deleteExpenseRequest
             dataIndex: 'edit_expense',
             key: 'edit_expense',
             width: '15%',
-            render: (_, val) => (
+            render: (_, record) => (
                 <CapButton type="primary" 
                    onClick={() => {
-                     EditExpense();
+                     handleEditClick(record)
+                     console.log("record from edit:",record);
                    }}
                 >Edit</CapButton>
             )
@@ -84,7 +99,20 @@ const ExpenseList = ({ className, expenses, loading, error, deleteExpenseRequest
         return <CapHeading type="h3">Error fetching expenses</CapHeading>;
     }
     
-    return <Table columns={columns} dataSource={data} />;
+    return (
+    <>
+    <Table columns={columns} dataSource={data} />
+      <CapModal
+                 title="Edit Expense"
+                 visible={isModalVisible}
+                 onCancel={handleModalClose}
+                 footer={null}
+            >
+                {selectedExpense && <ExpenseEditForm expense={selectedExpense} onClose={handleModalClose} />}
+            </CapModal>
+
+    </>
+    )
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -95,6 +123,31 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = (dispatch) => ({
     deleteExpenseRequest: (expense) => dispatch(deleteExpenseRequest(expense)),
+    //editExpenseRequest: (expense) => dispatch(editExpenseRequest(expense)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpenseList);
+{/* <CapRow>
+<CapInput
+    label="Expense Name"
+    value={selectedExpense.expenseName}
+    onChange={(e) => handleInputChange('expenseName', e.target.value)}
+/>
+<CapInput
+    label="Amount"
+    type="number"
+    value={selectedExpense.expenseAmount}
+    onChange={(e) => handleInputChange('expenseAmount', e.target.value)}
+/>
+<CapInput
+    label="Date"
+    type="date"
+    value={selectedExpense.expenseDate}
+    onChange={(e) => handleInputChange('expenseDate', e.target.value)}
+/>
+<CapInput
+    label="Category"
+    value={selectedExpense.expenseCategory}
+    onChange={(e) => handleInputChange('expenseCategory', e.target.value)}
+/>
+</CapRow> */}

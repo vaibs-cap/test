@@ -73,7 +73,7 @@ const ExpensetrackerHome = ({
         <NavBar />
         
         <CapRow type="flex">
-         <CapHeading className='total-expense' type="h1" style={{marginLeft: "32%", marginRight: "35px"}}>Total Expense: $<a style={{color:"red"}}>{totalExpenses}</a></CapHeading>
+         <CapHeading className='total-expense' type="h1" >Total Expense: $<a className="expense-money">{totalExpenses}</a></CapHeading>
          <CapHeading className='balance' type="h1">Balance: $<a style={{color:"green"}}>{balance}</a></CapHeading>
         </CapRow>
         <CapRow>
